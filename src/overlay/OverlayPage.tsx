@@ -1,25 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
 import type { ShowState } from "../types";
 import "./OverlayPage.css";
 
 // Incrustation OBS — fond transparent obligatoire, bandeau bas uniquement.
 export function OverlayPage() {
-  const busRef = useRef(createShowBus());
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
 
   useEffect(() => {
-    const bus = busRef.current;
+    const bus = createShowBus();
     const unsubscribe = bus.onMessage((msg) => {
       if (msg.type === "state") setState(msg.payload);
     });
     bus.postHello();
-    return unsubscribe;
-  }, []);
-
-  useEffect(() => {
-    const bus = busRef.current;
-    return () => bus.close();
+    return () => {
+      unsubscribe();
+      bus.close();
+    };
   }, []);
 
   const isOnAir = state.visible && state.slide !== null;

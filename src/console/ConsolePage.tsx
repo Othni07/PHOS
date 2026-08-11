@@ -32,26 +32,34 @@ function findFlatIndex(itemIndex: number, slideIndex: number): number {
 }
 
 export function ConsolePage() {
-  const busRef = useRef(createShowBus());
+  const busRef = useRef<ReturnType<typeof createShowBus> | null>(null);
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
+
+  // Créé et fermé dans le même effet pour rester cohérent sous StrictMode
+  // (mount → cleanup → remount en dev fermerait un canal encore référencé
+  // par les effets ci-dessous si la création se faisait ailleurs).
+  useEffect(() => {
+    const bus = createShowBus();
+    busRef.current = bus;
+    return () => {
+      bus.close();
+      busRef.current = null;
+    };
+  }, []);
 
   // La console est la seule à écrire dans le canal (§4) — diffuse à chaque changement.
   useEffect(() => {
-    busRef.current.postState(state);
+    busRef.current?.postState(state);
   }, [state]);
 
   // Rejeu à l'ouverture : une fenêtre qui vient de s'ouvrir n'a rien reçu.
   useEffect(() => {
     const bus = busRef.current;
+    if (!bus) return;
     return bus.onMessage((msg) => {
       if (msg.type === "hello") bus.postState(state);
     });
   }, [state]);
-
-  useEffect(() => {
-    const bus = busRef.current;
-    return () => bus.close();
-  }, []);
 
   const goTo = useCallback((itemIndex: number, slideIndex: number) => {
     const slide = items[itemIndex]?.slides[slideIndex];
