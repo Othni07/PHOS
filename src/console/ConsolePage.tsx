@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { platform } from "../platform";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
-import { items } from "../show";
-import type { ShowState } from "../types";
+import { initialItems } from "../show";
+import type { Item, ShowState } from "../types";
+import { SearchBar } from "./SearchBar.tsx";
 import "./ConsolePage.css";
 
 interface FlatSlide {
@@ -12,7 +13,7 @@ interface FlatSlide {
   slideIndex: number;
 }
 
-function flatten(): FlatSlide[] {
+function flatten(items: Item[]): FlatSlide[] {
   const flat: FlatSlide[] = [];
   items.forEach((item, itemIndex) => {
     item.slides.forEach((_, slideIndex) => {
@@ -22,18 +23,12 @@ function flatten(): FlatSlide[] {
   return flat;
 }
 
-const flatSlides = flatten();
-
-function findFlatIndex(itemIndex: number, slideIndex: number): number {
-  const i = flatSlides.findIndex(
-    (f) => f.itemIndex === itemIndex && f.slideIndex === slideIndex,
-  );
-  return i === -1 ? 0 : i;
-}
-
 export function ConsolePage() {
   const busRef = useRef<ReturnType<typeof createShowBus> | null>(null);
+  const [items, setItems] = useState<Item[]>(() => initialItems);
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
+
+  const flatSlides = useMemo(() => flatten(items), [items]);
 
   // Créé et fermé dans le même effet pour rester cohérent sous StrictMode
   // (mount → cleanup → remount en dev fermerait un canal encore référencé
@@ -61,30 +56,62 @@ export function ConsolePage() {
     });
   }, [state]);
 
-  const goTo = useCallback((itemIndex: number, slideIndex: number) => {
-    const slide = items[itemIndex]?.slides[slideIndex];
-    if (!slide) return;
-    setState((s) => ({ ...s, slide, itemIndex, slideIndex }));
-  }, []);
+  const goTo = useCallback(
+    (itemIndex: number, slideIndex: number) => {
+      const slide = items[itemIndex]?.slides[slideIndex];
+      if (!slide) return;
+      setState((s) => ({ ...s, slide, itemIndex, slideIndex }));
+    },
+    [items],
+  );
 
   const step = useCallback(
     (delta: number) => {
-      const current = findFlatIndex(state.itemIndex, state.slideIndex);
-      const next = flatSlides[current + delta];
+      const current = flatSlides.findIndex(
+        (f) => f.itemIndex === state.itemIndex && f.slideIndex === state.slideIndex,
+      );
+      const next = flatSlides[(current === -1 ? 0 : current) + delta];
       if (!next) return;
       goTo(next.itemIndex, next.slideIndex);
     },
-    [state.itemIndex, state.slideIndex, goTo],
+    [flatSlides, state.itemIndex, state.slideIndex, goTo],
   );
 
   const toggleBlackout = useCallback(() => {
     setState((s) => ({ ...s, visible: !s.visible }));
   }, []);
 
+  // Un passage trouvé part directement à l'antenne : c'est le geste attendu
+  // quand le prédicateur annonce une référence en pleine prédication.
+  const addItem = useCallback((item: Item) => {
+    setItems((previous) => {
+      const itemIndex = previous.length;
+      setState((s) => ({
+        ...s,
+        slide: item.slides[0],
+        visible: true,
+        itemIndex,
+        slideIndex: 0,
+      }));
+      return [...previous, item];
+    });
+  }, []);
+
+  const removeItem = useCallback((itemIndex: number) => {
+    setItems((previous) => previous.filter((_, i) => i !== itemIndex));
+    setState((s) =>
+      s.itemIndex === itemIndex
+        ? { ...s, slide: null, visible: false, itemIndex: 0, slideIndex: 0 }
+        : s.itemIndex > itemIndex
+          ? { ...s, itemIndex: s.itemIndex - 1 }
+          : s,
+    );
+  }, []);
+
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       const target = e.target as HTMLElement | null;
-      if (target && ["INPUT", "TEXTAREA"].includes(target.tagName)) return;
+      if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
 
       if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
         e.preventDefault();
@@ -106,10 +133,28 @@ export function ConsolePage() {
   return (
     <div className="console">
       <aside className="console__rundown">
+        <SearchBar onSubmit={addItem} />
+
         <h1 className="console__title">Déroulé</h1>
+        {items.length === 0 && (
+          <p className="console__empty">
+            Tapez une référence ci-dessus pour ajouter un passage.
+          </p>
+        )}
         {items.map((item, itemIndex) => (
           <div key={item.id} className="rundown-item">
-            <div className="rundown-item__label">{item.label}</div>
+            <div className="rundown-item__header">
+              <span className="rundown-item__label">{item.label}</span>
+              <button
+                type="button"
+                className="rundown-item__remove"
+                onClick={() => removeItem(itemIndex)}
+                title="Retirer du déroulé"
+                aria-label={`Retirer ${item.label}`}
+              >
+                ×
+              </button>
+            </div>
             <ul className="rundown-item__slides">
               {item.slides.map((slide, slideIndex) => {
                 const active =

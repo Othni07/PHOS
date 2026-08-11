@@ -19,6 +19,13 @@ export interface Platform {
   /** URL à donner à OBS pour l'overlay. */
   overlayUrl(): string;
 
+  /**
+   * Charge un fichier de données embarqué (Bible, recueil de cantiques).
+   * En phase 2 ce sera une lecture disque ou SQLite : les appelants ne doivent
+   * pas savoir lequel, d'où le passage par cette interface plutôt que fetch.
+   */
+  loadData<T>(name: string): Promise<T>;
+
   /** Stockage persistant, clé/valeur JSON. */
   store: {
     get<T>(key: string): Promise<T | null>;

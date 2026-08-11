@@ -1,42 +1,9 @@
 import type { Item } from "./types";
 
-// Contenu de démonstration codé en dur — §10.2 de la feuille de route.
-// Sera remplacé par la Bible LSG en JSON et un recueil de cantiques (étape 5).
-export const items: Item[] = [
-  {
-    id: "jean-3-16",
-    kind: "verset",
-    label: "Jean 3.16",
-    slides: [
-      {
-        kind: "verset",
-        reference: "Jean 3.16 · LSG",
-        body: "Car Dieu a tant aimé le monde qu'il a donné son Fils unique,\nafin que quiconque croit en lui ne périsse point,\nmais qu'il ait la vie éternelle.",
-      },
-    ],
-  },
-  {
-    id: "psaume-23",
-    kind: "verset",
-    label: "Psaume 23.1-3",
-    slides: [
-      {
-        kind: "verset",
-        reference: "Psaume 23.1 · LSG",
-        body: "L'Éternel est mon berger : je ne manquerai de rien.",
-      },
-      {
-        kind: "verset",
-        reference: "Psaume 23.2 · LSG",
-        body: "Il me fait reposer dans de verts pâturages,\nIl me dirige près des eaux paisibles.",
-      },
-      {
-        kind: "verset",
-        reference: "Psaume 23.3 · LSG",
-        body: "Il restaure mon âme,\nIl me conduit dans les sentiers de la justice,\nÀ cause de son nom.",
-      },
-    ],
-  },
+// Déroulé de départ. Les versets ne sont plus codés en dur : ils arrivent par
+// la barre de recherche (§11). Ce cantique reste en exemple tant que le
+// recueil n'est pas branché — « À toi la gloire » est du domaine public.
+export const initialItems: Item[] = [
   {
     id: "a-toi-la-gloire",
     kind: "cantique",

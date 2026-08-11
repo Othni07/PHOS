@@ -71,6 +71,14 @@ function overlayUrl(): string {
   return `${window.location.origin}/overlay`;
 }
 
+async function loadData<T>(name: string): Promise<T> {
+  const response = await fetch(`${import.meta.env.BASE_URL}data/${name}`);
+  if (!response.ok) {
+    throw new Error(`Données introuvables : ${name} (HTTP ${response.status})`);
+  }
+  return (await response.json()) as T;
+}
+
 const store: Platform["store"] = {
   async get<T>(key: string): Promise<T | null> {
     const raw = window.localStorage.getItem(key);
@@ -91,5 +99,6 @@ export const webPlatform: Platform = {
   openProjection,
   closeProjection,
   overlayUrl,
+  loadData,
   store,
 };
