@@ -1,0 +1,39 @@
+/*
+  Unités cqw/cqh (container query units) plutôt que vw/vh : le même CSS doit
+  produire un rendu identique en proportion dans la fenêtre de projection
+  (conteneur = plein viewport) et dans l'aperçu console (conteneur = boîte
+  réduite). C'est ce qui rend l'aperçu exact par construction.
+*/
+.output {
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5cqh;
+  padding: 6cqh 8cqw;
+  color: #fff;
+  text-align: center;
+}
+
+.output--blank {
+  width: 100%;
+  height: 100%;
+}
+
+.output__body {
+  margin: 0;
+  font-size: clamp(28px, 4.4cqw, 76px);
+  line-height: 1.32;
+  text-wrap: balance;
+  white-space: pre-line;
+}
+
+.output__reference {
+  margin: 0;
+  font-size: clamp(12px, 1.3cqw, 20px);
+  color: var(--slate-blue);
+  letter-spacing: 0.02em;
+}

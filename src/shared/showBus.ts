@@ -1,0 +1,53 @@
+import type { ShowState } from "../types";
+
+const CHANNEL_NAME = "projecteur";
+const STORAGE_KEY = "projecteur.showState";
+
+export const initialShowState: ShowState = {
+  slide: null,
+  visible: false,
+  itemIndex: 0,
+  slideIndex: 0,
+};
+
+type Message = { type: "state"; payload: ShowState } | { type: "hello" };
+
+export function loadPersistedState(): ShowState {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw) as ShowState;
+  } catch {
+    // stockage indisponible, on repart de l'état initial
+  }
+  return initialShowState;
+}
+
+export function createShowBus() {
+  const channel = new BroadcastChannel(CHANNEL_NAME);
+
+  return {
+    /** Diffuse l'état courant. Appelé uniquement par la console (§4 — seule source de vérité). */
+    postState(state: ShowState) {
+      const message: Message = { type: "state", payload: state };
+      channel.postMessage(message);
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch {
+        // tant pis, la persistance est un confort, pas une garantie
+      }
+    },
+    /** Rejeu à l'ouverture — une fenêtre qui vient de s'ouvrir n'a rien reçu. */
+    postHello() {
+      const message: Message = { type: "hello" };
+      channel.postMessage(message);
+    },
+    onMessage(handler: (msg: Message) => void) {
+      const listener = (event: MessageEvent<Message>) => handler(event.data);
+      channel.addEventListener("message", listener);
+      return () => channel.removeEventListener("message", listener);
+    },
+    close() {
+      channel.close();
+    },
+  };
+}

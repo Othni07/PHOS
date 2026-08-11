@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projecteur — Projection</title>
+    <!--
+      Filet de sécurité obligatoire (§7) : appliqué avant tout JavaScript.
+      Si le front plante, la salle voit du noir, jamais du blanc.
+    -->
+    <style>
+      html,
+      body {
+        background: #000;
+        margin: 0;
+        height: 100%;
+        cursor: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/projection/main.tsx"></script>
+  </body>
+</html>

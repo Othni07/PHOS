@@ -1,0 +1,26 @@
+:root {
+  --ink: #101219;
+  --panel: #181b24;
+  --hairline: #262b38;
+  --parchment: #ede7da;
+  --slate-blue: #7a93a0;
+  --tally-red: #c8483c;
+
+  --font-system:
+    -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-system);
+}

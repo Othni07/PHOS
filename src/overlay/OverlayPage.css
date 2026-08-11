@@ -1,0 +1,39 @@
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  background: transparent;
+}
+
+.overlay__band {
+  width: 100%;
+  padding: 4vh 6vw 5vh;
+  background: linear-gradient(to top, rgba(16, 18, 25, 0.88), rgba(16, 18, 25, 0));
+  border-bottom: 3px solid var(--tally-red);
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.overlay__band--on {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay__body {
+  margin: 0;
+  font-size: clamp(20px, 2.6vw, 40px);
+  line-height: 1.32;
+  white-space: pre-line;
+}
+
+.overlay__reference {
+  margin: 6px 0 0;
+  font-size: clamp(12px, 1.1vw, 18px);
+  color: var(--slate-blue);
+}

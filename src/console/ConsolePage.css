@@ -1,0 +1,139 @@
+.console {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100%;
+  background: var(--ink);
+  color: var(--parchment);
+}
+
+.console__rundown {
+  background: var(--panel);
+  border-right: 1px solid var(--hairline);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.console__title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate-blue);
+  margin: 0 0 12px;
+  font-weight: 600;
+}
+
+.rundown-item {
+  margin-bottom: 16px;
+}
+
+.rundown-item__label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-blue);
+  margin-bottom: 6px;
+}
+
+.rundown-item__slides {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.slide-button {
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--parchment);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.slide-button:hover {
+  background: var(--hairline);
+}
+
+.slide-button--active {
+  border-color: var(--slate-blue);
+  background: var(--hairline);
+}
+
+.console__main {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 20px;
+  min-width: 0;
+}
+
+.preview {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.tally-rail {
+  width: 6px;
+  border-radius: 3px;
+  background: var(--hairline);
+  transition: background 200ms ease;
+}
+
+.tally-rail--live {
+  background: var(--tally-red);
+}
+
+.preview__screen {
+  flex: 1;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 900px;
+}
+
+.console__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.control-button {
+  padding: 10px 16px;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  color: var(--parchment);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  border-color: var(--slate-blue);
+}
+
+.overlay-url {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--slate-blue);
+}
+
+.overlay-url code {
+  color: var(--parchment);
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
