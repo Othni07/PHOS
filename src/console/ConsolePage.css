@@ -116,6 +116,56 @@
   min-width: 0;
 }
 
+/* Antenne et suivant côte à côte : l'opérateur annonce la suite sans quitter
+   des yeux ce qui est projeté. Le second écran est plus petit — la hiérarchie
+   doit rester lisible d'un coup d'œil. */
+.screens {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 16px;
+  align-items: start;
+  min-width: 0;
+}
+
+.screen {
+  min-width: 0;
+}
+
+.screen__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate-blue);
+}
+
+.screen__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--hairline);
+  transition: background 200ms ease;
+}
+
+.screen__dot--live {
+  background: var(--tally-red);
+}
+
+.screen--next .preview__screen {
+  opacity: 0.72;
+}
+
+.screen__empty {
+  margin: 0;
+  padding: 12px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--slate-blue);
+}
+
 .preview {
   display: flex;
   gap: 12px;
@@ -140,7 +190,10 @@
   border: 1px solid var(--hairline);
   border-radius: 4px;
   overflow: hidden;
-  max-width: 900px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .console__controls {

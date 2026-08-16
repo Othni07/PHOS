@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { versions, type BibleData } from "../bible/bible.ts";
+import {
+  labelForSlides,
+  neighbourVerse,
+  slideFromSource,
+  versions,
+  type BibleData,
+} from "../bible/bible.ts";
 import { loadBible } from "../bible/load.ts";
 import { platform } from "../platform";
 import { Output } from "../shared/Output";
@@ -97,15 +103,43 @@ export function ConsolePage() {
   );
 
   const step = useCallback(
-    (delta: number) => {
+    (delta: 1 | -1) => {
       const current = flatSlides.findIndex(
         (f) => f.itemIndex === state.itemIndex && f.slideIndex === state.slideIndex,
       );
       const next = flatSlides[(current === -1 ? 0 : current) + delta];
-      if (!next) return;
-      goTo(next.itemIndex, next.slideIndex);
+      if (next) {
+        goTo(next.itemIndex, next.slideIndex);
+        return;
+      }
+
+      // Rien de préparé au-delà : si l'on est sur un verset, la lecture se
+      // poursuit dans le texte. Projeter Jean 1.1 puis lire la suite à la
+      // flèche est le geste attendu, sans repasser par la recherche.
+      const source = state.slide?.source;
+      if (!bible || !source) return;
+      const target = neighbourVerse(bible, source, delta);
+      if (!target) return;
+      const slide = slideFromSource(bible, target, version);
+      if (!slide) return;
+
+      // La diapositive rejoint le passage courant, qui s'étend : le déroulé
+      // garde ainsi la trace de ce qui a réellement été lu.
+      setItems((previous) =>
+        previous.map((item, i) => {
+          if (i !== state.itemIndex) return item;
+          const slides =
+            delta === 1 ? [...item.slides, slide] : [slide, ...item.slides];
+          return { ...item, slides, label: labelForSlides(slides, item.label) };
+        }),
+      );
+      setState((s) => ({
+        ...s,
+        slide,
+        slideIndex: delta === 1 ? s.slideIndex + 1 : 0,
+      }));
     },
-    [flatSlides, state.itemIndex, state.slideIndex, goTo],
+    [flatSlides, state.itemIndex, state.slideIndex, state.slide, goTo, bible, version],
   );
 
   const toggleBlackout = useCallback(() => {
@@ -163,6 +197,23 @@ export function ConsolePage() {
   }, [step, toggleBlackout]);
 
   const isLive = state.visible && state.slide !== null;
+
+  // Ce qui viendra à la prochaine flèche — jamais diffusé, la console seule
+  // l'affiche. Calculé comme le fait step() : d'abord le déroulé, puis la
+  // suite du texte, sinon rien.
+  const nextSlide = useMemo(() => {
+    const current = flatSlides.findIndex(
+      (f) => f.itemIndex === state.itemIndex && f.slideIndex === state.slideIndex,
+    );
+    const following = flatSlides[(current === -1 ? 0 : current) + 1];
+    if (following) {
+      return items[following.itemIndex]?.slides[following.slideIndex] ?? null;
+    }
+    const source = state.slide?.source;
+    if (!bible || !source) return null;
+    const target = neighbourVerse(bible, source, 1);
+    return target ? slideFromSource(bible, target, version) : null;
+  }, [flatSlides, items, state.itemIndex, state.slideIndex, state.slide, bible, version]);
 
   return (
     <div className={`console${browsing ? " console--browsing" : ""}`}>
@@ -228,10 +279,41 @@ export function ConsolePage() {
       )}
 
       <main className="console__main">
-        <div className="preview">
-          <div className={`tally-rail${isLive ? " tally-rail--live" : ""}`} />
-          <div className="preview__screen">
-            <Output state={state} />
+        <div className="screens">
+          <div className="screen">
+            <div className="screen__label">
+              <span className={`screen__dot${isLive ? " screen__dot--live" : ""}`} />
+              À l'antenne
+            </div>
+            <div className="preview">
+              <div className={`tally-rail${isLive ? " tally-rail--live" : ""}`} />
+              <div className="preview__screen">
+                <Output state={state} />
+              </div>
+            </div>
+          </div>
+
+          {/* Écran de contrôle : montre la diapositive suivante sans jamais la
+              diffuser. Aucun message n'est posté depuis ici. */}
+          <div className="screen screen--next">
+            <div className="screen__label">Suivant</div>
+            <div className="preview">
+              <div className="tally-rail" />
+              <div className="preview__screen">
+                {nextSlide ? (
+                  <Output
+                    state={{
+                      slide: nextSlide,
+                      visible: true,
+                      itemIndex: 0,
+                      slideIndex: 0,
+                    }}
+                  />
+                ) : (
+                  <p className="screen__empty">Fin du déroulé</p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 

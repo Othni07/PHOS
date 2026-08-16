@@ -1,8 +1,8 @@
 // Chargement et consultation du texte biblique. Le texte est une table à part
 // (§11) : changer de version ne touche ni la nomenclature ni les alias.
 
-import type { Item, Slide } from "../types.ts";
-import type { BookInfo } from "./books.ts";
+import type { Item, Slide, VerseSource } from "../types.ts";
+import { booksById, type BookInfo } from "./books.ts";
 import { formatReference, type ParsedReference } from "./reference.ts";
 
 export interface BibleVersion {
@@ -65,6 +65,12 @@ export function lookup(
       kind: "verset",
       reference: `${name} ${ref.chapter}.${n} · ${version.abbrev}`,
       body: chapter[n - 1],
+      source: {
+        versionId: version.id,
+        bookId: ref.book.id,
+        chapter: ref.chapter,
+        verse: n,
+      },
     });
   }
 
@@ -76,6 +82,57 @@ export function lookup(
       label: `${formatReference(ref)} · ${version.abbrev}`,
       slides,
     },
+  };
+}
+
+/**
+ * Verset voisin, en franchissant les chapitres. S'arrête à la fin du livre :
+ * enchaîner Malachie sur Matthieu surprendrait plus que ça n'aiderait.
+ */
+export function neighbourVerse(
+  data: BibleData,
+  from: VerseSource,
+  delta: 1 | -1,
+): VerseSource | null {
+  const chapters = data.books[from.bookId];
+  if (!chapters) return null;
+
+  const verse = from.verse + delta;
+  const chapter = chapters[from.chapter - 1];
+  if (!chapter) return null;
+
+  if (verse >= 1 && verse <= chapter.length) {
+    return { ...from, verse };
+  }
+
+  const chapterNumber = from.chapter + delta;
+  const neighbour = chapters[chapterNumber - 1];
+  if (!neighbour || neighbour.length === 0) return null;
+
+  return {
+    ...from,
+    chapter: chapterNumber,
+    verse: delta === 1 ? 1 : neighbour.length,
+  };
+}
+
+/** Diapositive correspondant à une position, ou null si elle n'existe pas. */
+export function slideFromSource(
+  data: BibleData,
+  source: VerseSource,
+  version: BibleVersion,
+): Slide | null {
+  const body = data.books[source.bookId]?.[source.chapter - 1]?.[source.verse - 1];
+  if (body === undefined) return null;
+
+  const book = booksById.get(source.bookId);
+  const name = book ? (book.refName ?? book.name) : source.bookId;
+
+  return {
+    kind: "verset",
+    reference: `${name} ${source.chapter}.${source.verse} · ${version.abbrev}`,
+    body,
+    source,
   };
 }
 
@@ -98,6 +155,34 @@ export function formatVerseList(verses: number[]): string {
     }
   }
   return parts.join(", ");
+}
+
+/**
+ * Étiquette de déroulé recalculée depuis les diapositives, pour qu'un passage
+ * qu'on prolonge à la flèche annonce ce qu'il contient réellement.
+ * Renvoie `fallback` dès qu'une diapositive n'est pas un verset (cantique).
+ */
+export function labelForSlides(slides: Slide[], fallback: string): string {
+  const sources = slides.map((s) => s.source);
+  if (sources.length === 0 || sources.some((s) => s === undefined)) return fallback;
+
+  const known = sources as VerseSource[];
+  const first = known[0];
+  const last = known[known.length - 1];
+  if (known.some((s) => s.bookId !== first.bookId)) return fallback;
+
+  const book = booksById.get(first.bookId);
+  const name = book ? (book.refName ?? book.name) : first.bookId;
+  const abbrev =
+    versions.find((v) => v.id === first.versionId)?.abbrev ?? first.versionId;
+
+  // Dans un même chapitre, la liste repliée reste exacte même si la sélection
+  // saute des versets ; à cheval sur deux chapitres, on borne le passage.
+  const body = known.every((s) => s.chapter === first.chapter)
+    ? `${name} ${first.chapter}.${formatVerseList(known.map((s) => s.verse))}`
+    : `${name} ${first.chapter}.${first.verse} - ${last.chapter}.${last.verse}`;
+
+  return `${body} · ${abbrev}`;
 }
 
 /** Une diapositive par verset, ou tous les versets réunis sur une seule. */
@@ -142,6 +227,12 @@ export function buildSelection(
           kind: "verset" as const,
           reference: `${name} ${chapterNumber}.${n} · ${version.abbrev}`,
           body: chapter[n - 1],
+          source: {
+            versionId: version.id,
+            bookId: book.id,
+            chapter: chapterNumber,
+            verse: n,
+          },
         }));
 
   return {
