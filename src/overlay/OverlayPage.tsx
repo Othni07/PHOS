@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { connectRelay } from "../shared/relay.ts";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
 import type { ShowState } from "../types";
 import "./OverlayPage.css";
@@ -17,6 +18,15 @@ export function OverlayPage() {
       unsubscribe();
       bus.close();
     };
+  }, []);
+
+  // Les deux canaux portent le même ShowState. Le BroadcastChannel sert quand
+  // l'overlay est ouvert dans le navigateur de la régie ; le relais est le
+  // seul qui atteigne le Chromium d'OBS. Écouter les deux évite d'avoir à
+  // savoir où la page tourne.
+  useEffect(() => {
+    const relay = connectRelay(setState);
+    return () => relay.close();
   }, []);
 
   const isOnAir = state.visible && state.slide !== null;

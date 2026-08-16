@@ -1,6 +1,7 @@
 import { resolve } from "node:path";
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
+import { obsRelay } from "./scripts/obs-relay.ts";
 
 // Les trois routes (§4) sont servies comme pages distinctes plutôt que par un
 // routeur client : /projection a besoin d'un <head> à elle pour son filet de
@@ -25,7 +26,7 @@ function cleanUrls(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [react(), cleanUrls()],
+  plugins: [react(), cleanUrls(), obsRelay()],
   server: {
     // Port figé : l'URL de l'overlay est saisie une fois dans OBS et ne doit
     // pas changer. Sans strictPort, Vite bascule silencieusement sur 5174

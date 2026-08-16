@@ -10,6 +10,7 @@ import { loadBible } from "../bible/load.ts";
 import { platform } from "../platform";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
+import { connectRelay, type Relay } from "../shared/relay.ts";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
 import type { Item, ShowState } from "../types";
 import { BibleBrowser } from "./BibleBrowser.tsx";
@@ -33,6 +34,7 @@ function flatten(items: Item[]): FlatSlide[] {
 
 export function ConsolePage() {
   const busRef = useRef<ReturnType<typeof createShowBus> | null>(null);
+  const relayRef = useRef<Relay | null>(null);
   // Le déroulé part vide : tout entre par la recherche, versets comme cantiques.
   const [items, setItems] = useState<Item[]>([]);
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
@@ -79,9 +81,21 @@ export function ConsolePage() {
     };
   }, []);
 
+  // Second canal, vers la source Navigateur d'OBS : elle tourne dans un
+  // Chromium distinct et ne reçoit pas le BroadcastChannel.
+  useEffect(() => {
+    const relay = connectRelay(null);
+    relayRef.current = relay;
+    return () => {
+      relay.close();
+      relayRef.current = null;
+    };
+  }, []);
+
   // La console est la seule à écrire dans le canal (§4) — diffuse à chaque changement.
   useEffect(() => {
     busRef.current?.postState(state);
+    relayRef.current?.send(state);
   }, [state]);
 
   // Rejeu à l'ouverture : une fenêtre qui vient de s'ouvrir n'a rien reçu.
