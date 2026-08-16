@@ -139,20 +139,35 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
     if (!result) return;
     onSubmit(result.build());
     setQuery("");
+    // Le passage est envoyé : la main rend le clavier au déroulé, sinon les
+    // flèches restent captives du champ et ne font plus défiler les versets.
+    // « / » ramène le curseur ici pour la référence suivante.
+    inputRef.current?.blur();
   }
 
   // Barre oblique : ramène le curseur dans la recherche sans quitter le clavier.
   useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
+    function isTyping(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null;
-      if (target && ["INPUT", "TEXTAREA"].includes(target.tagName)) return;
-      if (event.key === "/") {
-        event.preventDefault();
-        inputRef.current?.focus();
-      }
+      return target !== null && ["INPUT", "TEXTAREA"].includes(target.tagName);
     }
+
+    // Le focus est pris au relâchement, pas à l'appui : prendre le focus en
+    // plein keydown ferait aboutir la frappe dans le champ, qui contiendrait
+    // alors un « / » parasite à effacer avant de taper la référence.
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "/" && !isTyping(event)) event.preventDefault();
+    }
+    function onKeyUp(event: KeyboardEvent) {
+      if (event.key === "/" && !isTyping(event)) inputRef.current?.focus();
+    }
+
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
   }, []);
 
   const loading = bible === null && bibleError === null;
