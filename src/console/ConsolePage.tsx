@@ -3,7 +3,6 @@ import { platform } from "../platform";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
-import { initialItems } from "../show";
 import type { Item, ShowState } from "../types";
 import { SearchBar } from "./SearchBar.tsx";
 import "./ConsolePage.css";
@@ -25,7 +24,8 @@ function flatten(items: Item[]): FlatSlide[] {
 
 export function ConsolePage() {
   const busRef = useRef<ReturnType<typeof createShowBus> | null>(null);
-  const [items, setItems] = useState<Item[]>(() => initialItems);
+  // Le déroulé part vide : tout entre par la recherche, versets comme cantiques.
+  const [items, setItems] = useState<Item[]>([]);
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
 
   const flatSlides = useMemo(() => flatten(items), [items]);
@@ -138,7 +138,7 @@ export function ConsolePage() {
         <h1 className="console__title">Déroulé</h1>
         {items.length === 0 && (
           <p className="console__empty">
-            Tapez une référence ci-dessus pour ajouter un passage.
+            Tapez une référence ou un titre de cantique ci-dessus.
           </p>
         )}
         {items.map((item, itemIndex) => (

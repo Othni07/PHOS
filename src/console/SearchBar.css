@@ -51,6 +51,9 @@
 
 .search__result {
   margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .search__match {
@@ -59,18 +62,35 @@
   text-align: left;
   padding: 10px;
   background: var(--ink);
-  border: 1px solid var(--slate-blue);
+  border: 1px solid var(--hairline);
   border-radius: 4px;
   color: var(--parchment);
   font-family: inherit;
   cursor: pointer;
 }
 
+/* Un seul résultat est armé à la fois : c'est celui qu'Entrée envoie. */
+.search__match--active {
+  border-color: var(--slate-blue);
+}
+
 .search__match-label {
-  display: block;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
   font-size: 12px;
   color: var(--slate-blue);
   margin-bottom: 4px;
+}
+
+.search__match-badge {
+  flex: none;
+  padding: 1px 5px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .search__match-body {

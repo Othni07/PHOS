@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { loadBible, lookup, versions } from "../bible/bible.ts";
 import { parseReference } from "../bible/reference.ts";
+import { searchSongs, songToItem } from "../songs/search.ts";
+import { loadSongBook } from "../songs/songs.ts";
+import type { SongBook } from "../songs/types";
 import type { Item } from "../types";
 import "./SearchBar.css";
 
@@ -8,40 +11,52 @@ interface SearchBarProps {
   onSubmit: (item: Item) => void;
 }
 
-type Status =
-  | { kind: "idle" }
-  | { kind: "loading" }
-  | { kind: "error"; message: string }
-  | { kind: "ready" };
+interface Result {
+  key: string;
+  /** Pastille de provenance : « LSG », « nº 12 », « Cantique ». */
+  badge: string;
+  label: string;
+  body: string;
+  build: () => Item;
+}
+
+// Deux ajouts du même passage dans la même milliseconde doivent rester deux
+// entrées distinctes du déroulé — un compteur y suffit et ne peut pas collisionner.
+let sequence = 0;
+
+function withFreshId(item: Item): Item {
+  sequence += 1;
+  return { ...item, id: `${item.id}-${sequence}` };
+}
 
 export function SearchBar({ onSubmit }: SearchBarProps) {
   const [versionId, setVersionId] = useState(versions[0].id);
   const [query, setQuery] = useState("");
-  const [status, setStatus] = useState<Status>({ kind: "loading" });
+  const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const version = versions.find((v) => v.id === versionId) ?? versions[0];
 
-  // La Bible est chargée une fois par version puis mise en cache. Le premier
+  // Les données sont chargées une fois puis mises en cache. Le premier
   // chargement doit être terminé avant le culte, pas pendant.
-  const [data, setData] = useState<Awaited<ReturnType<typeof loadBible>> | null>(null);
+  const [bible, setBible] = useState<Awaited<ReturnType<typeof loadBible>> | null>(null);
+  const [bibleError, setBibleError] = useState<string | null>(null);
+  const [songBook, setSongBook] = useState<SongBook | null>(null);
+  const [songError, setSongError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-    setStatus({ kind: "loading" });
-    setData(null);
+    setBible(null);
+    setBibleError(null);
     loadBible(versionId).then(
       (loaded) => {
-        if (cancelled) return;
-        setData(loaded);
-        setStatus({ kind: "ready" });
+        if (!cancelled) setBible(loaded);
       },
       (error: unknown) => {
         if (cancelled) return;
-        setStatus({
-          kind: "error",
-          message: error instanceof Error ? error.message : "Chargement impossible",
-        });
+        setBibleError(
+          error instanceof Error ? error.message : "Chargement de la Bible impossible",
+        );
       },
     );
     return () => {
@@ -49,20 +64,81 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
     };
   }, [versionId]);
 
-  // Aperçu recalculé à chaque frappe : c'est le retour immédiat qui permet de
-  // corriger une référence avant de l'envoyer à l'écran.
-  const preview = useMemo(() => {
-    if (!data) return null;
-    const ref = parseReference(query);
-    if (!ref) return null;
-    return lookup(data, ref, version);
-  }, [data, query, version]);
+  // Le recueil est indépendant de la version biblique : chargé une seule fois.
+  useEffect(() => {
+    let cancelled = false;
+    loadSongBook().then(
+      (loaded) => {
+        if (!cancelled) setSongBook(loaded);
+      },
+      (error: unknown) => {
+        if (cancelled) return;
+        setSongError(
+          error instanceof Error ? error.message : "Chargement du recueil impossible",
+        );
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  function submit() {
-    if (preview?.ok) {
-      onSubmit(preview.item);
-      setQuery("");
+  // Résultats recalculés à chaque frappe : c'est le retour immédiat qui permet
+  // de corriger une saisie avant de l'envoyer à l'écran.
+  const { results, message } = useMemo(() => {
+    const trimmed = query.trim();
+    if (!trimmed) return { results: [] as Result[], message: null };
+
+    const found: Result[] = [];
+    let message: string | null = null;
+
+    // La Bible passe devant : une référence valide est sans ambiguïté.
+    const ref = parseReference(trimmed);
+    if (ref && bible) {
+      const result = lookup(bible, ref, version);
+      if (result.ok) {
+        const item = result.item;
+        const count = item.slides.length;
+        found.push({
+          key: "bible",
+          badge: version.abbrev,
+          label: count > 1 ? `${item.label} · ${count} versets` : item.label,
+          body: item.slides[0].body,
+          build: () => withFreshId(item),
+        });
+      } else {
+        message = result.message;
+      }
     }
+
+    if (songBook) {
+      for (const song of searchSongs(songBook, trimmed)) {
+        const item = songToItem(song);
+        found.push({
+          key: `song-${song.id}`,
+          badge: song.number === undefined ? "Cantique" : `nº ${song.number}`,
+          label: `${song.title} · ${item.slides.length} diapositives`,
+          body: item.slides[0]?.body ?? "",
+          build: () => withFreshId(item),
+        });
+      }
+    }
+
+    return { results: found, message };
+  }, [bible, songBook, query, version]);
+
+  // La sélection repart en tête dès que la liste change sous les doigts.
+  useEffect(() => {
+    setSelected(0);
+  }, [query]);
+
+  const active = results.length === 0 ? -1 : Math.min(selected, results.length - 1);
+
+  function submit(index = active) {
+    const result = results[index];
+    if (!result) return;
+    onSubmit(result.build());
+    setQuery("");
   }
 
   // Barre oblique : ramène le curseur dans la recherche sans quitter le clavier.
@@ -79,6 +155,8 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  const loading = bible === null && bibleError === null;
+
   return (
     <div className="search">
       <div className="search__row">
@@ -87,7 +165,7 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
           className="search__input"
           type="text"
           value={query}
-          placeholder="jn 3:16 · Ps 23 · 1 co 13:4-7"
+          placeholder="jn 3:16 · Ps 23 · à toi la gloire · 4"
           spellCheck={false}
           autoComplete="off"
           onChange={(e) => setQuery(e.target.value)}
@@ -95,6 +173,12 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
             if (e.key === "Enter") {
               e.preventDefault();
               submit();
+            } else if (e.key === "ArrowDown") {
+              e.preventDefault();
+              setSelected((s) => Math.min(s + 1, results.length - 1));
+            } else if (e.key === "ArrowUp") {
+              e.preventDefault();
+              setSelected((s) => Math.max(s - 1, 0));
             } else if (e.key === "Escape") {
               e.preventDefault();
               inputRef.current?.blur();
@@ -115,30 +199,33 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
         </select>
       </div>
 
-      {status.kind === "loading" && (
-        <p className="search__hint">Chargement de {version.name}…</p>
-      )}
-      {status.kind === "error" && (
-        <p className="search__hint search__hint--error">{status.message}</p>
-      )}
-      {status.kind === "ready" && query.trim() !== "" && (
+      {loading && <p className="search__hint">Chargement de {version.name}…</p>}
+      {bibleError && <p className="search__hint search__hint--error">{bibleError}</p>}
+      {songError && <p className="search__hint search__hint--error">{songError}</p>}
+
+      {query.trim() !== "" && (
         <div className="search__result">
-          {preview === null && (
-            <p className="search__hint">Référence non reconnue.</p>
-          )}
-          {preview?.ok === false && (
-            <p className="search__hint search__hint--error">{preview.message}</p>
-          )}
-          {preview?.ok && (
-            <button type="button" className="search__match" onClick={submit}>
+          {message && <p className="search__hint search__hint--error">{message}</p>}
+
+          {results.map((result, index) => (
+            <button
+              key={result.key}
+              type="button"
+              className={`search__match${index === active ? " search__match--active" : ""}`}
+              onClick={() => submit(index)}
+              onMouseEnter={() => setSelected(index)}
+            >
               <span className="search__match-label">
-                {preview.item.label}
-                {preview.item.slides.length > 1 &&
-                  ` · ${preview.item.slides.length} versets`}
+                <span className="search__match-badge">{result.badge}</span>
+                {result.label}
               </span>
-              <span className="search__match-body">{preview.item.slides[0].body}</span>
-              <span className="search__match-enter">Entrée</span>
+              <span className="search__match-body">{result.body}</span>
+              {index === active && <span className="search__match-enter">Entrée</span>}
             </button>
+          ))}
+
+          {results.length === 0 && message === null && !loading && (
+            <p className="search__hint">Aucune référence ni cantique trouvé.</p>
           )}
         </div>
       )}

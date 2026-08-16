@@ -1,0 +1,114 @@
+{
+  "id": "amorce",
+  "name": "Recueil d'amorce",
+  "note": "Recueil de départ, uniquement des textes du domaine public (§13). Il sert à faire tourner la régie tant que le vrai recueil de l'assemblée n'est pas importé. LES PAROLES DOIVENT ÊTRE RELUES sur une édition papier avant tout usage en culte : elles ont été saisies de mémoire et les traductions françaises de ces cantiques connaissent plusieurs variantes. Les strophes manquantes sont volontairement absentes plutôt qu'approximatives.",
+  "songs": [
+    {
+      "id": "a-toi-la-gloire",
+      "number": 1,
+      "title": "À toi la gloire",
+      "author": "Edmond Louis Budry (1884), musique de G. F. Haendel",
+      "parts": [
+        {
+          "kind": "strophe",
+          "number": 1,
+          "body": "À toi la gloire, ô Ressuscité !\nÀ toi la victoire pour l'éternité !\nBrillant de lumière, l'ange est descendu,\nIl roule la pierre du tombeau vaincu."
+        },
+        {
+          "kind": "refrain",
+          "body": "À toi la gloire, ô Ressuscité !\nÀ toi la victoire pour l'éternité !"
+        },
+        {
+          "kind": "strophe",
+          "number": 2,
+          "body": "Vois-le paraître : c'est lui, c'est Jésus,\nTon Sauveur, ton Maître, oh ! ne doute plus !\nSois dans l'allégresse, peuple du Seigneur,\nEt redis sans cesse : le Christ est vainqueur !"
+        },
+        {
+          "kind": "strophe",
+          "number": 3,
+          "body": "Craindrais-je encore ? Il vit à jamais,\nCelui que j'adore, le Prince de paix ;\nIl est ma victoire, mon puissant soutien,\nMa vie et ma gloire : non, je ne crains rien !"
+        }
+      ]
+    },
+    {
+      "id": "quel-ami-fidele-et-tendre",
+      "number": 2,
+      "title": "Quel ami fidèle et tendre",
+      "author": "Joseph Scriven (1855), traduction française du XIXe siècle",
+      "parts": [
+        {
+          "kind": "strophe",
+          "number": 1,
+          "body": "Quel ami fidèle et tendre\nNous avons en Jésus-Christ,\nToujours prêt à nous entendre,\nÀ répondre à notre cri !\nIl connaît nos défaillances,\nNos chutes de chaque jour,\nSévère en ses exigences,\nIl est riche en son amour."
+        },
+        {
+          "kind": "strophe",
+          "number": 2,
+          "body": "Quel ami fidèle et tendre\nNous avons en Jésus-Christ,\nToujours prêt à nous défendre\nQuand nous presse l'ennemi !\nIl nous suit dans la mêlée,\nNous entoure de ses bras,\nEt c'est lui qui tient l'épée\nQui décide des combats."
+        }
+      ]
+    },
+    {
+      "id": "tel-que-je-suis",
+      "number": 3,
+      "title": "Tel que je suis",
+      "author": "Charlotte Elliott (1835), traduction française",
+      "parts": [
+        {
+          "kind": "strophe",
+          "number": 1,
+          "body": "Tel que je suis, sans rien à moi,\nSinon ton sang versé pour moi\nEt ta voix qui m'appelle à toi,\nAgneau de Dieu, je viens, je viens !"
+        },
+        {
+          "kind": "strophe",
+          "number": 2,
+          "body": "Tel que je suis, bien vacillant,\nEn proie au doute à chaque instant,\nLutte au dehors, crainte au dedans,\nAgneau de Dieu, je viens, je viens !"
+        },
+        {
+          "kind": "strophe",
+          "number": 3,
+          "body": "Tel que je suis, ton cœur est prêt\nÀ prendre le mien tel qu'il est,\nPour tout changer, Sauveur parfait,\nAgneau de Dieu, je viens, je viens !"
+        }
+      ]
+    },
+    {
+      "id": "grand-dieu-nous-te-benissons",
+      "number": 4,
+      "title": "Grand Dieu, nous te bénissons",
+      "author": "D'après le Te Deum, traduction française",
+      "parts": [
+        {
+          "kind": "strophe",
+          "number": 1,
+          "body": "Grand Dieu, nous te bénissons,\nNous célébrons tes louanges !\nÉternel, nous t'exaltons,\nDe concert avec les anges,\nEt prosternés devant toi,\nNous t'adorons, ô grand Roi !"
+        }
+      ]
+    },
+    {
+      "id": "plus-pres-de-toi-mon-dieu",
+      "number": 5,
+      "title": "Plus près de toi, mon Dieu",
+      "author": "Sarah Flower Adams (1841), traduction française",
+      "parts": [
+        {
+          "kind": "strophe",
+          "number": 1,
+          "body": "Plus près de toi, mon Dieu, plus près de toi !\nC'est le mot de ma foi : plus près de toi !\nDans le jour où l'épreuve\nDéborde comme un fleuve,\nGarde-moi près de toi, plus près de toi !"
+        }
+      ]
+    },
+    {
+      "id": "debout-sainte-cohorte",
+      "number": 6,
+      "title": "Debout, sainte cohorte",
+      "author": "George Duffield (1858), traduction française",
+      "parts": [
+        {
+          "kind": "strophe",
+          "number": 1,
+          "body": "Debout, sainte cohorte,\nSoldats du Roi des rois !\nTenez d'une main forte\nL'étendard de la croix !"
+        }
+      ]
+    }
+  ]
+}
