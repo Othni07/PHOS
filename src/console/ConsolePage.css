@@ -6,6 +6,13 @@
   color: var(--parchment);
 }
 
+/* Le navigateur s'insère entre le déroulé et l'aperçu, qui reste visible :
+   l'opérateur doit continuer à voir ce qui est à l'antenne pendant qu'il
+   prépare le passage suivant. */
+.console--browsing {
+  grid-template-columns: 280px minmax(420px, 1fr) minmax(320px, 1fr);
+}
+
 .console__rundown {
   background: var(--panel);
   border-right: 1px solid var(--hairline);
@@ -155,6 +162,11 @@
 
 .control-button:hover {
   border-color: var(--slate-blue);
+}
+
+.control-button--on {
+  border-color: var(--slate-blue);
+  background: var(--hairline);
 }
 
 .overlay-url {

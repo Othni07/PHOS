@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { loadBible, lookup, versions } from "../bible/bible.ts";
+import { lookup, versions, type BibleData } from "../bible/bible.ts";
 import { parseReference } from "../bible/reference.ts";
 import { searchSongs, songToItem } from "../songs/search.ts";
 import { loadSongBook } from "../songs/songs.ts";
@@ -9,6 +9,12 @@ import "./SearchBar.css";
 
 interface SearchBarProps {
   onSubmit: (item: Item) => void;
+  /** La version courante est portée par la console : le navigateur de livres
+   *  et la recherche doivent désigner le même texte. */
+  versionId: string;
+  onVersionChange: (versionId: string) => void;
+  bible: BibleData | null;
+  bibleError: string | null;
 }
 
 interface Result {
@@ -29,40 +35,21 @@ function withFreshId(item: Item): Item {
   return { ...item, id: `${item.id}-${sequence}` };
 }
 
-export function SearchBar({ onSubmit }: SearchBarProps) {
-  const [versionId, setVersionId] = useState(versions[0].id);
+export function SearchBar({
+  onSubmit,
+  versionId,
+  onVersionChange,
+  bible,
+  bibleError,
+}: SearchBarProps) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const version = versions.find((v) => v.id === versionId) ?? versions[0];
 
-  // Les données sont chargées une fois puis mises en cache. Le premier
-  // chargement doit être terminé avant le culte, pas pendant.
-  const [bible, setBible] = useState<Awaited<ReturnType<typeof loadBible>> | null>(null);
-  const [bibleError, setBibleError] = useState<string | null>(null);
   const [songBook, setSongBook] = useState<SongBook | null>(null);
   const [songError, setSongError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    setBible(null);
-    setBibleError(null);
-    loadBible(versionId).then(
-      (loaded) => {
-        if (!cancelled) setBible(loaded);
-      },
-      (error: unknown) => {
-        if (cancelled) return;
-        setBibleError(
-          error instanceof Error ? error.message : "Chargement de la Bible impossible",
-        );
-      },
-    );
-    return () => {
-      cancelled = true;
-    };
-  }, [versionId]);
 
   // Le recueil est indépendant de la version biblique : chargé une seule fois.
   useEffect(() => {
@@ -203,7 +190,7 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
         <select
           className="search__version"
           value={versionId}
-          onChange={(e) => setVersionId(e.target.value)}
+          onChange={(e) => onVersionChange(e.target.value)}
           title="Version biblique"
         >
           {versions.map((v) => (

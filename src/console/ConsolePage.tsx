@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { versions, type BibleData } from "../bible/bible.ts";
+import { loadBible } from "../bible/load.ts";
 import { platform } from "../platform";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
 import type { Item, ShowState } from "../types";
+import { BibleBrowser } from "./BibleBrowser.tsx";
 import { SearchBar } from "./SearchBar.tsx";
 import "./ConsolePage.css";
 
@@ -27,6 +30,34 @@ export function ConsolePage() {
   // Le déroulé part vide : tout entre par la recherche, versets comme cantiques.
   const [items, setItems] = useState<Item[]>([]);
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
+  const [browsing, setBrowsing] = useState(false);
+
+  // La version courante et le texte chargé appartiennent à la console : la
+  // recherche et le navigateur de livres doivent désigner le même texte.
+  const [versionId, setVersionId] = useState(versions[0].id);
+  const [bible, setBible] = useState<BibleData | null>(null);
+  const [bibleError, setBibleError] = useState<string | null>(null);
+  const version = versions.find((v) => v.id === versionId) ?? versions[0];
+
+  useEffect(() => {
+    let cancelled = false;
+    setBible(null);
+    setBibleError(null);
+    loadBible(versionId).then(
+      (loaded) => {
+        if (!cancelled) setBible(loaded);
+      },
+      (error: unknown) => {
+        if (cancelled) return;
+        setBibleError(
+          error instanceof Error ? error.message : "Chargement de la Bible impossible",
+        );
+      },
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [versionId]);
 
   const flatSlides = useMemo(() => flatten(items), [items]);
 
@@ -112,6 +143,9 @@ export function ConsolePage() {
     function onKeyDown(e: KeyboardEvent) {
       const target = e.target as HTMLElement | null;
       if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
+      // Dans le navigateur de livres, les flèches servent à parcourir les
+      // grilles : elles ne doivent pas faire défiler ce qui est à l'antenne.
+      if (target?.closest("[data-browser]")) return;
 
       if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
         e.preventDefault();
@@ -131,9 +165,15 @@ export function ConsolePage() {
   const isLive = state.visible && state.slide !== null;
 
   return (
-    <div className="console">
+    <div className={`console${browsing ? " console--browsing" : ""}`}>
       <aside className="console__rundown">
-        <SearchBar onSubmit={addItem} />
+        <SearchBar
+          onSubmit={addItem}
+          versionId={versionId}
+          onVersionChange={setVersionId}
+          bible={bible}
+          bibleError={bibleError}
+        />
 
         <h1 className="console__title">Déroulé</h1>
         {items.length === 0 && (
@@ -178,6 +218,15 @@ export function ConsolePage() {
         ))}
       </aside>
 
+      {browsing && (
+        <BibleBrowser
+          data={bible}
+          version={version}
+          onSubmit={addItem}
+          onClose={() => setBrowsing(false)}
+        />
+      )}
+
       <main className="console__main">
         <div className="preview">
           <div className={`tally-rail${isLive ? " tally-rail--live" : ""}`} />
@@ -189,6 +238,13 @@ export function ConsolePage() {
         <div className="console__controls">
           <button type="button" className="control-button" onClick={toggleBlackout}>
             {state.visible ? "Écran noir (B)" : "Rétablir (B)"}
+          </button>
+          <button
+            type="button"
+            className={`control-button${browsing ? " control-button--on" : ""}`}
+            onClick={() => setBrowsing((open) => !open)}
+          >
+            Parcourir la Bible
           </button>
           <button
             type="button"

@@ -1,8 +1,8 @@
 // Chargement et consultation du texte biblique. Le texte est une table à part
 // (§11) : changer de version ne touche ni la nomenclature ni les alias.
 
-import { platform } from "../platform";
-import type { Item, Slide } from "../types";
+import type { Item, Slide } from "../types.ts";
+import type { BookInfo } from "./books.ts";
 import { formatReference, type ParsedReference } from "./reference.ts";
 
 export interface BibleVersion {
@@ -17,26 +17,12 @@ export const versions: BibleVersion[] = [
   { id: "darby", name: "Darby", abbrev: "DBY" },
 ];
 
-interface BibleData {
+export interface BibleData {
   id: string;
   name: string;
   abbrev: string;
   /** osisID → chapitres → versets. Index 0 = chapitre 1 / verset 1. */
   books: Record<string, string[][]>;
-}
-
-const cache = new Map<string, Promise<BibleData>>();
-
-export function loadBible(versionId: string): Promise<BibleData> {
-  let pending = cache.get(versionId);
-  if (!pending) {
-    pending = platform.loadData<BibleData>(`bible-${versionId}.json`);
-    // Un échec ne doit pas empoisonner le cache : une seconde tentative
-    // (réseau revenu, fichier déposé) doit pouvoir réussir.
-    pending.catch(() => cache.delete(versionId));
-    cache.set(versionId, pending);
-  }
-  return pending;
 }
 
 export type LookupResult =
@@ -90,5 +76,78 @@ export function lookup(
       label: `${formatReference(ref)} · ${version.abbrev}`,
       slides,
     },
+  };
+}
+
+/** « 16, 17, 18, 20 » → « 16-18, 20 ». Une sélection éparse reste lisible. */
+export function formatVerseList(verses: number[]): string {
+  const sorted = [...new Set(verses)].sort((a, b) => a - b);
+  const parts: string[] = [];
+  let runStart = 0;
+
+  for (let i = 0; i < sorted.length; i += 1) {
+    const isLast = i === sorted.length - 1;
+    if (isLast || sorted[i + 1] !== sorted[i] + 1) {
+      const from = sorted[runStart];
+      const to = sorted[i];
+      // Deux versets qui se suivent se lisent mieux séparés qu'en plage.
+      parts.push(
+        to - from >= 2 ? `${from}-${to}` : to > from ? `${from}, ${to}` : `${from}`,
+      );
+      runStart = i + 1;
+    }
+  }
+  return parts.join(", ");
+}
+
+/** Une diapositive par verset, ou tous les versets réunis sur une seule. */
+export type GroupMode = "separate" | "grouped";
+
+let selectionCount = 0;
+
+/**
+ * Construit un passage à partir de versets choisis à la main, éventuellement
+ * non contigus — ce que le parseur de référence ne sait pas exprimer.
+ */
+export function buildSelection(
+  data: BibleData,
+  book: BookInfo,
+  chapterNumber: number,
+  verses: number[],
+  version: BibleVersion,
+  mode: GroupMode,
+): Item | null {
+  const chapter = data.books[book.id]?.[chapterNumber - 1];
+  if (!chapter) return null;
+
+  const chosen = [...new Set(verses)]
+    .sort((a, b) => a - b)
+    .filter((n) => n >= 1 && n <= chapter.length);
+  if (chosen.length === 0) return null;
+
+  const name = book.refName ?? book.name;
+  const summary = `${name} ${chapterNumber}.${formatVerseList(chosen)}`;
+
+  selectionCount += 1;
+  const slides: Slide[] =
+    mode === "grouped"
+      ? [
+          {
+            kind: "verset",
+            reference: `${summary} · ${version.abbrev}`,
+            body: chosen.map((n) => chapter[n - 1]).join(" "),
+          },
+        ]
+      : chosen.map((n) => ({
+          kind: "verset" as const,
+          reference: `${name} ${chapterNumber}.${n} · ${version.abbrev}`,
+          body: chapter[n - 1],
+        }));
+
+  return {
+    id: `${version.id}-${book.id}-${chapterNumber}-sel-${selectionCount}`,
+    kind: "verset",
+    label: `${summary} · ${version.abbrev}`,
+    slides,
   };
 }
