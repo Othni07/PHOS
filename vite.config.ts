@@ -26,6 +26,13 @@ function cleanUrls(): Plugin {
 
 export default defineConfig({
   plugins: [react(), cleanUrls()],
+  server: {
+    // Port figé : l'URL de l'overlay est saisie une fois dans OBS et ne doit
+    // pas changer. Sans strictPort, Vite bascule silencieusement sur 5174
+    // quand 5173 est pris, et la source OBS pointe alors dans le vide.
+    port: 5173,
+    strictPort: true,
+  },
   build: {
     rollupOptions: {
       input: {
