@@ -16,8 +16,12 @@ function cleanUrls(): Plugin {
     name: "clean-urls",
     configureServer(server) {
       server.middlewares.use((req, _res, next) => {
-        if (req.url && map[req.url]) {
-          req.url = map[req.url];
+        if (req.url) {
+          // La requête peut porter une chaîne de requête (« ?plein-ecran=1 ») :
+          // c'est le chemin seul qui désigne la page.
+          const [path, query] = req.url.split("?");
+          const target = map[path];
+          if (target) req.url = query === undefined ? target : `${target}?${query}`;
         }
         next();
       });

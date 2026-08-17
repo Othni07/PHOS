@@ -16,6 +16,7 @@ import { createShowBus, loadPersistedState } from "../shared/showBus";
 import type { Item, ShowState, SlideKind } from "../types";
 import { AppearancePanel } from "./AppearancePanel.tsx";
 import { BibleBrowser } from "./BibleBrowser.tsx";
+import { ScreenPicker } from "./ScreenPicker.tsx";
 import { SearchBar } from "./SearchBar.tsx";
 import { SongEditor } from "./SongEditor.tsx";
 import { loadSession, saveSession } from "./session.ts";
@@ -271,10 +272,12 @@ export function ConsolePage() {
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
-      const target = e.target as HTMLElement | null;
+      // La cible d'un événement clavier n'est pas toujours un élément : une
+      // exception ici tuerait le défilement pour le reste du culte.
+      const target = e.target instanceof Element ? e.target : null;
       if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
-      // Dans le navigateur de livres, les flèches servent à parcourir les
-      // grilles : elles ne doivent pas faire défiler ce qui est à l'antenne.
+      // Dans les panneaux latéraux, les flèches servent à parcourir les
+      // grilles et les champs : elles ne doivent pas faire défiler l'antenne.
       if (target?.closest("[data-browser]")) return;
 
       if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
@@ -464,13 +467,7 @@ export function ConsolePage() {
           >
             Apparence OBS
           </button>
-          <button
-            type="button"
-            className="control-button"
-            onClick={() => platform.openProjection()}
-          >
-            Projeter sur…
-          </button>
+          <ScreenPicker />
           <div className="overlay-url">
             <span>URL overlay OBS</span>
             <code>{platform.overlayUrl()}</code>

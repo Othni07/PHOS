@@ -9,6 +9,16 @@ import "./ProjectionPage.css";
 export function ProjectionPage() {
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
 
+  // Ouverte sur un écran désigné, la page réclame le plein écran elle-même :
+  // la fenêtre parente ne peut pas l'exiger faute d'interaction dans celle-ci.
+  // Un refus n'est pas grave — la fenêtre couvre déjà l'écran et F11 reste
+  // disponible ; c'est la barre d'adresse en moins, pas la projection.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("plein-ecran") !== "1") return;
+    void document.documentElement.requestFullscreen?.().catch(() => {});
+  }, []);
+
   useEffect(() => {
     const bus = createShowBus();
     const unsubscribe = bus.onMessage((msg) => {

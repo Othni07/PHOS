@@ -39,27 +39,29 @@ async function openProjection(screenId?: string): Promise<void> {
     return;
   }
 
-  let features = "popup";
+  // Sans écran désigné, on ouvre une fenêtre que l'opérateur glissera lui-même
+  // sur le vidéoprojecteur avant d'appuyer sur F11 (mécanisme 1 du §4).
+  let features = "popup,width=1280,height=720";
+  let url = "/projection";
+
   if (screenId !== undefined && typeof window.getScreenDetails === "function") {
     try {
       const details = await window.getScreenDetails();
       const screen = details.screens[Number(screenId)];
       if (screen) {
+        // Les coordonnées sont celles du bureau étendu : la fenêtre naît
+        // directement sur le bon écran, à ses dimensions exactes.
         features = `popup,left=${screen.left},top=${screen.top},width=${screen.width},height=${screen.height}`;
+        // Le plein écran est demandé par la page elle-même : l'exiger depuis
+        // la fenêtre parente est refusé faute d'interaction dans la fille.
+        url = "/projection?plein-ecran=1";
       }
     } catch {
-      // Retombe sur l'ouverture manuelle
+      // Permission refusée : on retombe sur l'ouverture manuelle.
     }
   }
 
-  projectionWindow = window.open("/projection", "projection", features);
-
-  if (screenId !== undefined && projectionWindow) {
-    projectionWindow.addEventListener("load", () => {
-      projectionWindow?.moveTo(0, 0);
-      projectionWindow?.document.documentElement.requestFullscreen?.().catch(() => {});
-    });
-  }
+  projectionWindow = window.open(url, "projection", features);
 }
 
 async function closeProjection(): Promise<void> {
