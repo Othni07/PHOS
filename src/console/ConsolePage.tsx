@@ -17,7 +17,11 @@ import type { Item, ShowState } from "../types";
 import { AppearancePanel } from "./AppearancePanel.tsx";
 import { BibleBrowser } from "./BibleBrowser.tsx";
 import { SearchBar } from "./SearchBar.tsx";
+import { SongEditor } from "./SongEditor.tsx";
 import { loadSession, saveSession } from "./session.ts";
+import { loadSongBook } from "../songs/songs.ts";
+import type { Song, SongBook } from "../songs/types";
+import { loadUserSongs, mergeSongBook, saveUserSongs } from "../songs/userSongs.ts";
 import "./ConsolePage.css";
 
 interface FlatSlide {
@@ -49,8 +53,44 @@ export function ConsolePage() {
     itemIndex: restored?.itemIndex ?? 0,
     slideIndex: restored?.slideIndex ?? 0,
   }));
-  const [browsing, setBrowsing] = useState(false);
+  // Un seul panneau latéral à la fois : les deux occupent la même colonne.
+  const [panel, setPanel] = useState<"none" | "bible" | "song">("none");
   const [tuning, setTuning] = useState(false);
+
+  const [bundledSongs, setBundledSongs] = useState<SongBook | null>(null);
+  const [songError, setSongError] = useState<string | null>(null);
+  const [userSongs, setUserSongs] = useState<Song[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadSongBook().then(
+      (loaded) => {
+        if (!cancelled) setBundledSongs(loaded);
+      },
+      (error: unknown) => {
+        if (cancelled) return;
+        setSongError(
+          error instanceof Error ? error.message : "Chargement du recueil impossible",
+        );
+      },
+    );
+    void loadUserSongs().then((songs) => {
+      if (!cancelled) setUserSongs(songs);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const songBook = useMemo(
+    () => mergeSongBook(bundledSongs, userSongs),
+    [bundledSongs, userSongs],
+  );
+
+  const updateUserSongs = useCallback((songs: Song[]) => {
+    setUserSongs(songs);
+    void saveUserSongs(songs);
+  }, []);
 
   // La version courante et le texte chargé appartiennent à la console : la
   // recherche et le navigateur de livres doivent désigner le même texte.
@@ -259,7 +299,7 @@ export function ConsolePage() {
   }, [flatSlides, items, state.itemIndex, state.slideIndex, state.slide, bible, version]);
 
   return (
-    <div className={`console${browsing ? " console--browsing" : ""}`}>
+    <div className={`console${panel !== "none" ? " console--browsing" : ""}`}>
       <aside className="console__rundown">
         <SearchBar
           onSubmit={addItem}
@@ -267,6 +307,8 @@ export function ConsolePage() {
           onVersionChange={setVersionId}
           bible={bible}
           bibleError={bibleError}
+          songBook={songBook}
+          songError={songError}
         />
 
         {tuning && (
@@ -316,12 +358,20 @@ export function ConsolePage() {
         ))}
       </aside>
 
-      {browsing && (
+      {panel === "bible" && (
         <BibleBrowser
           data={bible}
           version={version}
           onSubmit={addItem}
-          onClose={() => setBrowsing(false)}
+          onClose={() => setPanel("none")}
+        />
+      )}
+
+      {panel === "song" && (
+        <SongEditor
+          songs={userSongs}
+          onSave={updateUserSongs}
+          onClose={() => setPanel("none")}
         />
       )}
 
@@ -365,10 +415,17 @@ export function ConsolePage() {
           </button>
           <button
             type="button"
-            className={`control-button${browsing ? " control-button--on" : ""}`}
-            onClick={() => setBrowsing((open) => !open)}
+            className={`control-button${panel === "bible" ? " control-button--on" : ""}`}
+            onClick={() => setPanel((p) => (p === "bible" ? "none" : "bible"))}
           >
             Parcourir la Bible
+          </button>
+          <button
+            type="button"
+            className={`control-button${panel === "song" ? " control-button--on" : ""}`}
+            onClick={() => setPanel((p) => (p === "song" ? "none" : "song"))}
+          >
+            Cantiques
           </button>
           <button
             type="button"

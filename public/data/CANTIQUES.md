@@ -1,8 +1,18 @@
 # Ajouter des cantiques
 
-Les cantiques vivent dans `public/data/cantiques.json`. Le fichier est lu au
-démarrage de la régie : il suffit de l'enregistrer et de **recharger la page**,
-sans redémarrer le serveur.
+**Le plus simple : le bouton « Cantiques » de la régie.** Il ouvre un
+formulaire — titre, numéro, puis strophes et refrains dans de vrais champs
+texte. Rien de ce qui suit n'est nécessaire pour s'en servir.
+
+Ces cantiques sont enregistrés dans le navigateur, sur cette machine. Le
+bouton « Exporter mes cantiques » produit un fichier de sauvegarde, que
+« Importer » relit — c'est la seule sauvegarde possible tant que
+l'application est une page web (§2), et la reprise prévue pour la phase 2.
+
+Le reste de ce document décrit le fichier livré avec l'application,
+`public/data/cantiques.json`, utile pour préparer un recueil entier hors ligne
+ou écrire un import. Il est lu au démarrage de la régie : l'enregistrer et
+**recharger la page** suffit, sans redémarrer le serveur.
 
 ## Le format
 

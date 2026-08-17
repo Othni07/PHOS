@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { lookup, versions, type BibleData } from "../bible/bible.ts";
 import { parseReference } from "../bible/reference.ts";
 import { searchSongs, songToItem } from "../songs/search.ts";
-import { loadSongBook } from "../songs/songs.ts";
 import type { SongBook } from "../songs/types";
 import type { Item } from "../types";
 import "./SearchBar.css";
@@ -15,6 +14,9 @@ interface SearchBarProps {
   onVersionChange: (versionId: string) => void;
   bible: BibleData | null;
   bibleError: string | null;
+  /** Recueil livré et cantiques saisis, déjà fusionnés par la console. */
+  songBook: SongBook | null;
+  songError: string | null;
 }
 
 interface Result {
@@ -41,34 +43,14 @@ export function SearchBar({
   onVersionChange,
   bible,
   bibleError,
+  songBook,
+  songError,
 }: SearchBarProps) {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const version = versions.find((v) => v.id === versionId) ?? versions[0];
-
-  const [songBook, setSongBook] = useState<SongBook | null>(null);
-  const [songError, setSongError] = useState<string | null>(null);
-
-  // Le recueil est indépendant de la version biblique : chargé une seule fois.
-  useEffect(() => {
-    let cancelled = false;
-    loadSongBook().then(
-      (loaded) => {
-        if (!cancelled) setSongBook(loaded);
-      },
-      (error: unknown) => {
-        if (cancelled) return;
-        setSongError(
-          error instanceof Error ? error.message : "Chargement du recueil impossible",
-        );
-      },
-    );
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   // Résultats recalculés à chaque frappe : c'est le retour immédiat qui permet
   // de corriger une saisie avant de l'envoyer à l'écran.

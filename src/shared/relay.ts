@@ -68,7 +68,16 @@ export function connectRelay(onState: ((state: ShowState) => void) | null): Rela
     close() {
       closed = true;
       window.clearTimeout(retry);
-      socket?.close();
+      const open = socket;
+      if (!open) return;
+      // Fermer une liaison encore en cours d'établissement fait avertir le
+      // navigateur. On attend l'ouverture pour refermer proprement : le cas se
+      // produit à chaque montage double de StrictMode en développement.
+      if (open.readyState === WebSocket.CONNECTING) {
+        open.addEventListener("open", () => open.close(), { once: true });
+      } else {
+        open.close();
+      }
     },
   };
 }
