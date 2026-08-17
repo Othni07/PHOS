@@ -1,8 +1,18 @@
 import type { ShowState } from "../types";
-import { defaultAppearance, normalizeAppearance } from "./appearance.ts";
+import {
+  defaultAppearance,
+  normalizeAppearance,
+  type OverlayAppearance,
+} from "./appearance.ts";
 
 const CHANNEL_NAME = "projecteur";
-const STORAGE_KEY = "projecteur.showState";
+
+/**
+ * L'apparence est un réglage, pas une donnée de culte : elle survit à la
+ * fermeture, contrairement au déroulé qui vit le temps d'une session
+ * (voir src/console/session.ts). D'où deux stockages distincts.
+ */
+const APPEARANCE_KEY = "projecteur.appearance";
 
 export const initialShowState: ShowState = {
   slide: null,
@@ -24,14 +34,24 @@ export function reviveShowState(raw: unknown): ShowState {
   };
 }
 
-export function loadPersistedState(): ShowState {
+export function loadAppearance(): OverlayAppearance {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) return reviveShowState(JSON.parse(raw));
+    const raw = window.localStorage.getItem(APPEARANCE_KEY);
+    if (raw) return normalizeAppearance(JSON.parse(raw));
   } catch {
-    // stockage indisponible, on repart de l'état initial
+    // stockage indisponible, on repart des réglages par défaut
   }
-  return initialShowState;
+  return defaultAppearance;
+}
+
+/**
+ * État de départ d'une page. Le contenu à l'antenne n'est pas restauré ici :
+ * la projection et l'overlay le reçoivent de la console au démarrage (rejeu
+ * « hello » et rejeu du relais). Seuls les réglages sont repris, pour éviter
+ * que l'incrustation n'apparaisse une fraction de seconde mal réglée.
+ */
+export function loadPersistedState(): ShowState {
+  return { ...initialShowState, appearance: loadAppearance() };
 }
 
 export function createShowBus() {
@@ -43,7 +63,10 @@ export function createShowBus() {
       const message: Message = { type: "state", payload: state };
       channel.postMessage(message);
       try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        window.localStorage.setItem(
+          APPEARANCE_KEY,
+          JSON.stringify(state.appearance),
+        );
       } catch {
         // tant pis, la persistance est un confort, pas une garantie
       }

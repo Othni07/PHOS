@@ -17,6 +17,7 @@ import type { Item, ShowState } from "../types";
 import { AppearancePanel } from "./AppearancePanel.tsx";
 import { BibleBrowser } from "./BibleBrowser.tsx";
 import { SearchBar } from "./SearchBar.tsx";
+import { loadSession, saveSession } from "./session.ts";
 import "./ConsolePage.css";
 
 interface FlatSlide {
@@ -37,9 +38,17 @@ function flatten(items: Item[]): FlatSlide[] {
 export function ConsolePage() {
   const busRef = useRef<ReturnType<typeof createShowBus> | null>(null);
   const relayRef = useRef<Relay | null>(null);
-  // Le déroulé part vide : tout entre par la recherche, versets comme cantiques.
-  const [items, setItems] = useState<Item[]>([]);
-  const [state, setState] = useState<ShowState>(() => loadPersistedState());
+  // Le déroulé part vide à chaque nouvelle session, mais se retrouve intact
+  // après un rechargement accidentel de la console (voir session.ts).
+  const restored = useRef(loadSession()).current;
+  const [items, setItems] = useState<Item[]>(restored?.items ?? []);
+  const [state, setState] = useState<ShowState>(() => ({
+    ...loadPersistedState(),
+    slide: restored?.slide ?? null,
+    visible: restored?.visible ?? false,
+    itemIndex: restored?.itemIndex ?? 0,
+    slideIndex: restored?.slideIndex ?? 0,
+  }));
   const [browsing, setBrowsing] = useState(false);
   const [tuning, setTuning] = useState(false);
 
@@ -100,6 +109,19 @@ export function ConsolePage() {
     busRef.current?.postState(state);
     relayRef.current?.send(state);
   }, [state]);
+
+  // Le déroulé est sauvegardé avec la position : après un rechargement, la
+  // régie doit revenir exactement où elle en était, pas seulement afficher la
+  // bonne diapositive au-dessus d'une liste vide.
+  useEffect(() => {
+    saveSession({
+      items,
+      slide: state.slide,
+      visible: state.visible,
+      itemIndex: state.itemIndex,
+      slideIndex: state.slideIndex,
+    });
+  }, [items, state.slide, state.visible, state.itemIndex, state.slideIndex]);
 
   // Rejeu à l'ouverture : une fenêtre qui vient de s'ouvrir n'a rien reçu.
   useEffect(() => {
