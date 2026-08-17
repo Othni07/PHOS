@@ -13,7 +13,7 @@ import "../shared/Output.css";
 import type { OverlayAppearance } from "../shared/appearance.ts";
 import { connectRelay, type Relay } from "../shared/relay.ts";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
-import type { Item, ShowState } from "../types";
+import type { Item, ShowState, SlideKind } from "../types";
 import { AppearancePanel } from "./AppearancePanel.tsx";
 import { BibleBrowser } from "./BibleBrowser.tsx";
 import { SearchBar } from "./SearchBar.tsx";
@@ -27,13 +27,14 @@ import "./ConsolePage.css";
 interface FlatSlide {
   itemIndex: number;
   slideIndex: number;
+  kind: SlideKind;
 }
 
 function flatten(items: Item[]): FlatSlide[] {
   const flat: FlatSlide[] = [];
   items.forEach((item, itemIndex) => {
     item.slides.forEach((_, slideIndex) => {
-      flat.push({ itemIndex, slideIndex });
+      flat.push({ itemIndex, slideIndex, kind: item.kind });
     });
   });
   return flat;
@@ -121,6 +122,18 @@ export function ConsolePage() {
 
   const flatSlides = useMemo(() => flatten(items), [items]);
 
+  /**
+   * Les flèches ne franchissent pas la frontière entre versets et cantiques :
+   * enchaîner sur la strophe 1 d'un chant parce qu'on lisait la fin d'un
+   * passage serait une mauvaise surprise en direct. Chaque nature forme son
+   * propre couloir de défilement.
+   */
+  const currentKind = items[state.itemIndex]?.kind;
+  const lane = useMemo(
+    () => (currentKind ? flatSlides.filter((f) => f.kind === currentKind) : flatSlides),
+    [flatSlides, currentKind],
+  );
+
   // Créé et fermé dans le même effet pour rester cohérent sous StrictMode
   // (mount → cleanup → remount en dev fermerait un canal encore référencé
   // par les effets ci-dessous si la création se faisait ailleurs).
@@ -183,10 +196,10 @@ export function ConsolePage() {
 
   const step = useCallback(
     (delta: 1 | -1) => {
-      const current = flatSlides.findIndex(
+      const current = lane.findIndex(
         (f) => f.itemIndex === state.itemIndex && f.slideIndex === state.slideIndex,
       );
-      const next = flatSlides[(current === -1 ? 0 : current) + delta];
+      const next = lane[(current === -1 ? 0 : current) + delta];
       if (next) {
         goTo(next.itemIndex, next.slideIndex);
         return;
@@ -218,7 +231,7 @@ export function ConsolePage() {
         slideIndex: delta === 1 ? s.slideIndex + 1 : 0,
       }));
     },
-    [flatSlides, state.itemIndex, state.slideIndex, state.slide, goTo, bible, version],
+    [lane, state.itemIndex, state.slideIndex, state.slide, goTo, bible, version],
   );
 
   const toggleBlackout = useCallback(() => {
@@ -285,10 +298,10 @@ export function ConsolePage() {
   // l'affiche. Calculé comme le fait step() : d'abord le déroulé, puis la
   // suite du texte, sinon rien.
   const nextSlide = useMemo(() => {
-    const current = flatSlides.findIndex(
+    const current = lane.findIndex(
       (f) => f.itemIndex === state.itemIndex && f.slideIndex === state.slideIndex,
     );
-    const following = flatSlides[(current === -1 ? 0 : current) + 1];
+    const following = lane[(current === -1 ? 0 : current) + 1];
     if (following) {
       return items[following.itemIndex]?.slides[following.slideIndex] ?? null;
     }
@@ -296,7 +309,7 @@ export function ConsolePage() {
     if (!bible || !source) return null;
     const target = neighbourVerse(bible, source, 1);
     return target ? slideFromSource(bible, target, version) : null;
-  }, [flatSlides, items, state.itemIndex, state.slideIndex, state.slide, bible, version]);
+  }, [lane, items, state.itemIndex, state.slideIndex, state.slide, bible, version]);
 
   return (
     <div className={`console${panel !== "none" ? " console--browsing" : ""}`}>
@@ -321,41 +334,58 @@ export function ConsolePage() {
             Tapez une référence ou un titre de cantique ci-dessus.
           </p>
         )}
-        {items.map((item, itemIndex) => (
-          <div key={item.id} className="rundown-item">
-            <div className="rundown-item__header">
-              <span className="rundown-item__label">{item.label}</span>
-              <button
-                type="button"
-                className="rundown-item__remove"
-                onClick={() => removeItem(itemIndex)}
-                title="Retirer du déroulé"
-                aria-label={`Retirer ${item.label}`}
-              >
-                ×
-              </button>
-            </div>
-            <ul className="rundown-item__slides">
-              {item.slides.map((slide, slideIndex) => {
-                const active =
-                  state.slide !== null &&
-                  itemIndex === state.itemIndex &&
-                  slideIndex === state.slideIndex;
-                return (
-                  <li key={slideIndex}>
+
+        {/* Deux sections distinctes : les flèches restant dans une seule
+            nature, la liste doit montrer où passe le défilement. */}
+        {(["verset", "cantique"] as const).map((kind) => {
+          const group = items
+            .map((item, itemIndex) => ({ item, itemIndex }))
+            .filter(({ item }) => item.kind === kind);
+          if (group.length === 0) return null;
+
+          return (
+            <section key={kind} className={`rundown-group rundown-group--${kind}`}>
+              <h2 className="rundown-group__title">
+                {kind === "verset" ? "Versets" : "Cantiques"}
+              </h2>
+              {group.map(({ item, itemIndex }) => (
+                <div key={item.id} className="rundown-item">
+                  <div className="rundown-item__header">
+                    <span className="rundown-item__label">{item.label}</span>
                     <button
                       type="button"
-                      className={`slide-button${active ? " slide-button--active" : ""}`}
-                      onClick={() => goTo(itemIndex, slideIndex)}
+                      className="rundown-item__remove"
+                      onClick={() => removeItem(itemIndex)}
+                      title="Retirer du déroulé"
+                      aria-label={`Retirer ${item.label}`}
                     >
-                      {slide.reference}
+                      ×
                     </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
+                  </div>
+                  <ul className="rundown-item__slides">
+                    {item.slides.map((slide, slideIndex) => {
+                      const active =
+                        state.slide !== null &&
+                        itemIndex === state.itemIndex &&
+                        slideIndex === state.slideIndex;
+                      return (
+                        <li key={slideIndex}>
+                          <button
+                            type="button"
+                            className={`slide-button${active ? " slide-button--active" : ""}`}
+                            onClick={() => goTo(itemIndex, slideIndex)}
+                          >
+                            {slide.reference}
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
+            </section>
+          );
+        })}
       </aside>
 
       {panel === "bible" && (
