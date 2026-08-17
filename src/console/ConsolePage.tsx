@@ -10,9 +10,11 @@ import { loadBible } from "../bible/load.ts";
 import { platform } from "../platform";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
+import type { OverlayAppearance } from "../shared/appearance.ts";
 import { connectRelay, type Relay } from "../shared/relay.ts";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
 import type { Item, ShowState } from "../types";
+import { AppearancePanel } from "./AppearancePanel.tsx";
 import { BibleBrowser } from "./BibleBrowser.tsx";
 import { SearchBar } from "./SearchBar.tsx";
 import "./ConsolePage.css";
@@ -39,6 +41,7 @@ export function ConsolePage() {
   const [items, setItems] = useState<Item[]>([]);
   const [state, setState] = useState<ShowState>(() => loadPersistedState());
   const [browsing, setBrowsing] = useState(false);
+  const [tuning, setTuning] = useState(false);
 
   // La version courante et le texte chargé appartiennent à la console : la
   // recherche et le navigateur de livres doivent désigner le même texte.
@@ -160,6 +163,10 @@ export function ConsolePage() {
     setState((s) => ({ ...s, visible: !s.visible }));
   }, []);
 
+  const setAppearance = useCallback((appearance: OverlayAppearance) => {
+    setState((s) => ({ ...s, appearance }));
+  }, []);
+
   // Un passage trouvé part directement à l'antenne : c'est le geste attendu
   // quand le prédicateur annonce une référence en pleine prédication.
   const addItem = useCallback((item: Item) => {
@@ -240,6 +247,10 @@ export function ConsolePage() {
           bibleError={bibleError}
         />
 
+        {tuning && (
+          <AppearancePanel state={state} onChange={setAppearance} />
+        )}
+
         <h1 className="console__title">Déroulé</h1>
         {items.length === 0 && (
           <p className="console__empty">
@@ -316,12 +327,7 @@ export function ConsolePage() {
               <div className="preview__screen">
                 {nextSlide ? (
                   <Output
-                    state={{
-                      slide: nextSlide,
-                      visible: true,
-                      itemIndex: 0,
-                      slideIndex: 0,
-                    }}
+                    state={{ ...state, slide: nextSlide, visible: true }}
                   />
                 ) : (
                   <p className="screen__empty">Fin du déroulé</p>
@@ -341,6 +347,13 @@ export function ConsolePage() {
             onClick={() => setBrowsing((open) => !open)}
           >
             Parcourir la Bible
+          </button>
+          <button
+            type="button"
+            className={`control-button${tuning ? " control-button--on" : ""}`}
+            onClick={() => setTuning((open) => !open)}
+          >
+            Apparence OBS
           </button>
           <button
             type="button"

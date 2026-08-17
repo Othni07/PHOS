@@ -1,0 +1,62 @@
+/*
+  Unités de conteneur (cqw/cqh) plutôt que vw/vh : le même CSS doit rendre
+  dans les mêmes proportions en 1920×1080 dans OBS et dans la vignette
+  d'aperçu de la régie. C'est ce qui rend le réglage fiable sans alt-tab.
+*/
+.overlay {
+  width: 100%;
+  height: 100%;
+  container-type: size;
+  display: flex;
+  align-items: flex-end;
+  background: transparent;
+}
+
+/*
+  Le bas du dégradé est piloté depuis la régie : sur une image claire, un
+  bandeau trop discret laisse du texte blanc sur fond blanc. Le haut reste
+  toujours transparent pour que le visage du prédicateur ne soit pas coupé
+  par une arête franche.
+*/
+.overlay__band {
+  width: 100%;
+  padding: 4cqh 6cqw 5cqh;
+  background: linear-gradient(
+    to top,
+    rgba(16, 18, 25, var(--overlay-band-opacity, 0.95)) 0%,
+    rgba(16, 18, 25, calc(var(--overlay-band-opacity, 0.95) * 0.75)) 55%,
+    rgba(16, 18, 25, 0) 100%
+  );
+  border-bottom: 0.3cqh solid var(--tally-red, #c8483c);
+  color: #fff;
+  font-family: var(--overlay-font);
+  /* Contour porté en toutes circonstances : dernier recours de lisibilité si
+     l'opérateur baisse l'opacité du fond. */
+  text-shadow:
+    0 0.1cqh 0.3cqh rgba(0, 0, 0, 0.95),
+    0 0 1.2cqh rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transform: translateY(2cqh);
+  transition:
+    opacity 260ms ease,
+    transform 260ms ease;
+}
+
+.overlay__band--on {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay__body {
+  margin: 0;
+  font-size: calc(3.4cqw * var(--overlay-scale, 1));
+  line-height: 1.3;
+  white-space: pre-line;
+  text-wrap: balance;
+}
+
+.overlay__reference {
+  margin: 0.8cqh 0 0;
+  font-size: calc(1.4cqw * var(--overlay-scale, 1));
+  color: #c7d2da;
+}

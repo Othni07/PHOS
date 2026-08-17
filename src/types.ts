@@ -1,3 +1,5 @@
+import type { OverlayAppearance } from "./shared/appearance.ts";
+
 export type SlideKind = "verset" | "cantique";
 
 /**
@@ -31,4 +33,11 @@ export interface ShowState {
   visible: boolean; // false = écran noir, contenu reste chargé
   itemIndex: number;
   slideIndex: number;
+  /**
+   * Apparence de l'overlay OBS. Portée par l'état plutôt que par un message
+   * séparé : elle emprunte ainsi les mêmes canaux, la même persistance et le
+   * même rejeu à la connexion, sans quoi une source OBS recréée en plein
+   * culte reviendrait aux réglages d'usine.
+   */
+  appearance: OverlayAppearance;
 }

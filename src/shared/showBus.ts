@@ -1,4 +1,5 @@
 import type { ShowState } from "../types";
+import { defaultAppearance, normalizeAppearance } from "./appearance.ts";
 
 const CHANNEL_NAME = "projecteur";
 const STORAGE_KEY = "projecteur.showState";
@@ -8,14 +9,25 @@ export const initialShowState: ShowState = {
   visible: false,
   itemIndex: 0,
   slideIndex: 0,
+  appearance: defaultAppearance,
 };
 
 type Message = { type: "state"; payload: ShowState } | { type: "hello" };
 
+/** Un état venu du stockage ou du réseau peut précéder l'ajout d'un champ. */
+export function reviveShowState(raw: unknown): ShowState {
+  const value = (raw ?? {}) as Partial<ShowState>;
+  return {
+    ...initialShowState,
+    ...value,
+    appearance: normalizeAppearance(value.appearance),
+  };
+}
+
 export function loadPersistedState(): ShowState {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw) as ShowState;
+    if (raw) return reviveShowState(JSON.parse(raw));
   } catch {
     // stockage indisponible, on repart de l'état initial
   }
