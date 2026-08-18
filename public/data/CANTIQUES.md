@@ -103,3 +103,10 @@ l'opérateur qui tape un numéro de mémoire. La recherche se fait par titre.
 
 Les couplets anglais des cantiques bilingues sont conservés et placés après
 les couplets français.
+
+### Diffusion
+
+Le §13 du document de contexte demandait de clarifier les droits SACEM/CCLI
+avant toute diffusion publique. Le responsable du projet a confirmé le
+17 août 2026 que ces cantiques peuvent être publiés : le dépôt peut donc être
+public sans retirer `cantiques.json`.
