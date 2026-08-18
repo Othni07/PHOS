@@ -1,32 +1,124 @@
-# React + TypeScript + Vite
+# Projecteur
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Application de projection de versets bibliques et de cantiques pour le culte,
+avec incrustation native dans OBS Studio.
 
-Currently, two official plugins are available:
+Elle sert **deux publics à la fois** : la salle, par un vidéoprojecteur, et les
+spectateurs en ligne, par une incrustation transparente dans OBS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Démarrer
 
-## React Compiler
+Double-cliquez sur **`Demarrer.cmd`**, ou en ligne de commande :
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Laissez la fenêtre du serveur ouverte pendant tout le culte : la fermer coupe
+la projection et l'incrustation.
+
+| Page | Adresse | Rôle |
+| ---- | ------- | ---- |
+| Régie | <http://localhost:5173/console> | La seule à piloter |
+| Projection | <http://localhost:5173/projection> | Sortie vidéoprojecteur |
+| Overlay | <http://localhost:5173/overlay> | Source Navigateur d'OBS |
+
+Le port est figé : l'URL saisie dans OBS ne doit jamais changer.
+
+## En régie
+
+Tapez une référence ou un titre, `Entrée` projette.
+
+| Saisie | Résultat |
+| ------ | -------- |
+| `jn 3:16` · `jean 3.16` · `43 3:16` | Jean 3.16 |
+| `Ps 23` | le psaume entier, une diapositive par verset |
+| `1 co 13:4-7` | la plage demandée |
+| `marchons` | le cantique par son titre |
+
+Accents, casse et séparateurs sont indifférents.
+
+| Touche | Effet |
+| ------ | ----- |
+| `→` `Espace` `PageDown` | diapositive suivante |
+| `←` `PageUp` | précédente |
+| `B` | écran noir |
+| `/` | retour à la recherche |
+
+Les flèches ne franchissent pas la frontière entre versets et cantiques. Sur un
+verset, elles poursuivent la lecture dans le texte au-delà du passage choisi,
+en franchissant les chapitres.
+
+**« Parcourir la Bible »** ouvre un choix livre → chapitre → versets, avec
+sélection multiple (`Maj+clic` pour étendre).
+**« Cantiques »** ouvre le formulaire de saisie.
+**« Apparence OBS »** règle police, taille et opacité de l'incrustation.
+**« Projeter sur… »** liste les écrans et ouvre la projection sur le bon.
+
+## OBS
+
+Source **Navigateur**, URL <http://localhost:5173/overlay>, largeur 1920,
+hauteur 1080, et **décochez « Fermer la source quand elle n'est pas visible »**.
+Placez-la au-dessus de la caméra.
+
+La console diffuse par `BroadcastChannel` — qui ne relie que des onglets d'un
+même navigateur — et par un relais WebSocket, seul capable d'atteindre le
+Chromium embarqué d'OBS. Le dernier état est rejoué à chaque connexion : une
+source recréée en plein culte retrouve l'affichage seule.
+
+## Données
+
+| Fichier | Contenu | Statut |
+| ------- | ------- | ------ |
+| `public/data/bible-lsg.json` | Louis Segond 1910 | Domaine public |
+| `public/data/bible-darby.json` | Darby | Domaine public |
+| `public/data/cantiques.json` | Recueil CMR, 146 cantiques | Voir SOURCES.md |
+
+Voir `public/data/SOURCES.md` pour la provenance et les versions écartées, et
+`public/data/CANTIQUES.md` pour ajouter des cantiques.
+
+## Architecture
+
+Trois pages distinctes plutôt qu'un routeur client : `/projection` a besoin de
+son propre `<head>` pour appliquer un fond noir **avant** que React ne démarre.
+Si le front plante, la salle voit du noir, jamais du blanc.
+
+**La console décide, tout le reste affiche.** La projection et l'overlay ne
+calculent jamais leur propre état — ce qui évite la classe de bugs la plus
+pénible en direct, deux écrans qui divergent. Le composant de rendu est
+partagé entre l'aperçu de la régie et la sortie réelle : l'aperçu est donc
+exact par construction, pas par ressemblance.
+
+`src/platform/` isole les API du navigateur derrière une interface unique. Une
+seconde implémentation suffira pour l'enveloppe Tauri prévue en phase 2 ; le
+reste du code ne bouge pas.
+
+Le déroulé vit dans `sessionStorage` : il survit à un rechargement accidentel
+et disparaît à la fermeture. Les réglages d'apparence et les cantiques saisis
+vivent dans `localStorage`, ce sont des préférences.
+
+## Développement
+
+```
+npm run dev       # serveur
+npm test          # 46 tests
+npm run lint
+npm run build
+```
+
+Convertisseurs de données :
+
+```
+npm run bible -- <source.xml> <id> "<nom>" "<abrév>" public/data/bible-<id>.json
+python scripts/convert-cantiques.py <recueil.docx> public/data/cantiques.json
+```
+
+## Limites connues
+
+- Le relais OBS vit dans le serveur de développement : il disparaît si le
+  projet est servi en fichiers statiques.
+- Le choix d'écran exige Chrome, Edge ou Brave, et la permission « Gérer les
+  fenêtres ». À défaut, la fenêtre s'ouvre à glisser puis `F11`.
+- Le recueil ne distingue pas les refrains : le document source ne les
+  marquait pas. Voir `CANTIQUES.md`.
