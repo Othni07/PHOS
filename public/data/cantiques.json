@@ -1,114 +1,2835 @@
 {
-  "id": "amorce",
-  "name": "Recueil d'amorce",
-  "note": "Recueil de départ, uniquement des textes du domaine public (§13). Il sert à faire tourner la régie tant que le vrai recueil de l'assemblée n'est pas importé. LES PAROLES DOIVENT ÊTRE RELUES sur une édition papier avant tout usage en culte : elles ont été saisies de mémoire et les traductions françaises de ces cantiques connaissent plusieurs variantes. Les strophes manquantes sont volontairement absentes plutôt qu'approximatives.",
-  "songs": [
+ "id": "cmr",
+ "name": "Recueil CMR",
+ "note": "Converti automatiquement depuis un document Word. Le document source ne marque pas les refrains : sauf mention explicite, toutes les parties sont numérotées comme des strophes et projetées dans l'ordre du document. Les couplets anglais suivent les français. Corriger un cantique se fait dans la régie, bouton « Cantiques ».",
+ "songs": [
+  {
+   "id": "un-sujet-de-joie",
+   "title": "Un sujet de joie",
+   "parts": [
     {
-      "id": "a-toi-la-gloire",
-      "number": 1,
-      "title": "À toi la gloire",
-      "author": "Edmond Louis Budry (1884), musique de G. F. Haendel",
-      "parts": [
-        {
-          "kind": "strophe",
-          "number": 1,
-          "body": "À toi la gloire, ô Ressuscité !\nÀ toi la victoire pour l'éternité !\nBrillant de lumière, l'ange est descendu,\nIl roule la pierre du tombeau vaincu."
-        },
-        {
-          "kind": "refrain",
-          "body": "À toi la gloire, ô Ressuscité !\nÀ toi la victoire pour l'éternité !"
-        },
-        {
-          "kind": "strophe",
-          "number": 2,
-          "body": "Vois-le paraître : c'est lui, c'est Jésus,\nTon Sauveur, ton Maître, oh ! ne doute plus !\nSois dans l'allégresse, peuple du Seigneur,\nEt redis sans cesse : le Christ est vainqueur !"
-        },
-        {
-          "kind": "strophe",
-          "number": 3,
-          "body": "Craindrais-je encore ? Il vit à jamais,\nCelui que j'adore, le Prince de paix ;\nIl est ma victoire, mon puissant soutien,\nMa vie et ma gloire : non, je ne crains rien !"
-        }
-      ]
+     "kind": "strophe",
+     "number": 1,
+     "body": "J’entrerai dans ses portes avec la joie dans mon cœur,\nJe viendrai louer le Seigneur;\nJe dirai : \"Voici le jour que l‘Éternel a fait ;\nQu'il soit pour nous tous un sujet de joie.\"\nUn sujet de joie, un sujet de joie,\nQu'il soit pour nous tous un sujet de joie (2X)."
     },
     {
-      "id": "quel-ami-fidele-et-tendre",
-      "number": 2,
-      "title": "Quel ami fidèle et tendre",
-      "author": "Joseph Scriven (1855), traduction française du XIXe siècle",
-      "parts": [
-        {
-          "kind": "strophe",
-          "number": 1,
-          "body": "Quel ami fidèle et tendre\nNous avons en Jésus-Christ,\nToujours prêt à nous entendre,\nÀ répondre à notre cri !\nIl connaît nos défaillances,\nNos chutes de chaque jour,\nSévère en ses exigences,\nIl est riche en son amour."
-        },
-        {
-          "kind": "strophe",
-          "number": 2,
-          "body": "Quel ami fidèle et tendre\nNous avons en Jésus-Christ,\nToujours prêt à nous défendre\nQuand nous presse l'ennemi !\nIl nous suit dans la mêlée,\nNous entoure de ses bras,\nEt c'est lui qui tient l'épée\nQui décide des combats."
-        }
-      ]
-    },
-    {
-      "id": "tel-que-je-suis",
-      "number": 3,
-      "title": "Tel que je suis",
-      "author": "Charlotte Elliott (1835), traduction française",
-      "parts": [
-        {
-          "kind": "strophe",
-          "number": 1,
-          "body": "Tel que je suis, sans rien à moi,\nSinon ton sang versé pour moi\nEt ta voix qui m'appelle à toi,\nAgneau de Dieu, je viens, je viens !"
-        },
-        {
-          "kind": "strophe",
-          "number": 2,
-          "body": "Tel que je suis, bien vacillant,\nEn proie au doute à chaque instant,\nLutte au dehors, crainte au dedans,\nAgneau de Dieu, je viens, je viens !"
-        },
-        {
-          "kind": "strophe",
-          "number": 3,
-          "body": "Tel que je suis, ton cœur est prêt\nÀ prendre le mien tel qu'il est,\nPour tout changer, Sauveur parfait,\nAgneau de Dieu, je viens, je viens !"
-        }
-      ]
-    },
-    {
-      "id": "grand-dieu-nous-te-benissons",
-      "number": 4,
-      "title": "Grand Dieu, nous te bénissons",
-      "author": "D'après le Te Deum, traduction française",
-      "parts": [
-        {
-          "kind": "strophe",
-          "number": 1,
-          "body": "Grand Dieu, nous te bénissons,\nNous célébrons tes louanges !\nÉternel, nous t'exaltons,\nDe concert avec les anges,\nEt prosternés devant toi,\nNous t'adorons, ô grand Roi !"
-        }
-      ]
-    },
-    {
-      "id": "plus-pres-de-toi-mon-dieu",
-      "number": 5,
-      "title": "Plus près de toi, mon Dieu",
-      "author": "Sarah Flower Adams (1841), traduction française",
-      "parts": [
-        {
-          "kind": "strophe",
-          "number": 1,
-          "body": "Plus près de toi, mon Dieu, plus près de toi !\nC'est le mot de ma foi : plus près de toi !\nDans le jour où l'épreuve\nDéborde comme un fleuve,\nGarde-moi près de toi, plus près de toi !"
-        }
-      ]
-    },
-    {
-      "id": "debout-sainte-cohorte",
-      "number": 6,
-      "title": "Debout, sainte cohorte",
-      "author": "George Duffield (1858), traduction française",
-      "parts": [
-        {
-          "kind": "strophe",
-          "number": 1,
-          "body": "Debout, sainte cohorte,\nSoldats du Roi des rois !\nTenez d'une main forte\nL'étendard de la croix !"
-        }
-      ]
+     "kind": "strophe",
+     "number": 2,
+     "body": "I will enter His gates with thanksgiving in my heart;\nI will enter His courts with praise.\nI will say this is the day that the Lord has made.\nI will rejoice for He has made me glad.\nHe has made me glad, He has made me glad,\nI will rejoice for He has made me glad (2X)."
     }
-  ]
+   ]
+  },
+  {
+   "id": "marchons-dans-la-justice-de-dieu",
+   "title": "Marchons dans la justice de Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Nous sommes capables d’aller en avant dans ce pays\nEt posséder la terre du sud jusqu’au nord\nMême si les géants sont là pour nous empêcher\nJESUS est l’assurance du combat."
+    },
+    {
+     "kind": "refrain",
+     "body": "Mon frère, marchons dans la justice\nMarchons dans la justice\nMarchons dans la justice de Dieu\nMarchons dans la justice\nMarchons dans la justice\nMarchons dans la justice de Dieu."
+    }
+   ]
+  },
+  {
+   "id": "il-a-brise-les-portes-de-fer-psaumes-107-31-psau",
+   "title": "Il a brisé les portes de fer (Psaumes 107 : 31 ; Psaumes 107 :16)",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Oui les hommes doivent louer l'Éternel (2X)\nPour sa bonté et pour Son glorieux travail\nPour les fils des hommes (2X)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Il a brisé les portes d'airain,\nEt a mis en pièces les barres de fer (2X)."
+    }
+   ]
+  },
+  {
+   "id": "je-suis-dans-la-joie",
+   "title": "Je suis dans la joie",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je chanterai de tout cœur,\nLes merveilles de mon papa Yahweh\nQui m’a ôté des ténèbres\nEt ma délivré de tous péchés (2X)."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Mon papa est fidèle,\nIl ne m'abandonne jamais.\nJe n’ai plus rien à craindre,\nCar Yahweh m’a libéré."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Je suis dans la joie,\nUne joie immense,\nJe suis dans l’allégresse\nCar Yahweh m’a libéré."
+    }
+   ]
+  },
+  {
+   "id": "chantez-a-l-eternel",
+   "title": "Chantez à l’Éternel",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Chantez à l’Éternel un chant nouveau\nChantez à l’Éternel gens du monde\nChantez à l’Éternel bénissez-le !\nAnnoncez de jour en jour Son salut.\nPubliez Sa gloire au milieu des nations\nRacontez Ses prodiges chez tous les peuples\nL’Éternel est grand et digne de louanges."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Sing unto the Lord a new song\nSing unto the Lord all the earth\nSing unto the Lord and bless His name\nShow forth His salvation\nDeclare His glory among the heathen\nAnd His wonders amongst all people\nFor the Lord is great, and greatly to be praised."
+    }
+   ]
+  },
+  {
+   "id": "tu-frayes-un-chemin",
+   "title": "Tu frayes un chemin",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es là, présent parmi nous\nJe t’adore, je t’adore 2x\nTu es là, agissant parmi nous\nJe t’adore, je t’adore."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu frayes un chemin\nOpère des miracles\nTu tiens tes promesses\nLumière dans les ténèbres\nMon DIEU, c’est ce que tu es (2x)."
+    }
+   ]
+  },
+  {
+   "id": "entre-tes-mains",
+   "title": "Entre tes mains",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Entre tes mains, j’abandonne\nTout ce que j’appelle mien,\nOh, ne permets à personne Seigneur d’en reprendre rien."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Oui, prends tout, Seigneur!\nOui, prends tout, Seigneur!\nEntre tes mains, j’abandonne, Tout avec bonheur."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Je n’ai pas peur de te suivre\nSur le chemin de la croix.\nC’est pour Toi que je veux vivre\nJe connais, j’aime ta voix."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Oui, prends tout, Seigneur!\nOui, prends tout, Seigneur!\nEntre tes mains, j’abandonne, Tout avec bonheur."
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Tu connais mieux que moi-même\nTous les besoins de mon cœur ;\nEt, pour mon bonheur suprême,\nTu peux me rendre vainqueur.\nOui, prends tout, Seigneur!\nOui, prends tout, Seigneur!\nEntre tes mains, j’abandonne, Tout avec bonheur."
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "Prends mon corps et prends mon âme,\nQue tout en moi soit à Toi !\nQue par ta divine flamme\nTout mal soit détruit en moi !"
+    },
+    {
+     "kind": "strophe",
+     "number": 7,
+     "body": "Oui, prends tout, Seigneur!\nOui, prends tout, Seigneur!\nEntre tes mains, j’abandonne, Tout avec bonheur."
+    }
+   ]
+  },
+  {
+   "id": "rien-n-est-impossible-a-l-eternel",
+   "title": "Rien n’est impossible à l’Éternel",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Oh mon Dieu, Tu créas les cieux et la terre\nPar ta main puissante.\nOh mon Dieu, tu créas les cieux et la terre\nPar main déployée."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Rien n’est impossible à l’Éternel,\nRien n’est impossible à l’Éternel\nGrand Dieu puissant, Conseiller, Puissant en action\nRien, rien absolument rien\nRien n’est impossible l’Éternel."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Nothing is too difficult for Thee\nNothing is too difficult for Thee\nGreat and mighty God, Great in counsel and mighty in deed\nNothing, nothing, absolutely nothing\nNothing is too difficult for Thee"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Ah Lord God, thou has made the heavens\nAnd the earth by Thy great power\nAh Lord God, Thou has made the heavens\nAnd the earth by Thine out-stretched arm"
+    }
+   ]
+  },
+  {
+   "id": "grandes-et-admirables",
+   "title": "Grandes et admirables",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Grandes et admirables sont tes Œuvres\nSeigneur Dieu Tout Puissant\nJustes et vraies sont tes voies\nRoi de toutes nations."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Nous sommes victorieux sur la bête\nNous sommes victorieux sur son image\nNous sommes victorieux sur sa marque\nNous sommes victorieux sur le nombre de son nom."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Nous sommes debout sur la mer de verre\nNous avons des harpes de Dieu\nNous chantons le cantique de Moise\nEt nous chantons le cantique de l’Agneau."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Nous chantons le cantique de rédemption\nNous chantons le chant de délivrance\nNous chantons le cantique du salut\nEt nous chantons le cantique de notre Dieu"
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Qui ne craindrait pas le Seigneur?\nQui ne glorifierait pas son nom?\nCar seul tu es Saint\nEt toutes les nations viendront se prosterner."
+    }
+   ]
+  },
+  {
+   "id": "a-l-eternel-soit-toute-la-gloire",
+   "title": "À l’Éternel soit toute la gloire",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "À l’Éternel soit toute la gloire,\nPour tout ce qu’il a fait\nÀ l’Éternel soit toute la gloire,\nPour tout ce qu’il a fait.\nGrandes choses qu’Il a faites\nEt plus grandes qu’Il fera.\nÀ l’Eternel soit toute la gloire,\nPour tout ce qu’Il a fait."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Unto the lord be the glory\nGreat things He has done (2x).\nGreat things He has done\nGreater things He will do\nUnto the lord be the glory Great things He has done."
+    }
+   ]
+  },
+  {
+   "id": "a-jamais-tu-seras",
+   "title": "À jamais Tu seras",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Les cieux proclament la gloire du Ressuscité.\nRien n'est égal à la beauté du Seigneur."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "À jamais Il sera\nL'Agneau sur le trône.\nJe fléchis le genou pour l'adorer lui seul."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Je veux chanter, la gloire du Ressuscité.\nL'Agneau immolé nous a rachetés pour Dieu."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "À jamais Il sera\nL'Agneau sur le trône.\nJe fléchis le genou pour l'adorer lui seul."
+    }
+   ]
+  },
+  {
+   "id": "tu-es-saint",
+   "title": "Tu es Saint",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Oza mosantu eh (2 X)\nOkokani na moto te eh Yahwe\nO Bonga na bonzambe eh Yahwe"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu es Saint Saint Saint (2X)\nPersonne n’est comme toi Mon Dieu Oh Seigneur\nTu es digne de la gloire à jamais."
+    }
+   ]
+  },
+  {
+   "id": "point-d-autre-nom",
+   "title": "Point d’autre nom",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Point d’autre nom que le nom de Jésus\nPoint d’autre nom que le nom du Seigneur\nPoint d’autre nom que le nom de Jess\nEst digne de gloire, Est digne de puissance, Est digne de louanges et d’honneur."
+    }
+   ]
+  },
+  {
+   "id": "oui-je-te-celebre",
+   "title": "Oui je te célèbre",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Toi, la lumière qui a vu nos ténèbres,\nOuvre mes yeux, je veux voir.\nGrâce et beauté que mon cœur adore,\nMon âme aspire après Toi."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Oui je Te célèbre et je me prosterne,\nJe veux proclamer Ta Majesté,\nEn Toi, tout n’est que grâce, Tout est admirable,\nDieu, Tu es si grand et bon pour moi."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Roi de tous temps,\nVers Toi vont nos hommages,\nLa gloire au plus haut des cieux.\nSur cette terre, Tu T’es fait misérable;\nHumble et petit par amour."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Oui je Te célèbre et je me prosterne,\nJe veux proclamer Ta Majesté,\nEn Toi, tout n’est que grâce, Tout est admirable,\nDieu, Tu es si grand et bon pour moi.\nJe ne saurai jamais le prix\nDe tout ce que Tu as subi."
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Oui je Te célèbre et je me prosterne,\nJe veux proclamer Ta Majesté,\nEn Toi, tout n’est que grâce, Tout est admirable,\nDieu, Tu es si grand et bon pour moi."
+    }
+   ]
+  },
+  {
+   "id": "tu-merites-la-gloire",
+   "title": "TU MÉRITES LA GLOIRE",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu mérites la gloire, et tout honneur\nJ’élève mes mains pour t’adorer\nEt je bénis ton saint nom (2X)."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Car tu es grand\nTu fais de si grands miracles\nIl n’y a pas de Dieu comme toi\nIl n’y a pas de Dieu comme toi."
+    }
+   ]
+  },
+  {
+   "id": "abrite-moi",
+   "title": "ABRITE-MOI",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Abrite-moi, sous tes ailes,\nCouvre-moi, par ta main puissante.\nMême si les océans se déchaînent,\nJe les traverserai avec toi.\nPère, tu domines les tempêtes,\nJe suis tranquille car tu es là."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "En Jésus seul, Je me confie\nIl me donne, Force, calme et puissance."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Même si les océans se déchaînent,\nJe les traverserai avec toi.\nPère, tu domines les tempêtes,\nJe suis tranquille car tu es là."
+    }
+   ]
+  },
+  {
+   "id": "dieu-tout-puissant",
+   "title": "DIEU TOUT-PUISSANT",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Dieu tout puissant, Quand mon cœur considère\nTout l'univers créé par ton pouvoir\nLe ciel d'azur, les éclairs, le tonnerre\nLe clair matin ou les ombres du soir."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "De tout mon être, alors s'élève un chant\nDieu tout puissant que tu es grand.\nDe tout mon être alors s'élève un chant\nDieu tout puissant que tu es grand."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Mais quand je songe au sublime mystère\nQu'un Dieu si grand ait pu penser à moi\nQue son cher fils est devenu mon frère\nEt que je suis l'héritier du grand roi."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Alors mon cœur veut dire à lui le jour\nQue tu es bon, oh Dieu d'amour\nAlors mon cœur redit la nuit, le jour\nQue tu es bon, oh Dieu d'amour."
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Quand mon sauveur éclatant de lumière\nSe lèvera de son trône éternel\nEt que laissant les douleurs de la terre\nJe pourrai voir les splendeurs de son ciel."
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "Je redirai à son divin séjour\nRien n'est plus grand que ton amour.\nJe redirai dans son divin séjour\nRien n'est plus grand que ton amour\nRien n'est plus que ton amour."
+    }
+   ]
+  },
+  {
+   "id": "nous-venons-dans-ta-maison",
+   "title": "Nous venons dans ta maison",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Nous venons dans ta maison,\nEt nous nous assemblons pour t'adorer.\nNous venons dans ta maison,\nEt nous nous assemblons pour t'adorer\nNous venons dans ta maison,\nEt nous nous assemblons pour t'adorer, Jésus !\nT'adorer, te louer, Seigneur !"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu nous donnes ta justice,\nEt tu nous affranchis pour t'adorer.\nTu nous donnes ta justice,\nEt tu nous affranchis pour t'adorer.\nTu nous donnes ta justice,\nEt tu nous affranchis pour t'adorer, Jésus !\nT'adorer, te louer, Seigneur !"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Nous levons nos mains vers toi,\nEt nous te contemplons pour t'adorer.\nNous levons nos mains vers toi,\nEt nous te contemplons pour t'adorer.\nNous levons nos mains vers toi,\nEt nous te contemplons pour t'adorer, Jésus !\nT'adorer, te louer, Seigneur !"
+    }
+   ]
+  },
+  {
+   "id": "debout-sainte-cohorte",
+   "title": "Debout, sainte cohorte",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Debout, sainte cohorte, Soldats du roi des rois\nTenez d'une main forte, L'étendard de la croix\nAu sentier de la gloire, Jésus Christ nous conduit\nDe victoire en victoire, Il mène qui le suit."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "La trompette résonne, Debout vaillants soldats\nL'immortelle couronne, Est le prix des combats.\nSi l'ennemi fait rage, Soyez fermes et forts\nRedoublez de courage, S’il redouble d'efforts."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Debout pour la bataille Partez, n'hésitez plus\nPour que nul ne défaille Regardez à Jésus\nDe l'armure invincible, Soldats, revêtez-vous\nLe triomphe est possible Pour qui lutte à genoux."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Debout, debout encore, Luttez jusqu'au matin\nDéjà brille l'aurore, À l'horizon lointain\nBientôt jetant nos armes, Aux pieds du roi des rois\nLes chants après les larmes, Le trône après la croix."
+    }
+   ]
+  },
+  {
+   "id": "envoie-la-puissance-sur-ton-peuple",
+   "title": "Envoie la puissance sur ton peuple",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Envoie la puissance sur ton peuple,\nLa puissance d’autrefois;\nOuvre les écluses, envoie la puissance,\nSur tous ceux qui sont à toi."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Envoie sur chacun des langues de feu\nBrûle en nous le péché;\nPurifie nos âmes, mets en nous ta flamme\nEt baptise-nous de feu."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Purifie nos âmes, mets en nous ta flamme\nEt baptise-nous de feu."
+    }
+   ]
+  },
+  {
+   "id": "dieu-de-gloire",
+   "title": "Dieu de gloire",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Dieu de gloire, Je t'adore\nTon nom s'élève en majesté\nDe mes lèvres, Je célèbre\nTa victoire, ton règne, ton autorité."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Digne es-tu, Agneau de Dieu\nDigne es-tu, Agneau de Dieu\nTous les anges ensemble acclament\nLa puissance de ton nom."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Digne es-tu, Agneau de Dieu\nDigne es-tu, Agneau de Dieu\nL'univers entier proclame\nLa beauté de ton saint nom."
+    }
+   ]
+  },
+  {
+   "id": "tu-es-alpha",
+   "title": "Tu es Alpha",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es Alpha et Omega\nNous t’adorons Seigneur\nTu es digne de louanges (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Nous te rendons toute la gloire\nNous t’adorons Seigneur\nTu es digne de louanges."
+    }
+   ]
+  },
+  {
+   "id": "j-entre-dans-le-saint-des-saints",
+   "title": "J’entre dans le saint des saints",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "J’entre dans le saint des saints,\nJ’entre par le sang de l’Agneau ;\nJ’entre pour t’adorer toi seul,\nJ’entre pour honorer Jésus."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Seigneur je t’adore, je t’adore,\nSeigneur je t’adore, je t’adore,\nCar ton Nom est très saint, Très saint, Seigneur."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Esprit du Dieu Souverain, manifeste Ta présence\nRévèle, la gloire du Dieu vivant."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Que l’éclat de ta gloire nous enveloppe\nQue des rivières d’eaux vives coulent\nQue la loi de ton royaume règne en nous\nQue l’éclat de ta gloire tombe\nQue l’éclat de ta gloire tombe."
+    }
+   ]
+  },
+  {
+   "id": "a-celui-qui-est-assis",
+   "title": "À celui qui est assis",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "À celui qui est assis\nSur le trône et à l'Agneau\nSoit la louange, L'honneur, la gloire\nLa force à jamais."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Qui est digne d'ouvrir le livre,\nQui est capable de rompre les sceaux\nSi non Celui qui a été immolé\nÀ lui soit toute la gloire"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Hosanna, au plus haut des cieux ;\nAlléluia\nÀ Dieu soit la gloire."
+    }
+   ]
+  },
+  {
+   "id": "saint-saint-saint-saint-saint-saint",
+   "title": "Saint Saint Saint Saint Saint Saint",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Saint Saint Saint Saint Saint Saint\nSaint Saint Saint Saint Saint Saint"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Nous t’adorons, Éternel des armées\nTu es Saint, Saint Saint Saint."
+    }
+   ]
+  },
+  {
+   "id": "digne-tu-es-digne",
+   "title": "Digne, Tu es digne",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Digne, Tu es digne\nRoi des rois, Tout Puissant, Tu es digne.\nDigne, Tu es digne\nRoi des rois, Tout Puissant nous t’adorons."
+    }
+   ]
+  },
+  {
+   "id": "qui-es-comme-toi",
+   "title": "Qui es comme toi",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Qui est comme Toi, Qui est comme Toi\nParmi toutes les puissances de la terre;\nQui est comme toi, Oh mon Dieu."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Ta Lo Dabii Re\nTa Lo Dabii Re\nNi Nou Gbo Gbo Ala Gbarha Layé\nTa Lo Dabii Re, Oluwa"
+    }
+   ]
+  },
+  {
+   "id": "prosternes-nous-confessons",
+   "title": "Prosternés, nous confessons",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Prosternés, nous confessons\n« Tu es Dieu, en ce lieu ! »\nProsternés, nous confessons\n« Tu es Dieu, en ce lieu ! »"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Je m'attends à toi ;\nTu es tout pour moi ;\nEclairés de ta présence,\nProsternés, adorons."
+    }
+   ]
+  },
+  {
+   "id": "d-eternite-en-eternite",
+   "title": "D’éternité en éternité",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "D’éternité en éternité, tu es ma justice (3x)\nTu es ma justice, tu es ma justice."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "D’éternité en éternité, tu ne changes pas (3x)\nTu ne changes pas, tu ne changes pas."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Tu m’as délivré, m’as oint d’huile et as fait de moi un vainqueur (3x)\nTu ne changes pas, tu ne changes pas."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "D’éternité en éternité, tu es glorieux (3x)\nTu es glorieux, tu es glorieux."
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Tu m’élèves en Esprit, me remplis de l’Esprit et brise les barres d’airain (3x)\nTu n’échoues jamais, tu n’échoues jamais."
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "D’éternité en éternité, tu es digne Seigneur (3x)\nTu es digne Seigneur, tu es digne Seigneur."
+    }
+   ]
+  },
+  {
+   "id": "christ-est-ma-vie",
+   "title": "Christ est ma vie",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Christ est ma vie (3 x)\nLa longueur de mes jours."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Vie abondante (3 x)\nJésus Christ est pour moi."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Christ, mon festin (3 x)\nIl me garde des maladies."
+    }
+   ]
+  },
+  {
+   "id": "il-n-y-a-que-toi-seigneur",
+   "title": "Il n’y a que toi, SEIGNEUR",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Il n’y a que toi, Seigneur,\nIl n’y a que toi Il n’y a que toi, Seigneur, il n’y a que toi."
+    }
+   ]
+  },
+  {
+   "id": "jehovah-est-son-nom",
+   "title": "JEHOVAH est son nom",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "JEHOVAH est son nom\nJEHOVAH est son nom.\nPuissant guerrier,\nFort dans les combats,\nJEHOVAH est son nom."
+    }
+   ]
+  },
+  {
+   "id": "gloire-gloire",
+   "title": "Gloire ! Gloire !",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Gloire, gloire, gloire à l’AGNEAU\nGloire, gloire, gloire à l’AGNEAU."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Car Il est GLORIEUX;\nEt digne de régner;\nL’AGNEAU est souverain;\nNous élevons, nos voix pour l’adorer;\nL’AGNEAU est souverain."
+    }
+   ]
+  },
+  {
+   "id": "un-jour-je-sais",
+   "title": "UN jour je sais",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "UN jour je sais, Un jour je sais;\nUn jour je sais, qu’Il se lèvera.\nDans ma vie, même le dernier.\nUn jour je sais, un jour je sais."
+    }
+   ]
+  },
+  {
+   "id": "maintenant-le-salut-est-arrive",
+   "title": "MAINTENANT LE SALUT EST ARRIVÉ",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Maintenant le SALUT est arrivé (2x)\nEt la PUISSANCE, et le RÉGNE de notre Dieu;\nEt l’AUTORITÉ de son CHRIST."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Il fut précipité le grand dragon (le serpent);\nIl fut précipité sur la terre;\nIl fut précipité avec ses anges;\nMaintenant, le salut est arrivé (2x)."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Plus de place pour lui dans le ciel;\nPlus de place pour lui dans l’Église;\nPlus de place pour lui dans nos vies;\nMaintenant, le salut est arrivé (2x)."
+    }
+   ]
+  },
+  {
+   "id": "tu-nous-rassasies-de-l-abondance-de-ta-maison-ps",
+   "title": "Tu nous rassasies de l’abondance de ta maison (Ps 36 : 9-10)",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu nous rassasies de l'abondance de ta maison,\nTu nous abreuves de tes délices."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Car auprès de toi est la source de la vie;\nPar ta lumière je vois la lumière."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Qu’elle brille du fond des ténèbres,\nQu’elle brille la lumière de Dieu."
+    }
+   ]
+  },
+  {
+   "id": "jesus-est-alpha",
+   "title": "Jésus est Alpha",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jésus est Alpha, Alpha et Oméga; (2x)\nJe le loue car Il est Alpha,\nAlpha et Oméga (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Comme Lui, je veux être,\nEt vivre pour toujours; (2x)\nJe le loue car Il est Alpha,\nAlpha et Oméga. (2x)."
+    }
+   ]
+  },
+  {
+   "id": "digne-oh-digne-es-tu-seigneur",
+   "title": "Digne, Oh Digne es-tu Seigneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Digne, oh! digne es-tu Seigneur,\nDigne d'être remercié, loué et adoré.\nDigne, oh! digne es-tu Seigneur,\nDigne d'être remercié, loué et adoré."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Chantons alléluia! Agneau sur le trône\nNous t'adorons, nous t'exaltons, Nous célébrons ta gloire.\nAlléluia! Louange au grand Roi.\nTu es plus que vainqueur, Seigneur de l'univers."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Seigneur, tu es plus précieux que l'argent,\nSeigneur, tu es plus précieux que l'or.\nSeigneur, tu es plus beau que le diamant,\nEt rien ne peut se comparer à toi."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Chantons alléluia! Agneau sur le trône\nNous t'adorons, nous t'exaltons, Nous célébrons ta gloire.\nAlléluia! Louange au grand Roi.\nTu es plus que vainqueur, Seigneur de l'univers."
+    }
+   ]
+  },
+  {
+   "id": "jehovah-tu-es-eleve",
+   "title": "JÉHOVAH, Tu es élevé",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jéhovah, tu es élevé\nJéhovah, tu es le Dieu très haut."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Jéhovah Eh Eh;\nJéhovah Ah Ah\nJéhovah Eh Eh;\nJéhovah Ah Ah."
+    }
+   ]
+  },
+  {
+   "id": "toutes-choses-sont-devenues-nouvelles",
+   "title": "Toutes choses sont devenues nouvelles",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Toutes choses, sont devenues nouvelles;\nLes choses anciennes, les choses anciennes sont passées. (2X)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "En Jésus seul, je mets ma confiance;\nCar en Lui seul, j’ai une pleine assurance. (2X)"
+    }
+   ]
+  },
+  {
+   "id": "et-quand-je-prononce-ton-nom",
+   "title": "Et quand je prononce Ton nom",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es ici; Rempli de grâce oh sauveur\nAvec un cœur de père; Ce qu'il me faut\nTu es ici; Avec Tes mains pour guérir\nEt la puissance de l'Esprit; Ce qu'il me faut"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Et quand je prononce Ton nom\nToutes chaînes se brisent\nJe sais que Tu peux tout faire, Jésus\nJuste le son de Ton nom\nFait taire vents et vagues\nEt quand je prononce Ton nom"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Tu es ma force\nL'ancre de mon âme\nTu n'échoues jamais\nMon espoir, ma délivrance"
+    }
+   ]
+  },
+  {
+   "id": "que-la-gloire-du-seigneur-subsiste-a-jamais",
+   "title": "Que la gloire du Seigneur subsiste à jamais",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Que la gloire du Seigneur subsiste à jamais,\nQu'il se réjouisse de toutes ses œuvres !"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Je chanterai le Seigneur tant que j'existerai,\nJe célébrerai son nom tant que je vivrai."
+    }
+   ]
+  },
+  {
+   "id": "comment-ne-pas-te-louer-jesus",
+   "title": "Comment ne pas te louer JÉSUS",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Comment ne pas te louer JÉSUS (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Comment ne pas te louer\nComment ne pas te louer\nComment ne pas te louer, JÉSUS."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Ton nom est la solution JÉSUS (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Ton nom est la solution\nTon nom est la solution\nTon nom est la solution, JÉSUS."
+    }
+   ]
+  },
+  {
+   "id": "je-louerai-dieu-toujours",
+   "title": "Je louerai Dieu, toujours",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je louerai Dieu, toujours, (x2)\nJe louerai Dieu de tout mon cœur,\nJe louerai Dieu de tout mon cœur, toujours."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Alléluia! Mon Dieu est bon, (x2)\nMon Dieu est bon, Il est bon pour moi!"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Je servirai Jésus, toujours, (x2)\nJe servirai Jésus de tout mon cœur,\nJe servirai de tout mon cœur, toujours."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Alléluia! Mon Dieu est bon, (x2)\nMon Dieu est bon, Il est bon pour moi!"
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Je bénirai Dieu, toujours, (x2)\nJe bénirai Dieu de tout mon cœur,\nJe bénirai Dieu de tout mon cœur, toujours."
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "Alléluia! Mon Dieu est bon, (x2)\nMon Dieu est bon, Il est bon pour moi!"
+    },
+    {
+     "kind": "strophe",
+     "number": 7,
+     "body": "J’acclamerai Dieu, toujours, (x2)\nJ’acclamerai Dieu de tout mon cœur,\nJ’acclamerai de tout mon cœur, toujours."
+    }
+   ]
+  },
+  {
+   "id": "j-ai-un-dieu-puissant-la-haut",
+   "title": "J’ai un Dieu Puissant là-haut",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "J'ai un Dieu Puissant là-haut;\nQuand je crie Il entend ma voix;\nJ'ai un Dieu Puissant là-haut;\nQuand je crie Il entend ma voix."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Oh Dieu, Très Haut,\nQue tes œuvres sont admirables;\nJ'ai un Dieu Puissant là-haut.;\nQuand je crie il entend ma voix."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Il me dit vois, mon enfant\nJe te livre Jéricho, son roi et son armée\nMoi je crois et je suis en paix."
+    }
+   ]
+  },
+  {
+   "id": "jesus-mon-redempteur",
+   "title": "Jésus mon rédempteur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jésus mon rédempteur,\nJe viens pour t’adorer.\nJésus mon rédempteur,\nDevant toi je me prosterne."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Jesus Omeka Nnaya,\nI worship You today.\nJesus Omeka Nnaya,\nI bow before Your throne."
+    }
+   ]
+  },
+  {
+   "id": "je-leve-mes-mains-vers-les-cieux",
+   "title": "Je lève mes mains vers les cieux",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je lève les mains vers les cieux\nJe Te donne mon cœur\nJe dirai à mon âme\nTu es Dieu de tout"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Même si les mers se déchainent\nTu parles et Tu les calmes\nTu es mon repos,\nTu es au contrôle"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Tu es mon repos,\nTu es au contrôle\nJe ne crains aucun mal\nTu es au contrôle"
+    }
+   ]
+  },
+  {
+   "id": "je-reconnais-que-tu-peux-tout",
+   "title": "Je reconnais, que tu peux tout",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je reconnais, que Tu peux tout\nEt que rien ne T’est impossible"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Seigneur fait moi voir Ta gloire"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Ta gloire Seigneur\nSeigneur fait moi voir Ta gloire"
+    }
+   ]
+  },
+  {
+   "id": "si-le-dieu-des-esprits-des-prophetes",
+   "title": "Si le Dieu des esprits des prophètes",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Si le Dieu des esprits,\nDes prophètes me touche,\nJ’entendrai, je verrai comme jamais"
+    }
+   ]
+  },
+  {
+   "id": "que-n-as-tu-pas-fais-pour-moi",
+   "title": "Que n’as-tu pas fais pour moi",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Que n’as-tu pas fais pour moi (2x)\nTu as tout donné pour moi (2x"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Que serai-je sans toi (x3)\nJe ne suis rien sans toi"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Jésus, mes mains se lèvent vers toi\nJésus devant toi je me prosterne\nJésus, à qui d’autres irais-je qu’à toi\nJésus devant toi je me prosterne"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Mes forces m’ont quitté\nAmis et familles m’ont tourné le dos\nTu as toujours été là\nJamais tu ne m’as trahi"
+    }
+   ]
+  },
+  {
+   "id": "nous-voulons-te-glorifier",
+   "title": "Nous voulons te glorifier",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Nous voulons te glorifier, Seigneur\nGlorifier ton nom, Seigneur\nCar ton Nom est grand et digne de louange."
+    }
+   ]
+  },
+  {
+   "id": "jesus-je-viens",
+   "title": "Jésus, je viens",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jésus je viens\nJésus, je viens\nAu pied de la croix Seigneur\nTu es mon salut, ma vie,\nLa vie Éternelle\nSeigneur Jésus je viens."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "La promesse de l'Éternel s’accomplira certainement\nNe doute point, qu’Il est fidèle\nSi tu crois en Jésus\nLa promesse de l'Éternel s’accomplira certainement"
+    }
+   ]
+  },
+  {
+   "id": "je-viens-pour-te-louer",
+   "title": "Je viens pour te louer",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je viens pour te louer\nJe viens te louer\nMême si c'est difficile ton amour me suffit"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Je viens pour t'honorer\nJe viens t'honorer\nSur la mort tu as gagné\nTu es le Dieu très haut."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Je viens pour t’adorer\nJe viens t'adorer\nJe veux te contempler tu es mon essentiel"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Te louer eh eh eh ×2\nT'honorer eh eh eh ×2\nT’adorer eh eh eh ×2"
+    }
+   ]
+  },
+  {
+   "id": "jesus-ton-royaume-est-parfait",
+   "title": "Jésus, Ton royaume est parfait",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "JESUS, Ton royaume est parfait\nJESUS, Ton pouvoir est parfait\nJESUS, Ton amour est parfait\nJESUS, oui Tu es Saint."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "JESUS, Ta puissance est parfaite\nJESUS, Ta grandeur est parfaite\nJESUS, Ta douceur est parfaite\nJESUS, oui Tu es Saint."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "JESUS, Ta beauté est parfaite\nJESUS, Ta splendeur est parfaite\nJESUS, tout en Toi est parfait\nJESUS, oui Tu es Saint"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Mon âme T’adore JESUS\nCar Tu es Saint, oui Tu es Saint.\nMon esprit T’adore JESUS\nCar Tu es Saint, oui Tu es Saint\nTon peuple T’adore JESUS\nCar Tu es Saint, oui Tu es Saint."
+    }
+   ]
+  },
+  {
+   "id": "combien-dieu-est-grand",
+   "title": "Combien Dieu est grand",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Le roi dans sa beauté, vêtu de majesté\nLa terre est dans la joie, la terre est dans la joie\nSa gloire resplendit, l’obscurité s’enfuit\nAu son de sa voix, au son de sa voix."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Combien Dieu est grand\nChantons le combien Dieu est grand\nEt tous verrons combien, combien\nDieu est grand"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Car d’âge en âge Il vit, le temps lui est soumis\nCommencement et fin, commencement et fin\nCéleste divinité, Dieu d’éternité\nIl est l’Agneau divin, Il est l’Agneau divin."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Son nom est tout Puissant\nDigne de louange\nJe chanterai combien\nDieu est grand."
+    }
+   ]
+  },
+  {
+   "id": "tu-es-l-eau-de-ma-vie",
+   "title": "Tu es l’Eau de ma vie",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es l’Eau de ma vie\nIntarissable torrent\nTu ne taris jamais (2x) ..."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Inonde ma vie\nInonde mon cœur\nInonde mon esprit\nInonde mon être"
+    }
+   ]
+  },
+  {
+   "id": "les-yeux-fixes-vers-toi",
+   "title": "Les yeux fixés vers toi",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Les yeux fixés vers toi\nJ'oublie les problèmes autour de moi\nPour t'adorer mon Roi\nÊtre guidé par toi"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Je veux t'adorer, t'adorer\nJe veux t'adorer, t'adorer\nJe veux t'adorer, t'adorer\nSeigneur, t'adorer"
+    }
+   ]
+  },
+  {
+   "id": "jesus-jesus-jesus",
+   "title": "Jésus, Jésus, Jésus ...",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jésus, Jésus, Jésus\nTu es élevé, au-dessus de tout."
+    }
+   ]
+  },
+  {
+   "id": "t-adorer-eh-eh-eh",
+   "title": "T’adorer, Eh!Eh!Eh",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "T’adorer, Eh!Eh!Eh\nT’adorer, mon Sauveur\nMon désir est de t’aimer, t’adorer…"
+    }
+   ]
+  },
+  {
+   "id": "jamais-jamais",
+   "title": "Jamais, Jamais",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jamais, jamais, je ne t’oublierais jamais…."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Ce que tu as fait pour moi,\nJe ne t’oublierais jamais.\nJamais, jamais, je ne t’oublierais jamais…."
+    }
+   ]
+  },
+  {
+   "id": "l-heure-de-la-victoire",
+   "title": "L’heure de la victoire",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "L'heure de la victoire et de la vérité\nA sonné dans mon cœur, que Jésus soit loué"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Que Jésus soit loué, dans la vérité."
+    }
+   ]
+  },
+  {
+   "id": "je-leve-ma-voix-pour-t-adorer",
+   "title": "Je lève ma voix pour t’adorer",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je lève ma voix pour t’adorer"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Toi seul est digne d’être adoré"
+    }
+   ]
+  },
+  {
+   "id": "tu-es-plus-grand-que-ce-que-l-on-dit",
+   "title": "Tu es plus grand que ce que l’on dit",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es plus grand que ce que l'on dit\nTu es plus grand que ce que l'on dit"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu es Excellent, tu es merveilleux\nTu es plus grand que ce que l'on dit\nOh tu es Excellent Tu es merveilleux\nTu es plus grand que ce que l'on dit."
+    }
+   ]
+  },
+  {
+   "id": "rocher-des-ages",
+   "title": "Rocher des âges",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Rocher des âges (3X)\nJésus, Tu es le rocher des âges."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu ne changes pas (2X)\nTes promesses sont Oui et Amen\nJe m’appuie sur toi."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "L’alliance traitée avec Abraham;\nLe serment fait à Isaac;\nTu l’as érigé en loi pour Jacob;\nAlliance éternelle pour Israël."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Et tu as dit :\nJe te donnerais ce pays;\nC’est le lot de votre héritage;\nTu ne changes pas."
+    }
+   ]
+  },
+  {
+   "id": "tu-es-au-controle",
+   "title": "Tu es au contrôle",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es au contrôle (2X)\nSeigneur Jésus, Tu es au contrôle."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Pied droit sur la mer\nPied gauche sur la terre,\nSeigneur Jésus, Tu es au contrôle."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Nous t’élevons, plus haut (4X)"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Chante Allé! Alléluia!\nAllé Alléluia! (3X)"
+    }
+   ]
+  },
+  {
+   "id": "nous-te-benissons-merveilleux-dieu",
+   "title": "Nous te bénissons merveilleux Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Nous Te bénissons Merveilleux Dieu\nEt nous magnifions Ton Nom\nNous magnifions Ton Nom\nAmen Alléluia"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Avec des hymnes, avec des psaumes\nNous exaltons Ton Saint Nom\nEt dans les cieux, nous T’adorons\nAmen Alleluia"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "We bless You, Wonderful God\nAnd we magnify Your Name\nWe magnify Your Name\nAmen Alleluia"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Here and now, with hymns and psalms\nWe exalt Your Holy Name\nAnd in heaven, we adore You\nAmen Alléluia"
+    }
+   ]
+  },
+  {
+   "id": "le-dieu-de-victoire-habite-en-moi",
+   "title": "Le Dieu de victoire habite en moi",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Le Dieu de victoire habite en moi,\nLe Dieu de victoire habite en moi.\nJe marche non par la vue,\nMais par la foi.\nLe Dieu de Victoire habite en moi."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Je chanterai, et danserai,\nCar le combat est celui du Seigneur.\nLa victoire est assurée,\nCar notre Dieu est vainqueur."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Avec Dieu, nous ferons des exploits,\nCar c'est Lui ---seul qui écrase l'ennemi,\nChantons et crions la victoire :\nCHRIST est Roi !"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Car Dieu a gagné le combat\nEt libéré Son peuple!\nSa parole a vaincu l'ennemi,\nLa terre entière verra ….\nQu'avec Dieu, nous ferons des exploits,\nCar c'est Lui ---seul qui écrase l'ennemi,\nChantons et crions la victoire :\nCHRIST est Roi !"
+    }
+   ]
+  },
+  {
+   "id": "je-ne-peux-imaginer",
+   "title": "Je ne peux imaginer",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je ne peux m'imaginer …\nCombien ça coûterait …\nÀ la croix, Il a pris ma place …\nMon Dieu s'est donné."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Il a pris ma place (4x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Dieu est fidèle (Dieu est Amour, Puissant, ...) !! Fidèle !!\nMon Jésus est fidèle."
+    }
+   ]
+  },
+  {
+   "id": "dieu-va-faire-encore",
+   "title": "Dieu va faire encore",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Dieu va faire encore (Dieu va faire encore)\nDieu va faire encore (Dieu va faire encore)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Alléluia\nIl guérit les malades, Il ressuscite les morts\nIl est puissant pour sauver, Il ne change pas\nDieu va faire des miracles, des miracles\nDieu va faire encore."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Alléluia\nIl soutient toutes choses par Sa parole puissante\nPlus efficace qu’une épée à deux tranchants\nDis seulement, Seigneur un mot, Seigneur un mot\nJe serais guéri."
+    }
+   ]
+  },
+  {
+   "id": "nous-voulons-voir-jesus-eleve",
+   "title": "Nous voulons voir Jésus élevé",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Nous voulons voir Jésus élevé\nComme un étendard sur ce pays\nPour montrer à tous la vérité\nEt le chemin vers le ciel."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Nous voulons voir, nous voulons voir\nNous voulons voir Jésus élevé"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Pas à pas allons de l'avant\nPeu à peu gagnons du terrain\nCar la prière est notre puissance\nLes murailles s'écroulent à terre\nÀ terre, à terre, à terre, à terre."
+    }
+   ]
+  },
+  {
+   "id": "a-toi-soit-la-gloire-et-tout-honneur",
+   "title": "À toi soit la gloire, et tout honneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "À toi soit la gloire, et tout honneur\nMes mains levées, je t’adore\nEt je bénis ton saint nom (2X)."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Car tu es grand\nTu fais de si grands miracles\nIl n’y a personne d’autre que toi\nNul n’est comparable à toi."
+    }
+   ]
+  },
+  {
+   "id": "ton-nom-est-jehovah-ton-nom-est-elohim",
+   "title": "Ton nom est Jéhovah, ton nom est Élohim",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Ton nom est Jéhovah, ton nom est Élohim\nAu son de ta voix, tout genou fléchis\nAu son de ta voix, toute langue confesse\nQue tu es le Dieu qui garde l’alliance\nIl n’y a personne comme toi."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Dieu qui garde l’alliance,\nIl n’y a personne comme toi.\nAlpha et Omega,\nIl n’y a personne comme toi."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Oh Dieu d’Abraham, Tu es le Dieu d’Isaac\nDieu de Jacob\nDieu d’Élisée, Tu réponds par le feu\nTu es le Dieu de Daniel\nAlpha et Omega,\nIl n’y a personne comme toi."
+    }
+   ]
+  },
+  {
+   "id": "beni-soit-ton-nom-o-seigneur-blessed-be-your-nam",
+   "title": "Beni soit ton nom O Seigneur/ Blessed be your name O Lord",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Béni soit Ton nom O Seigneur\nBéni soit Ton nom O Seigneur\nBéni soit celui, qui règne pour l’éternité\nBéni soit Ton nom O Seigneur"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Blessed be your name O Lord\nBlessed be your name O Lord\nBlessed be the One, who reigns forever more\nBlessed be your name O Lord"
+    }
+   ]
+  },
+  {
+   "id": "how-precious-o-lord",
+   "title": "How precious O Lord",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "O précieux, Seigneur\nEst ton amour inébranlable\nJe trouve refuge à l'ombre de tes ailes\nJe me rassasie, Seigneur, de l'abondance de ta maison\nEt m’abreuve au torrent de tes délices\n45992142774950\nEn toi, est la source de vieX2\nDans ta lumière, Seigneur nous voyons la lumière"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "How precious, O Lord\nIs thou unfailing love\nWe find refuge in the shadow of your wings\nWe feast, Lord Jesus, from the abondance of your house\nAnd we drink, from the river of delights\n33800142901050\nWith you, is the Fountain of lifex2\nIn your Light, O Lord, we see light"
+    }
+   ]
+  },
+  {
+   "id": "quel-sauveur-merveilleux-attache-a-la-croix-pour",
+   "title": "Quel Sauveur merveilleux/Attaché à la croix pour moi",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Quel sauveur merveilleux je possède\nIl s'est sacrifié pour moi\nEt sa vie innocente, il cède\nPour mourir sur l'infâme bois"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Il renonce à la gloire céleste\nPour le plan rédempteur de Dieu\nL'apparence est la plus modeste\nÔ quel prix pour me rendre heureux"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Attaché à la croix pour moi\nAttaché à la croix pour moi\nIl a pris mon péché\nIl m'a délivré\nAttaché à la croix pour moi"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Maltraité, innocent, pour ma vie\nPour mes iniquités, brisé\nEt chargé de mes maladies\nIl mourut pour guérir, sauver"
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Attaché à la croix pour moi\nAttaché à la croix pour moi\nIl a pris mon péché\nIl m'a délivré\nAttaché à la croix pour moi"
+    }
+   ]
+  },
+  {
+   "id": "christ-m-a-tant-aime",
+   "title": "Christ m’a tant aimé",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "2394857662200Christ m’a tant aiméX2\nIl m’a sauvé"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "L’agneau de Dieu a été immolé\nSur la croix pour me donner la vie\nLe fils de Dieu a été immolé\nSur la croix pour me donner la vie."
+    }
+   ]
+  },
+  {
+   "id": "quel-beau-nom",
+   "title": "Quel beau nom",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Dans les cieux et sur la terre\nIl n'est aucun nom plus doux\nAucun que mon cœur préfère\nAu nom de Christ mort pour nous"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Quel beau nom ! Quel beau nom\nPorte l'oint de l'Éternel.\nQuel beau nom! Quel beau nom\nQue celui d'Emmanuel."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Quelque grand que soit un homme\nQu'il soit prince ou qu'il soit roi\nDe quelque nom qu'on le nomme\nJésus est plus grand pour moi."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Dans les maux, Jésus soulage\nIl guérit l'esprit froissé\nMais il ranime le courage\nDu cœur le plus oppressé."
+    }
+   ]
+  },
+  {
+   "id": "avec-mon-dieu",
+   "title": "Avec mon Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Avec mon Dieu, je me jette sur une troupe;\nPar mon Dieu, je franchis une muraille.\nCar les voix de Dieu sont parfaites;\nSa parole est éprouvée;\nQui est un rocher si ce n’est notre Dieu?"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu me donnes le bouclier de ton salut;\nTa bonté m’a rendu puissant;\nTu élargis le chemin sous mes pas;\nEt mes pieds ne chancellent point.\nJe poursuivrais mes ennemis;\nJe les détruirais;\nJe ne reviens pas sans les avoir brisés."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Car tu m’as ceint de force pour mener le combat\nTa bonté m’a rendu puissant;\nTu élargis le chemin sous mes pas;\nEt mes pieds ne chancellent point.\nJe poursuivrais mes ennemis;\nJe les détruirais;\nJe ne reviens pas sans les avoir brisés."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Tu mets mes ennemis en fuite devant moi\nTa bonté m’a rendu puissant;\nTu élargis le chemin sous mes pas;\nEt mes pieds ne chancellent point.\nJe poursuivrais mes ennemis;\nJe les détruirais;\nJe ne reviens pas sans les avoir brisés."
+    }
+   ]
+  },
+  {
+   "id": "dieu-a-une-armee",
+   "title": "Dieu a une armée",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Dieu a une armée, qui est en marche\nAvec la délivrance et la guérison\nLa joie éternelle, et l’allégresse\nDans cette armée nous avons une part."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Car les armures de nos combats ne sont pas charnelles\nMais elles sont puissantes, elles sont puissantes.\nCar les armures de nos combats ne sont pas charnelles\nMais elles sont puissantes, par le Saint Esprit."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Nous avons un sauveur, qui règne sur Son trône\nNos vies lui appartiennent, et nous sommes à Lui\nIl nous ceint de force pour engloutir le vieil homme\nÀ ses pieds, nous nous prosternons."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Dieu a un corps qui, est présent sur cette terre\nOint de son Esprit, nous sommes ses vrais enfants\nLa fin des temps est proche, notre tâche va commencer\nDans ce corps, nous avons une part."
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Nous sommes le peuple de Dieu, si grand et admirable\nSa Sagesse est notre force, on a part à Sa gloire\nSon Esprit est notre source, on partage Sa nature\nAu grand jamais, il nous abandonne."
+    }
+   ]
+  },
+  {
+   "id": "au-seigneur-notre-dieu",
+   "title": "Au Seigneur notre Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Au seigneur notre Dieu\nNous rendons, toute la gloire.\nPuissance et force, et majesté.\nAu siècle des siècles, Amen !\nAu siècle des siècles, Amen!"
+    }
+   ]
+  },
+  {
+   "id": "il-a-mis-sur-moi-une-huile-de-joie",
+   "title": "Il a mis sur moi, une huile de joie",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Il a mis sur moi – une huile de joie\nUn manteau de louanges – que celui du deuil\nUn diadème, au lieu de la cendre\nLouange au lieu d’un esprit abattu"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "C’est le Dieu - qui m’arme de vaillance (3X)\nIl me trace – un chemin parfait."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Il me trace - - - Un chemin droit (3X)\nIl me trace - un chemin parfait.\nIl me guide sur des ailes d’aigles (3X)\nIl me guide sur des ailes d’aigles."
+    }
+   ]
+  },
+  {
+   "id": "jesus-est-le-nom-que-je-connais",
+   "title": "Jésus est le nom que je connais",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jésus est le nom que je connais\nIl est toujours le même, gloire à Son nom\nC’est pour cela je l’aimerais encore\nJésus est le nom que je connais"
+    }
+   ]
+  },
+  {
+   "id": "venez-et-montons",
+   "title": "Venez et montons",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Venez et montons\nÀ la montagne de l’ÉTERNEL\nÀ la maison de notre DIEU"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Il nous enseignera ses voies\nPour que nous marchons dans ses sentiers\nCar la loi sortira de Sion\nEt la parole de l’ÉTERNEL de Jérusalem."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Come and let us go\nUp to the mountain of the LORD\nInto the house of the LORD"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "He will teach us of his ways\nAnd we will walk in his paths\nFor the Law shall go forth out of Zion\nAnd the word of the LORD from Jerusalem."
+    }
+   ]
+  },
+  {
+   "id": "la-ou-deux-ou-trois-sont-reunis",
+   "title": "Là où deux ou trois sont réunis",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Là où deux ou trois sont réunis\nDieu, tu as dit, tu es là,\nNous sommes là, pour honorer ton saint nom."
+    }
+   ]
+  },
+  {
+   "id": "jesus-regne-et-la-terre-tremble",
+   "title": "Jésus règne et la terre tremble",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jésus règne et la terre tremble\nJésus règne et la terre tremble\nJésus règne et la terre tremble\nJésus règne et la terre tremble"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Oluwa djo ba lori ayé ohh\nOluwa djo ba lori ayé ohh\nOluwa djo ba lori ayé ohh\nOluwa djo ba lori ayé ohh"
+    }
+   ]
+  },
+  {
+   "id": "merci-d-un-c-ur-reconnaissant",
+   "title": "Merci d’un cœur reconnaissant",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Merci d'un cœur reconnaissant,\nMerci au Seigneur très très saint,\nMerci car Il a donné Jésus Christ\nSon Fils."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Maintenant le faible dit: « je suis fort, »\nLe pauvre dit: « je suis riche. »\nDieu a fait de grandes choses\nPour nous."
+    }
+   ]
+  },
+  {
+   "id": "grace-et-paix-apocalypse-1-4-6",
+   "title": "Grâce et paix (Apocalypse 1 : 4-6)",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Grâces et paix\nDe la part de Celui qui est\nDe la part de celui qui était\nDe celui qui vient,\nEt de la part des sept esprits qui sont devant Son trône."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Grâce et paix\nDe la part de Jésus Christ\nLui le témoin fidèle\nLui le premier-né des morts\nLe prince des rois, de toute la terre."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "À celui qui nous aime,\nNous a délivré par son sang\nEt qui as fait de nous un royaume de sacrificateur\nPour Dieu, pour son Père."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "À Lui soient toute la gloire\nÀ Lui soit la puissance\nAu siècle des siècles et pour l’Éternité\nAlléluia Amen."
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Je m’incline devant ton trône\nTu es le Seigneur des Seigneurs le Roi des rois\nJe m’incline devant ton trône."
+    }
+   ]
+  },
+  {
+   "id": "ton-regne-est-un-regne-de-tous-les-siecles-psaum",
+   "title": "Ton règne est un règne de tous les siècles (Psaumes 145 :13)",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Ton règne est un règne de tous les siècles\nTa domination subsiste dans tous les âges."
+    }
+   ]
+  },
+  {
+   "id": "il-a-porte-tous-mes-peches",
+   "title": "Il a porté tous mes péchés",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Il a porté tous mes péchés (mes fardeaux, mes iniquités, …)\nIl s’est chargé de mes maladies (afflictions, …)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Alléluia Jésus est Seigneur\nAlléluia Jésus est Seigneur"
+    }
+   ]
+  },
+  {
+   "id": "saint-esprit-vient-descend",
+   "title": "Saint Esprit vient, descend",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Saint Esprit vient, descend\nSaint Esprit vient, descend"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu as été promis, consolateur\nTu as été promis, libérateur\nTu as été promis, esprit de Dieu\nSaint Esprit vient, descend"
+    }
+   ]
+  },
+  {
+   "id": "hosanna-beni-soit-le-roc",
+   "title": "Hosanna, béni soit le roc",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Hosanna, béni soit le roc\nBéni soit le rocher de mon salut\nHosanna, béni soit le roc\nBéni soit le rocher de mon salut"
+    }
+   ]
+  },
+  {
+   "id": "dieu-tu-es-bon-si-magnifique",
+   "title": "Dieu, Tu es bon, Si magnifique",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Dieu, Tu es bon, Si magnifique\nDieu tu es merveilleux\nSeigneur, Tu es excellent"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Excellent est Ton Nom\nExcellent, est Ta force\nDieu Tu es merveilleux\nSeigneur, Tu es excellent"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "God You are so good\nGod, You are kind\nGod, You are wonderful\nMy Lord, You are excellent."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Excellent is Your Name\nExcellent is Your Power\nGod, You are wonderful\nMy Lord, You are excellent."
+    }
+   ]
+  },
+  {
+   "id": "melodie-venue-du-ciel",
+   "title": "Mélodie venue du ciel",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Mélodie venue du ciel,\nUn chant doux et merveilleux,\nTous les anges en harmonie,\nD'une seule voix célèbrent ton nom."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Ta puissance et ta grandeur,\nTa gloire remplissent l'univers,\nTon éclat et ta splendeur,\nTa beauté sont incomparables."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Saint, ô Éternel, Dieu de l'univers,\nDigne de louange !\nHonneur et gloire à l'Agneau de Dieu,\nAssis sur le trône ! Il règne à jamais."
+    }
+   ]
+  },
+  {
+   "id": "autorite-amen",
+   "title": "Autorité Amen",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Autorité, Amen,\nAutorité, elle m'a été donnée.\nC'est Jésus qui règne; tu n’as pas d’autorité.\nChrist règne, tu n’as pas d’autorité.\nAutorité, Amen,\nAutorité, elle m'a été donnée."
+    }
+   ]
+  },
+  {
+   "id": "beni-soit-le-nom",
+   "title": "Béni soit le nom",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Béni soit le nom, Béni soit le nom\nBéni soit le nom du Seigneur Jésus\nJésus est le même, oui toujours le même\nBéni soit le nom du Seigneur Jésus"
+    }
+   ]
+  },
+  {
+   "id": "jesus-christ-est-seigneur",
+   "title": "Jésus Christ est Seigneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Jésus Christ est Seigneur\nIl est sorti du tombeau, Il est Seigneur\nTout genoux fléchira\nToute langue confessera\nQue Jésus est Seigneur."
+    }
+   ]
+  },
+  {
+   "id": "le-roi-des-rois-c-est-jesus",
+   "title": "Le roi des rois c’est Jésus",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Le Roi des rois, c’est Jésus\nLe Roi des rois\nLe Roi des rois, c’est Jésus\nLe Roi des rois."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Alléluia, Hosanna Amen\nAlléluia, Jésus est vivant."
+    }
+   ]
+  },
+  {
+   "id": "je-te-donne-mon-c-ur",
+   "title": "Je te donne mon cœur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je te donne mon cœur, il ne m'appartient plus\nCe que j'ai de meilleur, tout est pour toi Jésus."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Un parfum de valeur, sur Toi est répandu\nC'est l'offrande de mon cœur, je suis à toi Jésus."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Prends mon âme, Prends mon cœur\nJe te donne tout.\nPrends ma vie, me voici\nJe te donne tout\nMon cœur est à toi, tout à toi"
+    }
+   ]
+  },
+  {
+   "id": "je-me-rejouirais-en-toi-et-serais-heureux-psaume",
+   "title": "Je me réjouirais en toi et serais heureux : Psaumes 4 : 7-8 et Cantique 1 : 4",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je me réjouirais en toi, et serais heureux\nJe vanterais ton amour plus que le vin\nAttire-moi à toi et courons ensemble\nJe me réjouirais en toi, et serais heureux."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Bien plus quand leur froment et quand leur moût abondent\nTu as mis de la joie dans mon cœur\nBien plus quand leur froment et quand leur moût abondent\nTu as mis de la joie dans mon cœur"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Fais lever sur nous la lumière de ta face\nŌ Éternel\nFais lever sur nous la lumière de ta face\nŌ Éternel"
+    }
+   ]
+  },
+  {
+   "id": "j-ai-un-fleuve-d-eau-vive-qui-coule-de-mon-sein",
+   "title": "J’ai un fleuve d’eau vive qui coule de mon sein",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "J’ai un fleuve d’eau vive qui coule de mon sein\nIl fait que les boiteux marchent et les aveugles voient\nIl ouvre les portes de prison et libère les captifs\nJ’ai un fleuve d’eau vive qui coule de mon sein"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Jaillis Oh puits, oui dans mon âme\nJaillis Oh puits, et guéris-moi\nJaillis Oh puits, et donne-moi cette vie, en abondance."
+    }
+   ]
+  },
+  {
+   "id": "o-sion-o-sion-messagere-de-bonnes-nouvelles-esai",
+   "title": "O Sion, O Sion, messagère de bonnes nouvelles : Esaïe 40 :9",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "O Sion, O Sion, messagère de bonnes nouvelles\nMonte sur une haute montagne.\nJérusalem, Jérusalem, messagère de bonnes nouvelles\nMonte sur une haute montagne."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Élève ta voix et ne crains point\nÉlève ta voix et ne crains point\nViens annoncer aux villes de Juda:\nVotre Dieu est là ! (3X)."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "O Zion, O Zion, that bringeth glad tidings\nGet thee up into the high mountain\nJerusalem, Jerusalem, that bringeth glad tidings\nGet thee up into the high mountain"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Get thee up be not afraid\nGet thee up be not afraid\nAnd say unto the cities of Judah\nBehold your God! (3 X)"
+    }
+   ]
+  },
+  {
+   "id": "saint-es-tu-oh-seigneur",
+   "title": "Saint es-tu Oh Seigneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Saint es-tu oh Seigneur\nGrandes et puissantes sont tes voies (2X)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Mimo mimo l’Olorun, Atobidju Alagbara (2X)"
+    }
+   ]
+  },
+  {
+   "id": "tu-es-le-chef-de-l-armee",
+   "title": "Tu es le chef de l’armée",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "(2 Samuel 1:18; Psaumes 18:35/ Psaumes 144:1)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu es le chef de l’armée;\nTu es un vaillant guerrier;\nEnseigne-moi à tirer à l’arc\nDe sorte qu’un arc d’airain, se rompt avec mes bras;\nTu es le vaillant de l’armée."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Il exerce mes mains au combat;\nIl exerce mes doigts à la bataille;\nEnseigne-moi à tirer à l’arc\nDe sorte qu’un arc d’airain, se rompt avec mes bras;\nTu es le vaillant de l’armée."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Béni soit l’Éternel mon rocher;\nBéni soit l’Éternel mon rocher;\nEnseigne-moi à tirer à l’arc\nDe sorte qu’un arc d’airain, se rompt avec mes bras;\nTu es le vaillant de l’armée."
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "You are the captain of the Host\nYou are the man of war\nTeach me the use of the bow\nSo that a bow of steel is broken by my arm\nYou are the captain of the host."
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "He teaches my hands to war\nHe teaches my fingers to fight\nTeach me the use of the bow\nSo that a bow of steel is broken by my arm\nYou are the captain of the war"
+    },
+    {
+     "kind": "strophe",
+     "number": 7,
+     "body": "Blessed be the Lord my strength\nBlessed be the Lord my strength\nTeach me the use of the bow\nSo that a bow of steel is broken by my arm\nYou are the captain of the war."
+    }
+   ]
+  },
+  {
+   "id": "a-la-mention-de-ton-nom",
+   "title": "À la mention de ton Nom",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "À la mention de ton nom, tout genou fléchis;\nÀ la mention de ton nom, toute langue confesse.\nTu es Dieu, tu es Roi des rois;\nTu es Dieu, tu es Roi des rois."
+    }
+   ]
+  },
+  {
+   "id": "leve-toi-de-sion",
+   "title": "Lève-toi de Sion",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Lève-toi de Sion, domine parmi tes ennemis (2 X)\nVoici le Seigneur vient, avec ses myriades de Saints."
+    }
+   ]
+  },
+  {
+   "id": "chante-a-l-eternel-car-il-s-est-hautement-eleve",
+   "title": "Chante à l’Éternel, car Il s’est hautement élevé",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Chante à l’Éternel, car Il s’est hautement élevé\nChevaux et cavaliers, Il les a jetés dans la mer."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Sing unto the Lord, for He has triumphs gloriously!\nThe horse and his rider he has thrown into the see."
+    }
+   ]
+  },
+  {
+   "id": "il-ne-nous-a-pas-conduits-si-loin-pour-nous-rame",
+   "title": "Il ne nous a pas conduits si loin pour nous ramener en arrière",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Il ne nous a pas conduits si loin pour nous ramener en arrière.\nIl nous a sortis, nous nous faire entrer dans la terre promise.\nMalgré les géants sur le chemin, nous n'aurons pas de crainte.\nIl nous a sortis pour nous faire entrer dans la terre promise."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "He did not bring us out this far to take us back again.\nHe brought us out to take us into the promise land.\nThough there be giants on the way, we will not be afraid.\nHe brought us out to take us into the promise land."
+    }
+   ]
+  },
+  {
+   "id": "leve-toi-et-brille",
+   "title": "Lève-toi et brille",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Lève-toi, et brille! Car ta lumière est venue,\net la gloire de l'Éternel s'est levée sur toi!"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Voici, les ténèbres couvrent la terre, ‬‬‬‬\nL’obscurité profonde, les peuples;\nMais sur toi l’Éternel se lèvera et sa gloire sera vue sur toi."
+    }
+   ]
+  },
+  {
+   "id": "nous-elevons-ton-nom",
+   "title": "Nous élevons Ton nom",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Nous élevons Ton Nom\nNous élevons Ton nom plus haut.\nNous élevons Ton Nom\nNous élevons Ton nom plus haut\nComme une bannière dans les Cieux."
+    }
+   ]
+  },
+  {
+   "id": "j-eleve-ma-voix-vers-toi-seigneur",
+   "title": "J’élève ma voix vers Toi, Seigneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "J’élève ma voix vers Toi, Seigneur\nD’où me viendra le secours… (2X)."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Ma forteresse, c’est Toi, Jésus\nMon bouclier, c’est Toi, Seigneur."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Que ta puissance, descende sur nous\nL’onction divine comble nos cœurs."
+    }
+   ]
+  },
+  {
+   "id": "oh-eternel-dieu-tu-es-le-dieu-incomparable",
+   "title": "Oh Éternel Dieu, tu es le Dieu incomparable,",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Oh Éternel Dieu, Tu es le Dieu incomparable (2X)."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Les hommes de ce monde se fabriquent des dieux,\nmais leurs dieux ne parlent pas (2X)."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Mais toi Éternel, c’est toi qui as parlé (2X)\nTu as parlé à tes prophètes,\net tes œuvres ne finissent jamais (2X)"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Sur la terre et comme dans les cieux,\nnul n’est comparable à toi mon Dieu (2X)\nTu es partout tu travailles partout,\net tes œuvres ne finissent jamais (2X)"
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "L’orphelin crie à toi, Tu écoutes sa prière,\nL’affligé crie à toi, Tu écoutes sa prière,\nL’assoiffé pleure à toi, Tu écoutes sa prière,\nLe fatigué crie à toi, Tu écoutes sa prière"
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "Tu es partout tu travailles partout\net tes œuvres ne finissent jamais (2X)"
+    }
+   ]
+  },
+  {
+   "id": "viens-et-vois-ehh",
+   "title": "Viens et vois ehh",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Viens et vois ehh …..viens et vois (2x).\nViens et vois les merveilles de Dieu (2x)."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Voici donc les miracles de Dieu (2x).\nOui, Il a tant fait pour moi (3x)\nVoici donc les miracles de Dieu."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Il protège ma vie, Il guide mes pas ohhh,\nVoici donc les miracles de Dieu.\nDans le malheur, Il me console,\nVoici donc les miracles de Dieu."
+    }
+   ]
+  },
+  {
+   "id": "lorsque-ce-corps-corruptible-aura-revetu-l-incor",
+   "title": "Lorsque ce corps corruptible aura revêtu l’incorruptibilité",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Lorsque ce corps corruptible aura revêtu l’incorruptibilité.\nEt que ce corps mortel aura revêtu l’immortalité.\nAlors s’accomplira la parole qui est écrite :\nLa mort a été engloutie dans la victoire"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Oh mort où est ta victoire\nOh mort où est ton aiguillon"
+    }
+   ]
+  },
+  {
+   "id": "la-connaissance-de-dieu",
+   "title": "La connaissance de Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "La connaissance de Dieu doit remplir la terre (*3)\nComme les eaux couvrent la mer"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Afin de le connaître, afin de le connaître\nDans la puissance de sa résurrection"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Afin de le connaître, afin de le connaître\nComme les eaux couvrent la mer (*2)"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "La connaissance de Dieu doit remplir la terre (*3)\nComme les eaux couvrent la mer"
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Afin de le connaître, afin de le connaître\nDans communion de ses souffrances"
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "Afin de le connaître, afin de le connaître\nJe lui serai conforme dans sa mort"
+    },
+    {
+     "kind": "strophe",
+     "number": 7,
+     "body": "Afin de le connaître, afin de le connaître\nDans la puissance de sa résurrection"
+    },
+    {
+     "kind": "strophe",
+     "number": 8,
+     "body": "Afin de le connaître, afin de le connaître\nComme les eaux couvrent la mer."
+    }
+   ]
+  },
+  {
+   "id": "oh-dieu-tu-es-mon-dieu",
+   "title": "Oh Dieu, tu es mon Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Oh Dieu, tu es mon Dieu\nEt je te louerai toujours (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Je te chercherai dès le matin\nEt j’apprendrai à marcher dans tes voies\nEt pas à pas, tu me conduis\nEt je te suivrai toute ma vie."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Oh God, You are my God\nAnd I will ever praise You (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "I will seek You in the morning\nAnd I will learn to walk in Your ways\nAnd Step by step You'll lead me\nAnd I will follow You all of my days"
+    }
+   ]
+  },
+  {
+   "id": "pour-cet-immense-bonheur",
+   "title": "Pour cet immense bonheur!",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Pour cet immense bonheur, alléluia !\nQue tu as mis dans mon cœur, alléluia !\nJe veux te chanter, Seigneur, alléluia !\nOui, Jésus est mon Sauveur, alléluia !"
+    },
+    {
+     "kind": "refrain",
+     "body": "Alléluia ! alléluia !\nAlléluia ! alléluia !\nOui Jésus est mon sauveur, alléluia !"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Je le redirai encore, alléluia !\nQue pour moi, Jésus est mort, alléluia !\nVoilà pourquoi je l'adore, alléluia !\nLui seul est tout mon trésor, alléluia !"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Que chaque jour, à chaque heure, alléluia !\nEn moi tu aies ta demeure, alléluia !\nQue ma vie soit une fleur, alléluia !\nUn parfum pour toi, Seigneur, alléluia !"
+    }
+   ]
+  },
+  {
+   "id": "prosternes-adorons-yahweh",
+   "title": "Prosternés, adorons Yahweh",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Prosternés, adorons Yahweh (2x)\nYahweh Yahweh, Yahweh\nYahweh, Yahweh, Yahweh."
+    }
+   ]
+  },
+  {
+   "id": "tres-haut-dieu-des-cieux-most-high-god-of-heaven",
+   "title": "Trés haut, Dieu des cieux (Most high, God of Heaven)",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Alléluia au Dieu très haut (X)\nTrès haut, Dieu des cieux\nTrès haut, maître de la terre\nTrès haut, Roi des nations\nAlléluia au Dieu très haut."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Alleluia to God most high (X)\nMost high, God of heavens\nMost high, ruler of the earth\nMost high, King of nations\nAlleluia to God most high."
+    }
+   ]
+  },
+  {
+   "id": "je-chanterai-les-bontes-du-seigneur",
+   "title": "Je chanterai les bontés du Seigneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Je chanterai les bontés du Seigneur\nDe ma bouche, je les ferai connaître\nDu lever du soleil jusqu’à son couchant\nJe chanterai les bontés du Seigneur"
+    }
+   ]
+  },
+  {
+   "id": "el-elyown-dieu-tres-haut",
+   "title": "El Elyown, Dieu très haut",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "El Elyown, Dieu très haut\nJÉSUS CHRIST,\nTu es le El-Élohé-Israël (Dieu, le puissant d’Israël)"
+    }
+   ]
+  },
+  {
+   "id": "la-terre-entiere-est-remplie-de-ta-gloire",
+   "title": "La terre entière est remplie de ta Gloire",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "La terre entière est remplie de ta Gloire\nLes ténèbres s'enfuient à l'écho de ta voie\nLa création toute entière contemple\nLa splendeur du Lion de Juda oooh Roi …."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu parles et ce qui est mort reprend vie\nTu déclares et ce qui n'existe pas surgit\nTous les peuples et toutes les nations du monde\nRegardent à Toi, Adonaï oooh Roi."
+    },
+    {
+     "kind": "refrain",
+     "body": "Saint Saint Saint oh Éternel\nToi qui as fait ciel et terre\nJe t'adore, Oh Dieu\nJe t'adore, Oh Dieu\nTout en moi reconnait\nQue tes œuvres sont parfaites\nJe t'adore, Oh Dieu\nJe t'adore, Oh Dieu."
+    }
+   ]
+  },
+  {
+   "id": "oh-holy-spirit",
+   "title": "Oh Holy Spirit",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Ohhh Oh Saint Esprit, nous fixons nos cœurs vers toi ô Dieu (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Emmène-nous plus haut, plus en profondeur, de la plénitude de notre sauveur;\nPour que cette tente mortelle revête la Gloire et la Vie."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Ohh Holy Spirit, we set our heart on the face of God (2x)"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Take us higher, take us deeper, in the fullness of our savior;\nTill this mortal tent is clothed with Glory and Life."
+    }
+   ]
+  },
+  {
+   "id": "notre-dieu-est-grand",
+   "title": "Notre Dieu est grand",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Notre Dieu est grand\nSon nom est puissant\nIl est le grand Dieu\nPour toujours le même."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Il assécha les eaux, de la puissante mer rouge;\nIl dit : Je te guiderai; fais-moi juste confiance."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "How great is our God\nHow great is his name\nHe’s the greatest God\nFor ever the same"
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "He rolled back the water, of the mighty red sea\nHe says I’ll lead you, only trust in me."
+    }
+   ]
+  },
+  {
+   "id": "tu-es-l-agneau",
+   "title": "Tu es l’Agneau",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es l’Agneau, assis le trône\nAdonaï, Adonaï\nMiséricordieux, lent à la colère\nYahweh, Yahweh"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu es digne, Tu es digne,\nD’être couronné, d’être couronné.\nAh ah ah ah ah ah, ah ah ah."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Thou are worthy, Thou are worthy,\nTo wear the crown, to wear the crown.\nAh ah ah ah ah ah, ah ah ah."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Me voici en Ta présence"
+    },
+    {
+     "kind": "strophe",
+     "number": 5,
+     "body": "Me voici en Ta présence\nMe voici en Ta présence,\nFais de moi ce que tu veux\nJe suis ouvert à Toi Seigneur\nFais de moi ce que tu veux"
+    },
+    {
+     "kind": "strophe",
+     "number": 6,
+     "body": "C'est le lieu de la rencontre, fais de moi ce que tu veux\nC'est le lieu où je m’abandonne, fais de moi ce que tu veux\nC'est le lieu où ma chair cède, fais de moi ce que tu veux\nC'est le lieu où ma vie est changée, fais de moi ce que tu veux...\nC’est le lieu ………, fais de moi ce que tu veux."
+    },
+    {
+     "kind": "strophe",
+     "number": 7,
+     "body": "You are the Lamb, seated on the throne\nAdonaï, Adonaï\nYou are rich in mercy, slow to anger\nYahweh, Yahweh"
+    }
+   ]
+  },
+  {
+   "id": "iwo-loba-awon-oba",
+   "title": "Iwo loba awon oba",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Iwo loba awon oba (Tu es le Roi des rois)\nEledumare oh o (Le créateur de la terre)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Oluwa Oluwa etobi loba\n(Mon Dieu, Mon Dieu, Tu es grand comme Dieu)\nOluwa Oluwa etobi loba\n(Mon Dieu, Mon Dieu, Tu es grand comme Dieu)"
+    }
+   ]
+  },
+  {
+   "id": "alleluia-tu-es-digne-notre-seigneur-et-notre-die",
+   "title": "Alléluia, Tu es digne, notre Seigneur et notre Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Alléluia, Tu es digne notre Seigneur et notre Dieu;\nAlléluia, reçois la gloire, l'honneur et la puissance;\nAlléluia, car Tu as créé toutes choses, c'est par Ta volonté qu'elles existent."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Tu as créé toutes choses, c'est par Ta volonté qu'elles existent.\nAlléluia !!"
+    }
+   ]
+  },
+  {
+   "id": "o-eternel-tu-es-mon-dieu",
+   "title": "O Éternel, tu es mon Dieu",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "O Éternel, tu es mon Dieu\nJe t’exalterai, je célèbrerai ton nom\nCar tu as fait des merveilles,\nTes conseils conçus sont fidélité et vérité."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Quand la tempête des tyrans, est comme l’orage contre la muraille\nTu as été ma force, et un abri contre la tempête\nDonc les nations redoutables, te craindront Dieu des armées\nTes conseils conçus sont fidélité et vérité."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Poussons des cris, à l’Agneau assis sur le trône\nNous rendons gloire, à celui qui règne très haut\nChantant Hosanna, béni soit le Roi\nTes conseils conçus sont fidélité et vérité."
+    }
+   ]
+  },
+  {
+   "id": "leve-toi-eternel-toi-et-l-arche-de-ta-force",
+   "title": "Lève-toi, Éternel, toi et l’Arche de ta force",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Lève-toi, Éternel, toi et l’Arche de ta force, et entre dans ton repos (2X)\nQue tes prêtes se parent du salut et tes saints se réjouissent de ton bonheur\nQue les lévites soient établis dans leurs classes\nCar dans de la fête du septième mois, nous serons ferme, demeurons ferme\nDans la fête du septième mois, demeurons ferme."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Arise oh Lord, Thou and the Ark of thy strength and Come into your rest (2x)\nLet thy priests be clothed with salvation;\nand let the saints rejoice in thy goodness;\nLet the levites all stand in their courses.\nFor in the feast of the seventh month we shall stand, we shall stand\nIn the feast of the seventh month we shall stand."
+    }
+   ]
+  },
+  {
+   "id": "a-toi-seigneur-est-la-grandeur-et-la-force",
+   "title": "À toi, SEIGNEUR, est la grandeur, et la force",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "À toi, SEIGNEUR, est la grandeur, et la force\nLa gloire, et la victoire et la majesté\nCar tout (ce) qui est dans les cieux et sur la terre t’appartient.\nÀ toi, est le règne, oh SEIGNEUR, notre Dieu\nTu es exalté au-dessus de tout."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Thine, O Lord is the greatness, and the power,\nThe glory, and the victory, and the majesty:\nFor all that’s in (the) heaven and the earth, they are yours;\nThine is the kingdom, O Lord, our God.\nYou art exalted above them all."
+    }
+   ]
+  },
+  {
+   "id": "le-seigneur-notre-dieu-au-milieu-de-nous-est-pui",
+   "title": "Le Seigneur notre Dieu au milieu de nous est Puissant, est Puissant",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Le Seigneur notre Dieu au milieu de nous, est Puissant, est Puissant\nIl sauvera, (Il) se réjouira à notre sujet avec joie, avec joie\n(Il) se reposera dans son amour\n(Il) se réjouira par des chants à notre sujet.\nLe Seigneur notre Dieu au milieu de nous est Puissant, est Puissant, Puissant"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "The Lord, our God in the midst of us is mighty, is mighty\nHe will save, He will rejoice over thee with joy, with joy\nHe will rest in his love,\nHe will joy over you with singing\nThe Lord, our God in the midst of us is mighty, is mighty, mighty."
+    }
+   ]
+  },
+  {
+   "id": "tu-es-digne-o-seigneur",
+   "title": "Tu es digne, Ô Seigneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es digne, Ô Seigneur\nDe recevoir gloire, honneur et puissance\nCar tu as créé—-toutes choses et pour ton vouloir\nElles sont et/ont été créées."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Thou art worthy oh Lord\nTo receive glory, honour and power\nFor thou has created all things and for thy pleasure\nThey are and were created."
+    }
+   ]
+  },
+  {
+   "id": "you-alone-deserve-all-the-glory",
+   "title": "You alone deserve all the glory",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "You alone, deserve all the glory\n(Toi seul mérites toute la gloire)\nYou alone, deserve all the honour\n(Toi seul mérites tout l'honneur)\nEl Elyon, we bow before your presence\n(El Elyon, nous sommes maintenant devant ta présence)\nYeshua Hamashiach, we bow before your throne\n(Yeshua Hamashiah, nous nous inclinons devant ton trône)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Lord we bow as we worship you\n(Seigneur, nous nous inclinons pour t'adorer)\nLord we bow, in your Holy Name\n(Seigneur, nous nous inclinons, en ton Saint Nom)."
+    }
+   ]
+  },
+  {
+   "id": "car-toi-seigneur",
+   "title": "Car toi Seigneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Ohh Toi Seigneur, Tu es mon Bouclier!\nTu es ma force, et tu relèves ma tête"
+    }
+   ]
+  },
+  {
+   "id": "mon-elohim-dans-les-lieux-saints",
+   "title": "Mon Elohim, dans les lieux saints",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Mon Elohim, dans les lieux saints\nQue ton saint nom soit glorifié\nCar le ciel est ton trône et la terre est ton marchepied\nQue ton saint nom soit glorifié\nAvec force et puissance, tu règnes en majesté\nQue ton saint nom soit glorifié."
+    }
+   ]
+  },
+  {
+   "id": "tu-es-ma-force-incomparable",
+   "title": "Tu es ma force incomparable,",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es ma force incomparable, Incomparable\nTu viens à moi.\nTu es l'espoir incomparable, Incomparable\nTu viens à moi"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Dans l'abondance de Ta grâce\nPar la puissance de Ton nom\nTu me relèves, Tu me relèves"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "Amour divin inébranlable, Intarissable\nTu viens à moi\nTa bonté, Seigneur,\nS'élève jusqu'aux cieux\nTa fidélité atteint les nuées."
+    }
+   ]
+  },
+  {
+   "id": "iba",
+   "title": "Iba",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu es infiniment Glorieux\nIncomparable et merveilleux\nMes mots ne suffiront pas ….\nTellement Tu es grand, Tellement Tu es bon"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "IBA Oh, IBA\nIBA Oh, IBA"
+    }
+   ]
+  },
+  {
+   "id": "lion-de-juda-assis-sur-le-trone",
+   "title": "Lion de Juda, assis sur le trône",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Lion de Juda, assis sur le trône\nNous d’adorons Très Haut\nNous d’adorons, nous t’adorons\nNous t’adorons Très Haut."
+    }
+   ]
+  },
+  {
+   "id": "down-at-your-feet-oh-lord",
+   "title": "Down at Your feet oh Lord",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Down at Your feet oh Lord\n(À tes pieds, ô Seigneur)\nIs the most high place\n(Se trouve le lieu le plus élevé)\nIn Your presence Lord\n(Dans ta présence, Seigneur)\nI seek Your face, I seek Your face\n(Je cherche ta face, Je cherche ta face)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "There is no higher calling,\n(Il n'y a pas de plus haute vocation)\nNo greater honor\n(Pas de plus grand honneur)\nThen to bow and kneel Before Your throne\n(Que de s'incliner et de s'agenouiller devant Ton trône)"
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "I'm amazed at Your glory\n(Je suis émerveillé par Ta gloire)\nEmbraced by Your mercy\n(Enveloppé par Ta miséricorde)\nOh Lord I live to worship You\n(Ô Seigneur, je vis pour T'adorer)"
+    }
+   ]
+  },
+  {
+   "id": "the-way-of-the-holy-spirit",
+   "title": "The way of the Holy Spirit",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "How can You walk when You don’t know the way of the wind,\n(Comment peux-tu marcher quand tu ne connais pas la direction du vent)\nHow can You run when You don’t know the way of the spirit,\n(Comment peux-tu courir quand tu ne connais pas la direction de l'esprit)\nHow can You fly when You don’t know the way of the wind,\n(Comment peux-tu prendre ton envol quand tu ne connais pas la direction du vent)\nthe power at work in You.\n(la puissance qui agit en toi)\nBringing everything in obedience to Christ\n(Amenant tout à l'obéissance de Christ)"
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "He is the Holy Ghost the Spirit of the Living God\n(Il est le Saint Esprit, l'Esprit du Dieu vivant)\nHe is the Holy Ghost the Sceptre of the King of Kings\n(Il est le Saint Esprit, le sceptre du Roi des rois)\nHe is the Holy Ghost the Seal of the Age to come\n(Il est le Saint Esprit, le sceau de l'âge à venir)\nBringing everything in obedience to Christ\n(Amenant tout à l'obéissance au Christ)."
+    }
+   ]
+  },
+  {
+   "id": "the-elders-and-angels-bow",
+   "title": "The Elders and Angels bow",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Holy, holy, holy are You Lord\nHoly, holy, holy are You Lord\nThe Elders and the Angels bow\nThe redeemed worship You now\nHoly, holy, holy are You Lord"
+    }
+   ]
+  },
+  {
+   "id": "before-the-throne",
+   "title": "Before the throne",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "So we bow, as we enter, the Throne Room\n(Nous nous inclinons donc en venant devant ton trône)\nAnd we cast ourselves down, at Your feet\n(Et nous nous prosternons à Tes pieds)\nWe cry, “Holy!”\n(Nous crions : « Saint ! »)\nThou art holy!\n(Tu es saint !)\nThere's none like Thee\n(Il n’y a personne comme Toi)\nIn Your presence is where we must be.\n(Dans Ta présence, c’est là que nous devons être)."
+    }
+   ]
+  },
+  {
+   "id": "debout-devant-le-trone",
+   "title": "Debout devant le trône",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Debout devant le trône, il n’y point d’autres mots\nQue Saint Saint Saint\nTu es Saint, Oh Dieu Tout Puissant\nLa terre est remplie de ta gloire."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Standing before your throne, there are no words to say\nBut Holy Holy Holy\nYou are Holy, Lord God Almighty\nThe earth is full of your glory"
+    }
+   ]
+  },
+  {
+   "id": "tu-regnes-pour-toujours",
+   "title": "Tu règnes pour toujours",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tu règnes pour toujours, Ton nom est grand à jamais.\nTu es la sagesse d'avant le commencement.\nAh-ah-ah, ah-ah, ah-ah-ah-ah\nAh-ah-ah, ah-ah, ah-ah-ah-ah."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "You reign forever, Your name is ever great\nYou are the wisdom before time began\nAh-ah-ah, ah-ah, ah-ah-ah-ah\nAh-ah-ah, ah-ah, ah-ah-ah-ah"
+    }
+   ]
+  },
+  {
+   "id": "les-anges-montent-et-descendent",
+   "title": "Les anges montent et descendent",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Les anges montent et descendent\nIls chantent, Tu es Très Saint\nNous chantons la Sainteté de l’Éternel."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Angels ascending and descending\nsinging Holy Holy\nWe join in Holy Holy, Is the Lord."
+    }
+   ]
+  },
+  {
+   "id": "yahweh-eh-eh-eh",
+   "title": "Yahweh eh eh eh",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Yahweh eh eh eh eh\nYahweh eh eh eh eh\nTu es glorieux, si glorieux dans Tes voies."
+    }
+   ]
+  },
+  {
+   "id": "tout-honneur",
+   "title": "Tout honneur",
+   "parts": [
+    {
+     "kind": "strophe",
+     "number": 1,
+     "body": "Tout Honneur\nToute Gloire\nToute Puissance, à Toi."
+    },
+    {
+     "kind": "strophe",
+     "number": 2,
+     "body": "Oh Père très saint, nous t’adorons\nPrécieux Jésus, notre sauveur\nOh Saint Esprit, nous t’attendons\nOh Saint Esprit, nous t’attendons\nOh Saint Esprit, nous t’attendons\nPour Ton feu."
+    },
+    {
+     "kind": "strophe",
+     "number": 3,
+     "body": "All Honor\nAll Glory\nAll Power\nto you."
+    },
+    {
+     "kind": "strophe",
+     "number": 4,
+     "body": "Holy Father, we worship you\nPrecious Jesus, our savior\nHoly Spirit, we wait on you\nHoly Spirit, we wait on you\nHoly Spirit, we wait on you\nFor fire."
+    }
+   ]
+  }
+ ]
 }

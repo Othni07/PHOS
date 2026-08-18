@@ -74,14 +74,32 @@ Une erreur de syntaxe JSON empêche **tout** le recueil de se charger : la
 régie affiche alors un message d'erreur sous la recherche. Une virgule en trop
 après la dernière entrée d'une liste est la cause la plus fréquente.
 
-## Les paroles du recueil d'amorce sont à relire
+## Le recueil livré
 
-Les six cantiques livrés ont été saisis de mémoire et **n'ont pas été vérifiés
-sur une édition papier**. Trois d'entre eux n'ont qu'une seule strophe. Ils
-servent à faire tourner la régie, pas à être projetés en culte.
+`cantiques.json` contient **146 cantiques du CMR**, convertis automatiquement
+depuis le document Word de l'assemblée par `scripts/convert-cantiques.py` :
 
-## Importer un recueil existant
+```
+python scripts/convert-cantiques.py "<recueil.docx>" public/data/cantiques.json
+```
 
-Le §11 prévoit l'import depuis OpenLP et VideoPsalm, précisément pour éviter
-une resaisie. Si vous disposez d'un export de l'un des deux, le convertir est
-un script à écrire — la structure ci-dessus est sa cible.
+Les paroles viennent du document, elles ne sont pas ressaisies : c'est leur
+principale garantie de fidélité.
+
+### Ce que la conversion ne peut pas deviner
+
+Le document source **ne marque pas les refrains** — trois cantiques seulement
+portent la mention « Refrain : ». Partout ailleurs, chaque paragraphe devient
+une strophe numérotée, et les diapositives se suivent dans l'ordre du
+document. C'est projetable tel quel, mais l'alternance strophe/refrain n'est
+pas reconstituée.
+
+Corriger un cantique se fait dans la régie, bouton « Cantiques » : la version
+corrigée prend le pas sur celle du recueil livré.
+
+Le document ne comporte pas non plus de numérotation. Aucun numéro n'a été
+inventé — en attribuer d'arbitraires ferait projeter le mauvais chant à
+l'opérateur qui tape un numéro de mémoire. La recherche se fait par titre.
+
+Les couplets anglais des cantiques bilingues sont conservés et placés après
+les couplets français.
