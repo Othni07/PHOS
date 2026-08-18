@@ -70,3 +70,11 @@
   color: var(--slate-blue);
   font-variant-numeric: tabular-nums;
 }
+
+.picker__note {
+  margin: 2px 4px 6px;
+  max-width: 280px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--slate-blue);
+}

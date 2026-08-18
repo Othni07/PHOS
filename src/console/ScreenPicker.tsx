@@ -34,11 +34,16 @@ export function ScreenPicker() {
   async function choose() {
     const found = await platform.listScreens();
     setScreens(found);
-    // Un seul écran, ou permission refusée : rien à choisir, on ouvre.
-    if (found.length <= 1) {
+
+    // Un seul écran : rien à choisir, on ouvre sans imposer un menu.
+    if (found.length === 1) {
       await platform.openProjection();
       return;
     }
+
+    // Aucun écran listé : navigateur sans l'API, ou permission refusée. On
+    // ouvre quand même le menu pour le dire — ouvrir une fenêtre sans un mot
+    // laisserait croire à une panne juste avant un culte.
     setOpen(true);
   }
 
@@ -55,6 +60,13 @@ export function ScreenPicker() {
 
       {open && screens && (
         <div className="picker__menu" role="menu">
+          {screens.length === 0 && (
+            <p className="picker__note">
+              Sélection d'écran indisponible : autorisez « Gérer les fenêtres »
+              dans Chrome, Edge ou Brave pour projeter directement sur le
+              vidéoprojecteur.
+            </p>
+          )}
           {screens.map((screen) => (
             <button
               key={screen.id}
