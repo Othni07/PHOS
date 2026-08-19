@@ -9,7 +9,6 @@ interface BibleBrowserProps {
   data: BibleData | null;
   version: BibleVersion;
   onSubmit: (item: Item) => void;
-  onClose: () => void;
 }
 
 /**
@@ -17,7 +16,7 @@ interface BibleBrowserProps {
  * référence par cœur. Complète la recherche, ne la remplace pas : taper
  * « jn 3:16 » reste plus rapide quand on sait ce qu'on cherche.
  */
-export function BibleBrowser({ data, version, onSubmit, onClose }: BibleBrowserProps) {
+export function BibleBrowser({ data, version, onSubmit }: BibleBrowserProps) {
   const [book, setBook] = useState<BookInfo | null>(null);
   const [chapter, setChapter] = useState<number | null>(null);
   const [selection, setSelection] = useState<number[]>([]);
@@ -75,9 +74,11 @@ export function BibleBrowser({ data, version, onSubmit, onClose }: BibleBrowserP
     if (!item) return;
     onSubmit(item);
     // Le passage est parti : on repart d'une sélection vide, sinon le clic
-    // suivant décoche un verset au lieu d'en choisir un nouveau.
+    // suivant décoche un verset au lieu d'en choisir un nouveau. Le focus est
+    // rendu pour que les flèches reprennent la main sur le déroulé.
     setSelection([]);
     anchorRef.current = null;
+    (document.activeElement as HTMLElement | null)?.blur();
   }
 
   const summary =
@@ -86,14 +87,7 @@ export function BibleBrowser({ data, version, onSubmit, onClose }: BibleBrowserP
       : null;
 
   return (
-    <section className="browser" data-browser aria-label="Parcourir la Bible">
-      <div className="browser__head">
-        <h2 className="browser__title">Parcourir</h2>
-        <button type="button" className="browser__close" onClick={onClose} title="Fermer">
-          ×
-        </button>
-      </div>
-
+    <section className="browser" aria-label="Parcourir la Bible">
       {!data && <p className="browser__hint">Chargement de {version.name}…</p>}
 
       {data && (

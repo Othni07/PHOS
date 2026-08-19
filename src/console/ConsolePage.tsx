@@ -7,7 +7,6 @@ import {
   type BibleData,
 } from "../bible/bible.ts";
 import { loadBible } from "../bible/load.ts";
-import { platform } from "../platform";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
 import type { OverlayAppearance } from "../shared/appearance.ts";
@@ -30,6 +29,14 @@ interface FlatSlide {
   slideIndex: number;
   kind: SlideKind;
 }
+
+type TabId = "bible" | "cantiques" | "parametres";
+
+const TABS: Array<{ id: TabId; label: string }> = [
+  { id: "bible", label: "Bible" },
+  { id: "cantiques", label: "Cantiques" },
+  { id: "parametres", label: "Paramètres" },
+];
 
 function flatten(items: Item[]): FlatSlide[] {
   const flat: FlatSlide[] = [];
@@ -55,9 +62,9 @@ export function ConsolePage() {
     itemIndex: restored?.itemIndex ?? 0,
     slideIndex: restored?.slideIndex ?? 0,
   }));
-  // Un seul panneau latéral à la fois : les deux occupent la même colonne.
-  const [panel, setPanel] = useState<"none" | "bible" | "song">("none");
-  const [tuning, setTuning] = useState(false);
+  // Trois onglets plutôt que des panneaux qui s'ouvrent et se ferment : les
+  // outils occupent une place fixe, et l'opérateur sait toujours où regarder.
+  const [tab, setTab] = useState<TabId>("bible");
 
   const [bundledSongs, setBundledSongs] = useState<SongBook | null>(null);
   const [songError, setSongError] = useState<string | null>(null);
@@ -276,9 +283,7 @@ export function ConsolePage() {
       // exception ici tuerait le défilement pour le reste du culte.
       const target = e.target instanceof Element ? e.target : null;
       if (target && ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)) return;
-      // Dans les panneaux latéraux, les flèches servent à parcourir les
-      // grilles et les champs : elles ne doivent pas faire défiler l'antenne.
-      if (target?.closest("[data-browser]")) return;
+
 
       if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
         e.preventDefault();
@@ -315,8 +320,15 @@ export function ConsolePage() {
   }, [lane, items, state.itemIndex, state.slideIndex, state.slide, bible, version]);
 
   return (
-    <div className={`console${panel !== "none" ? " console--browsing" : ""}`}>
-      <aside className="console__rundown">
+    <div className="console">
+      {/* Barre de tête : la recherche reste le geste le plus fréquent (§11),
+          elle occupe donc la première ligne sur toute la largeur. */}
+      <header className="console__top">
+        <div className="brand">
+          <span className={`brand__dot${isLive ? " brand__dot--live" : ""}`} />
+          <span className="brand__name">Projecteur</span>
+          <span className="brand__state">{isLive ? "À l'antenne" : "Écran noir"}</span>
+        </div>
         <SearchBar
           onSubmit={addItem}
           versionId={versionId}
@@ -326,154 +338,144 @@ export function ConsolePage() {
           songBook={songBook}
           songError={songError}
         />
+      </header>
 
-        {tuning && (
-          <AppearancePanel state={state} onChange={setAppearance} />
-        )}
+      <div className="console__body">
+        <aside className="rundown">
+          <h2 className="rundown__title">Déroulé</h2>
+          {items.length === 0 && (
+            <p className="rundown__empty">
+              Tapez une référence ou un titre de cantique ci-dessus.
+            </p>
+          )}
 
-        <h1 className="console__title">Déroulé</h1>
-        {items.length === 0 && (
-          <p className="console__empty">
-            Tapez une référence ou un titre de cantique ci-dessus.
-          </p>
-        )}
+          {/* Deux sections distinctes : les flèches restant dans une seule
+              nature, la liste doit montrer où passe le défilement. */}
+          {(["verset", "cantique"] as const).map((kind) => {
+            const group = items
+              .map((item, itemIndex) => ({ item, itemIndex }))
+              .filter(({ item }) => item.kind === kind);
+            if (group.length === 0) return null;
 
-        {/* Deux sections distinctes : les flèches restant dans une seule
-            nature, la liste doit montrer où passe le défilement. */}
-        {(["verset", "cantique"] as const).map((kind) => {
-          const group = items
-            .map((item, itemIndex) => ({ item, itemIndex }))
-            .filter(({ item }) => item.kind === kind);
-          if (group.length === 0) return null;
-
-          return (
-            <section key={kind} className={`rundown-group rundown-group--${kind}`}>
-              <h2 className="rundown-group__title">
-                {kind === "verset" ? "Versets" : "Cantiques"}
-              </h2>
-              {group.map(({ item, itemIndex }) => (
-                <div key={item.id} className="rundown-item">
-                  <div className="rundown-item__header">
-                    <span className="rundown-item__label">{item.label}</span>
-                    <button
-                      type="button"
-                      className="rundown-item__remove"
-                      onClick={() => removeItem(itemIndex)}
-                      title="Retirer du déroulé"
-                      aria-label={`Retirer ${item.label}`}
-                    >
-                      ×
-                    </button>
+            return (
+              <section key={kind} className={`rundown-group rundown-group--${kind}`}>
+                <h3 className="rundown-group__title">
+                  {kind === "verset" ? "Versets" : "Cantiques"}
+                </h3>
+                {group.map(({ item, itemIndex }) => (
+                  <div key={item.id} className="rundown-item">
+                    <div className="rundown-item__header">
+                      <span className="rundown-item__label">{item.label}</span>
+                      <button
+                        type="button"
+                        className="rundown-item__remove"
+                        onClick={() => removeItem(itemIndex)}
+                        title="Retirer du déroulé"
+                        aria-label={`Retirer ${item.label}`}
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <ul className="rundown-item__slides">
+                      {item.slides.map((slide, slideIndex) => {
+                        const active =
+                          state.slide !== null &&
+                          itemIndex === state.itemIndex &&
+                          slideIndex === state.slideIndex;
+                        return (
+                          <li key={slideIndex}>
+                            <button
+                              type="button"
+                              className={`slide-button${active ? " slide-button--active" : ""}`}
+                              onClick={() => goTo(itemIndex, slideIndex)}
+                            >
+                              {slide.reference}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
-                  <ul className="rundown-item__slides">
-                    {item.slides.map((slide, slideIndex) => {
-                      const active =
-                        state.slide !== null &&
-                        itemIndex === state.itemIndex &&
-                        slideIndex === state.slideIndex;
-                      return (
-                        <li key={slideIndex}>
-                          <button
-                            type="button"
-                            className={`slide-button${active ? " slide-button--active" : ""}`}
-                            onClick={() => goTo(itemIndex, slideIndex)}
-                          >
-                            {slide.reference}
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                ))}
+              </section>
+            );
+          })}
+        </aside>
+
+        <main className="work">
+          <div className="screens">
+            <div className="screen screen--live">
+              <div className="screen__label">
+                <span className={`screen__dot${isLive ? " screen__dot--live" : ""}`} />
+                À l'antenne
+              </div>
+              <div className="screen__frame">
+                <div className={`tally-rail${isLive ? " tally-rail--live" : ""}`} />
+                <div className="screen__glass">
+                  <Output state={state} />
                 </div>
+              </div>
+            </div>
+
+            {/* Écran de contrôle : montre la diapositive suivante sans jamais
+                la diffuser. Aucun message n'est posté depuis ici. */}
+            <div className="screen screen--next">
+              <div className="screen__label">Suivant</div>
+              <div className="screen__frame">
+                <div className="tally-rail" />
+                <div className="screen__glass">
+                  {nextSlide ? (
+                    <Output state={{ ...state, slide: nextSlide, visible: true }} />
+                  ) : (
+                    <p className="screen__empty">Fin du déroulé</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="commands">
+              <button
+                type="button"
+                className={`command${state.visible ? "" : " command--armed"}`}
+                onClick={toggleBlackout}
+              >
+                {state.visible ? "Écran noir" : "Rétablir"}
+                <kbd>B</kbd>
+              </button>
+              <ScreenPicker />
+            </div>
+          </div>
+
+          <section className="tabs">
+            <div className="tabs__bar" role="tablist">
+              {TABS.map((entry) => (
+                <button
+                  key={entry.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === entry.id}
+                  className={`tab${tab === entry.id ? " tab--on" : ""}`}
+                  onClick={() => setTab(entry.id)}
+                >
+                  {entry.label}
+                </button>
               ))}
-            </section>
-          );
-        })}
-      </aside>
-
-      {panel === "bible" && (
-        <BibleBrowser
-          data={bible}
-          version={version}
-          onSubmit={addItem}
-          onClose={() => setPanel("none")}
-        />
-      )}
-
-      {panel === "song" && (
-        <SongEditor
-          songs={userSongs}
-          onSave={updateUserSongs}
-          onClose={() => setPanel("none")}
-        />
-      )}
-
-      <main className="console__main">
-        <div className="screens">
-          <div className="screen">
-            <div className="screen__label">
-              <span className={`screen__dot${isLive ? " screen__dot--live" : ""}`} />
-              À l'antenne
             </div>
-            <div className="preview">
-              <div className={`tally-rail${isLive ? " tally-rail--live" : ""}`} />
-              <div className="preview__screen">
-                <Output state={state} />
-              </div>
-            </div>
-          </div>
 
-          {/* Écran de contrôle : montre la diapositive suivante sans jamais la
-              diffuser. Aucun message n'est posté depuis ici. */}
-          <div className="screen screen--next">
-            <div className="screen__label">Suivant</div>
-            <div className="preview">
-              <div className="tally-rail" />
-              <div className="preview__screen">
-                {nextSlide ? (
-                  <Output
-                    state={{ ...state, slide: nextSlide, visible: true }}
-                  />
-                ) : (
-                  <p className="screen__empty">Fin du déroulé</p>
-                )}
-              </div>
+            <div className="tabs__panel" role="tabpanel">
+              {tab === "bible" && (
+                <BibleBrowser data={bible} version={version} onSubmit={addItem} />
+              )}
+              {tab === "cantiques" && (
+                <SongEditor songs={userSongs} onSave={updateUserSongs} />
+              )}
+              {tab === "parametres" && (
+                <AppearancePanel state={state} onChange={setAppearance} />
+              )}
             </div>
-          </div>
-        </div>
-
-        <div className="console__controls">
-          <button type="button" className="control-button" onClick={toggleBlackout}>
-            {state.visible ? "Écran noir (B)" : "Rétablir (B)"}
-          </button>
-          <button
-            type="button"
-            className={`control-button${panel === "bible" ? " control-button--on" : ""}`}
-            onClick={() => setPanel((p) => (p === "bible" ? "none" : "bible"))}
-          >
-            Parcourir la Bible
-          </button>
-          <button
-            type="button"
-            className={`control-button${panel === "song" ? " control-button--on" : ""}`}
-            onClick={() => setPanel((p) => (p === "song" ? "none" : "song"))}
-          >
-            Cantiques
-          </button>
-          <button
-            type="button"
-            className={`control-button${tuning ? " control-button--on" : ""}`}
-            onClick={() => setTuning((open) => !open)}
-          >
-            Apparence OBS
-          </button>
-          <ScreenPicker />
-          <div className="overlay-url">
-            <span>URL overlay OBS</span>
-            <code>{platform.overlayUrl()}</code>
-          </div>
-        </div>
-      </main>
+          </section>
+        </main>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,70 @@
+/* Onglet pleine largeur : l'aperçu à gauche, les réglages à droite. Empilés
+   dans l'ancienne colonne, ils obligeaient à faire défiler pour voir l'effet
+   d'un curseur qu'on venait de bouger. */
 .appearance {
+  display: grid;
+  grid-template-columns: minmax(280px, 1.1fr) minmax(260px, 1fr);
+  align-content: start;
+  gap: 12px 26px;
+  padding: 14px 16px 20px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.appearance__heading {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate-blue);
+  font-weight: 700;
+}
+
+.appearance > .appearance__preview,
+.appearance > .appearance__row {
+  grid-column: 1;
+}
+
+.appearance > .appearance__field,
+.appearance > .appearance__reset {
+  grid-column: 2;
+}
+
+.appearance__section {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--hairline);
+  padding-top: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px;
+  gap: 6px;
+}
+
+.appearance__url {
+  font-size: 13px;
+  color: var(--parchment);
   background: var(--panel);
   border: 1px solid var(--hairline);
-  border-radius: 4px;
+  border-radius: 3px;
+  padding: 7px 10px;
+  align-self: flex-start;
+  user-select: all;
+}
+
+.appearance__help {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--slate-blue);
+}
+
+@media (max-width: 900px) {
+  .appearance {
+    grid-template-columns: 1fr;
+  }
+  .appearance > * {
+    grid-column: 1 !important;
+  }
 }
 
 .appearance__preview {

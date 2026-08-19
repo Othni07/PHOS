@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { platform } from "../platform";
 import {
   defaultAppearance,
   fontChoices,
@@ -42,7 +43,8 @@ export function AppearancePanel({ state, onChange }: AppearancePanelProps) {
   }
 
   return (
-    <section className="appearance" aria-label="Apparence de l'overlay OBS">
+    <section className="appearance" aria-label="Paramètres">
+      <h3 className="appearance__heading">Aperçu de l'incrustation</h3>
       <div className={`appearance__preview appearance__preview--${backdrop}`}>
         <OverlayBand state={preview} />
       </div>
@@ -136,6 +138,18 @@ export function AppearancePanel({ state, onChange }: AppearancePanelProps) {
       >
         Réglages par défaut
       </button>
+
+      {/* L'adresse de l'incrustation est une donnée de configuration : elle se
+          saisit une fois dans OBS, elle n'a rien à faire dans les commandes
+          de culte. */}
+      <div className="appearance__section">
+        <h3 className="appearance__heading">Source Navigateur d'OBS</h3>
+        <code className="appearance__url">{platform.overlayUrl()}</code>
+        <p className="appearance__help">
+          Largeur 1920, hauteur 1080, et décochez « Fermer la source quand elle
+          n'est pas visible ».
+        </p>
+      </div>
     </section>
   );
 }

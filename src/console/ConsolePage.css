@@ -1,38 +1,91 @@
+/*
+  Trois zones qui remplissent la fenêtre : une barre de tête pour la recherche,
+  un corps en deux colonnes, et rien qui flotte. La version précédente laissait
+  le bas de l'écran vide sous deux vignettes ; ici chaque zone prend ce qui
+  reste.
+*/
 .console {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr;
   height: 100%;
+  min-height: 0;
   background: var(--ink);
   color: var(--parchment);
 }
 
-/* Le navigateur s'insère entre le déroulé et l'aperçu, qui reste visible :
-   l'opérateur doit continuer à voir ce qui est à l'antenne pendant qu'il
-   prépare le passage suivant. */
-.console--browsing {
-  grid-template-columns: 280px minmax(420px, 1fr) minmax(320px, 1fr);
-}
+/* ---- Barre de tête ---- */
 
-.console__rundown {
+.console__top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--hairline);
   background: var(--panel);
-  border-right: 1px solid var(--hairline);
-  padding: 16px;
-  overflow-y: auto;
 }
 
-.console__title {
-  font-size: 13px;
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex: none;
+}
+
+.brand__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--hairline);
+  transition: background 200ms ease;
+  align-self: center;
+}
+
+.brand__dot--live {
+  background: var(--tally-red);
+  box-shadow: 0 0 10px rgba(200, 72, 60, 0.7);
+}
+
+.brand__name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.brand__state {
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--slate-blue);
-  margin: 0 0 12px;
-  font-weight: 600;
 }
 
-.console__empty {
-  font-size: 13px;
+/* ---- Corps ---- */
+
+.console__body {
+  display: grid;
+  grid-template-columns: minmax(240px, 300px) 1fr;
+  min-height: 0;
+}
+
+.rundown {
+  padding: 14px;
+  border-right: 1px solid var(--hairline);
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.rundown__title {
+  margin: 0 0 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
   color: var(--slate-blue);
+  font-weight: 700;
+}
+
+.rundown__empty {
+  font-size: 13px;
   line-height: 1.5;
+  color: var(--slate-blue);
 }
 
 /* Chaque nature est un couloir de défilement à part : un liséré la matérialise
@@ -57,7 +110,7 @@
 }
 
 .rundown-item {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .rundown-item:last-child {
@@ -68,7 +121,7 @@
   display: flex;
   align-items: baseline;
   gap: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 /* Références lues en coup d'œil pendant le culte : la casse d'origine et une
@@ -116,7 +169,7 @@
 .slide-button {
   width: 100%;
   text-align: left;
-  padding: 8px 10px;
+  padding: 7px 10px;
   background: transparent;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -131,42 +184,60 @@
 }
 
 .slide-button--active {
-  border-color: var(--slate-blue);
+  border-color: var(--tally-red);
   background: var(--hairline);
 }
 
-.console__main {
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  gap: 20px;
+/* ---- Zone de travail ---- */
+
+.work {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
   min-width: 0;
 }
 
-/* Antenne et suivant côte à côte : l'opérateur annonce la suite sans quitter
-   des yeux ce qui est projeté. Le second écran est plus petit — la hiérarchie
-   doit rester lisible d'un coup d'œil. */
+/*
+  Les deux écrans et les commandes sur une seule ligne. Les vignettes tirent
+  leur hauteur de leur largeur — l'inverse laissait flex calculer une largeur
+  absurde — et sont bornées pour que les onglets gardent de la place : sur un
+  grand écran, des vignettes géantes n'apprendraient rien de plus.
+*/
 .screens {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  display: flex;
+  align-items: flex-start;
   gap: 16px;
-  align-items: start;
-  min-width: 0;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .screen {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 0;
   min-width: 0;
+}
+
+.screen--live {
+  max-width: 460px;
+}
+
+/* L'écran de contrôle est volontairement plus petit : la hiérarchie doit se
+   lire d'un coup d'œil, l'antenne prime. */
+.screen--next {
+  max-width: 280px;
 }
 
 .screen__label {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--slate-blue);
+  flex: none;
 }
 
 .screen__dot {
@@ -181,8 +252,39 @@
   background: var(--tally-red);
 }
 
-.screen--next .preview__screen {
-  opacity: 0.72;
+.screen__frame {
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+}
+
+.tally-rail {
+  width: 5px;
+  flex: none;
+  border-radius: 3px;
+  background: var(--hairline);
+  transition: background 200ms ease;
+}
+
+.tally-rail--live {
+  background: var(--tally-red);
+}
+
+.screen__glass {
+  flex: 1;
+  min-width: 0;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen--next .screen__glass {
+  opacity: 0.78;
 }
 
 .screen__empty {
@@ -193,44 +295,22 @@
   color: var(--slate-blue);
 }
 
-.preview {
+.commands {
+  margin-left: auto;
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 8px;
   align-items: stretch;
+  justify-content: flex-end;
+  flex: none;
 }
 
-.tally-rail {
-  width: 6px;
-  border-radius: 3px;
-  background: var(--hairline);
-  transition: background 200ms ease;
-}
-
-.tally-rail--live {
-  background: var(--tally-red);
-}
-
-.preview__screen {
-  flex: 1;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  border: 1px solid var(--hairline);
-  border-radius: 4px;
-  overflow: hidden;
-  min-width: 0;
+.command {
   display: flex;
   align-items: center;
-  justify-content: center;
-}
-
-.console__controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.control-button {
-  padding: 10px 16px;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 14px;
   background: var(--panel);
   border: 1px solid var(--hairline);
   border-radius: 4px;
@@ -238,30 +318,75 @@
   font-family: inherit;
   font-size: 14px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
-.control-button:hover {
+.command:hover {
   border-color: var(--slate-blue);
 }
 
-.control-button--on {
-  border-color: var(--slate-blue);
-  background: var(--hairline);
+/* Le rouge signale que l'écran est noir : c'est l'état qui surprend. */
+.command--armed {
+  border-color: var(--tally-red);
+  color: var(--tally-red);
 }
 
-.overlay-url {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
+.command kbd {
+  font-family: inherit;
+  font-size: 11px;
+  padding: 2px 6px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
   color: var(--slate-blue);
 }
 
-.overlay-url code {
-  color: var(--parchment);
+/* ---- Onglets ---- */
+
+.tabs {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  min-width: 0;
+}
+
+.tabs__bar {
+  display: flex;
+  gap: 2px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--hairline);
   background: var(--panel);
-  border: 1px solid var(--hairline);
-  padding: 4px 8px;
-  border-radius: 4px;
+}
+
+.tab {
+  padding: 11px 18px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--slate-blue);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--parchment);
+}
+
+.tab--on {
+  color: var(--parchment);
+  border-bottom-color: var(--tally-red);
+}
+
+.tabs__panel {
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+}
+
+.tabs__panel > * {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
 }

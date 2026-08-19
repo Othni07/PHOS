@@ -7,7 +7,6 @@ import "./SongEditor.css";
 interface SongEditorProps {
   songs: Song[];
   onSave: (songs: Song[]) => void;
-  onClose: () => void;
 }
 
 const KINDS: Array<{ kind: SongPartKind; label: string }> = [
@@ -48,7 +47,7 @@ function toDraft(song: Song): Draft {
  * concurrent réel est la confiance du technicien : demander d'éditer des
  * accolades à la main un dimanche matin ne l'inspire pas.
  */
-export function SongEditor({ songs, onSave, onClose }: SongEditorProps) {
+export function SongEditor({ songs, onSave }: SongEditorProps) {
   const [draft, setDraft] = useState<Draft>(EMPTY);
   const [error, setError] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -151,17 +150,11 @@ export function SongEditor({ songs, onSave, onClose }: SongEditorProps) {
   }
 
   return (
-    <section className="editor" data-browser aria-label="Cantiques">
-      <div className="editor__head">
-        <h2 className="editor__title">
-          {draft.id === null ? "Nouveau cantique" : "Modifier le cantique"}
-        </h2>
-        <button type="button" className="editor__close" onClick={onClose} title="Fermer">
-          ×
-        </button>
-      </div>
-
+    <section className="editor" aria-label="Cantiques">
       <div className="editor__body">
+        <h3 className="editor__subtitle">
+          {draft.id === null ? "Nouveau cantique" : "Modifier le cantique"}
+        </h3>
         <div className="editor__grid">
           <label className="editor__field editor__field--wide">
             <span className="editor__label">Titre</span>

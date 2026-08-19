@@ -1,9 +1,10 @@
+/* Occupe tout l'onglet : trois colonnes de parcours, et le pied d'action
+   collé en bas quel que soit le nombre de versets. */
 .browser {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  background: var(--panel);
-  border-right: 1px solid var(--hairline);
+  background: var(--ink);
   color: var(--parchment);
 }
 
@@ -42,7 +43,7 @@
 .browser__cols {
   flex: 1;
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: minmax(200px, 1fr) minmax(150px, 1fr) minmax(200px, 1.6fr);
   min-height: 0;
 }
 
