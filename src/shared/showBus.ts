@@ -4,6 +4,14 @@ import {
   normalizeAppearance,
   type OverlayAppearance,
 } from "./appearance.ts";
+import {
+  defaultBackground,
+  defaultTicker,
+  normalizeBackground,
+  normalizeTicker,
+  type ProjectionBackground,
+  type Ticker,
+} from "./settings.ts";
 
 const CHANNEL_NAME = "projecteur";
 
@@ -12,7 +20,7 @@ const CHANNEL_NAME = "projecteur";
  * fermeture, contrairement au déroulé qui vit le temps d'une session
  * (voir src/console/session.ts). D'où deux stockages distincts.
  */
-const APPEARANCE_KEY = "projecteur.appearance";
+const SETTINGS_KEY = "projecteur.reglages";
 
 export const initialShowState: ShowState = {
   slide: null,
@@ -20,6 +28,8 @@ export const initialShowState: ShowState = {
   itemIndex: 0,
   slideIndex: 0,
   appearance: defaultAppearance,
+  background: defaultBackground,
+  ticker: defaultTicker,
 };
 
 type Message = { type: "state"; payload: ShowState } | { type: "hello" };
@@ -31,17 +41,36 @@ export function reviveShowState(raw: unknown): ShowState {
     ...initialShowState,
     ...value,
     appearance: normalizeAppearance(value.appearance),
+    background: normalizeBackground(value.background),
+    ticker: normalizeTicker(value.ticker),
   };
 }
 
-export function loadAppearance(): OverlayAppearance {
+export interface Settings {
+  appearance: OverlayAppearance;
+  background: ProjectionBackground;
+  ticker: Ticker;
+}
+
+export function loadSettings(): Settings {
   try {
-    const raw = window.localStorage.getItem(APPEARANCE_KEY);
-    if (raw) return normalizeAppearance(JSON.parse(raw));
+    const raw = window.localStorage.getItem(SETTINGS_KEY);
+    if (raw) {
+      const value = JSON.parse(raw) as Partial<Settings>;
+      return {
+        appearance: normalizeAppearance(value.appearance),
+        background: normalizeBackground(value.background),
+        ticker: normalizeTicker(value.ticker),
+      };
+    }
   } catch {
     // stockage indisponible, on repart des réglages par défaut
   }
-  return defaultAppearance;
+  return {
+    appearance: defaultAppearance,
+    background: defaultBackground,
+    ticker: defaultTicker,
+  };
 }
 
 /**
@@ -51,7 +80,7 @@ export function loadAppearance(): OverlayAppearance {
  * que l'incrustation n'apparaisse une fraction de seconde mal réglée.
  */
 export function loadPersistedState(): ShowState {
-  return { ...initialShowState, appearance: loadAppearance() };
+  return { ...initialShowState, ...loadSettings() };
 }
 
 export function createShowBus() {
@@ -63,10 +92,12 @@ export function createShowBus() {
       const message: Message = { type: "state", payload: state };
       channel.postMessage(message);
       try {
-        window.localStorage.setItem(
-          APPEARANCE_KEY,
-          JSON.stringify(state.appearance),
-        );
+        const settings: Settings = {
+          appearance: state.appearance,
+          background: state.background,
+          ticker: state.ticker,
+        };
+        window.localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
       } catch {
         // tant pis, la persistance est un confort, pas une garantie
       }

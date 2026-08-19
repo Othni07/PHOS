@@ -40,11 +40,15 @@
   color: var(--tally-red);
 }
 
+/* Hauteur réduite de moitié : les trois colonnes défilent d'elles-mêmes, et
+   une grille haute n'aide pas à choisir un chapitre — elle éloigne seulement
+   le bouton de projection du regard. */
 .browser__cols {
-  flex: 1;
+  flex: none;
+  height: 50%;
+  min-height: 190px;
   display: grid;
   grid-template-columns: minmax(200px, 1fr) minmax(150px, 1fr) minmax(200px, 1.6fr);
-  min-height: 0;
 }
 
 .browser__col {

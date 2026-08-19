@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
-import { createShowBus, loadPersistedState } from "../shared/showBus";
+import { createShowBus, loadPersistedState, reviveShowState } from "../shared/showBus";
 import type { ShowState } from "../types";
 import "./ProjectionPage.css";
 
@@ -22,7 +22,10 @@ export function ProjectionPage() {
   useEffect(() => {
     const bus = createShowBus();
     const unsubscribe = bus.onMessage((msg) => {
-      if (msg.type === "state") setState(msg.payload);
+      // L'état reçu est toujours normalisé : une console d'une version
+      // antérieure, ou un message tronqué, ne doit pas faire planter la
+      // sortie. La salle voit alors les réglages par défaut, pas un écran mort.
+      if (msg.type === "state") setState(reviveShowState(msg.payload));
     });
     bus.postHello();
     return () => {

@@ -1,4 +1,5 @@
 import type { OverlayAppearance } from "./shared/appearance.ts";
+import type { ProjectionBackground, Ticker } from "./shared/settings.ts";
 
 export type SlideKind = "verset" | "cantique";
 
@@ -40,4 +41,8 @@ export interface ShowState {
    * culte reviendrait aux réglages d'usine.
    */
   appearance: OverlayAppearance;
+  /** Fond de la projection en salle. L'overlay OBS n'en tient jamais compte. */
+  background: ProjectionBackground;
+  /** Bandeau défilant en bas de la projection. */
+  ticker: Ticker;
 }

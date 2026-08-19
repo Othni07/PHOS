@@ -10,6 +10,7 @@ import { loadBible } from "../bible/load.ts";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
 import type { OverlayAppearance } from "../shared/appearance.ts";
+import type { ProjectionBackground, Ticker } from "../shared/settings.ts";
 import { connectRelay, type Relay } from "../shared/relay.ts";
 import { createShowBus, loadPersistedState } from "../shared/showBus";
 import type { Item, ShowState, SlideKind } from "../types";
@@ -250,6 +251,14 @@ export function ConsolePage() {
     setState((s) => ({ ...s, appearance }));
   }, []);
 
+  const setBackground = useCallback((background: ProjectionBackground) => {
+    setState((s) => ({ ...s, background }));
+  }, []);
+
+  const setTicker = useCallback((ticker: Ticker) => {
+    setState((s) => ({ ...s, ticker }));
+  }, []);
+
   // Un passage trouvé part directement à l'antenne : c'est le geste attendu
   // quand le prédicateur annonce une référence en pleine prédication.
   const addItem = useCallback((item: Item) => {
@@ -470,7 +479,12 @@ export function ConsolePage() {
                 <SongEditor songs={userSongs} onSave={updateUserSongs} />
               )}
               {tab === "parametres" && (
-                <AppearancePanel state={state} onChange={setAppearance} />
+                <AppearancePanel
+                  state={state}
+                  onChange={setAppearance}
+                  onBackground={setBackground}
+                  onTicker={setTicker}
+                />
               )}
             </div>
           </section>

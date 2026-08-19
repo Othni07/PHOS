@@ -10,12 +10,16 @@ import {
   type OverlayAppearance,
 } from "../shared/appearance.ts";
 import { OverlayBand } from "../shared/OverlayBand.tsx";
+import type { ProjectionBackground, Ticker } from "../shared/settings.ts";
 import type { ShowState } from "../types";
+import { ProjectionSettings } from "./ProjectionSettings.tsx";
 import "./AppearancePanel.css";
 
 interface AppearancePanelProps {
   state: ShowState;
   onChange: (appearance: OverlayAppearance) => void;
+  onBackground: (background: ProjectionBackground) => void;
+  onTicker: (ticker: Ticker) => void;
 }
 
 const SAMPLE = {
@@ -24,7 +28,12 @@ const SAMPLE = {
   body: "Car Dieu a tant aimé le monde qu'il a donné son Fils unique, afin que quiconque croit en lui ne périsse point, mais qu'il ait la vie éternelle.",
 };
 
-export function AppearancePanel({ state, onChange }: AppearancePanelProps) {
+export function AppearancePanel({
+  state,
+  onChange,
+  onBackground,
+  onTicker,
+}: AppearancePanelProps) {
   // Le fond clair est proposé en premier : c'est la situation où le réglage
   // se joue, un texte blanc sur une image blanche restant invisible.
   const [backdrop, setBackdrop] = useState<"clair" | "sombre">("clair");
@@ -44,7 +53,7 @@ export function AppearancePanel({ state, onChange }: AppearancePanelProps) {
 
   return (
     <section className="appearance" aria-label="Paramètres">
-      <h3 className="appearance__heading">Aperçu de l'incrustation</h3>
+      <h3 className="appearance__heading">Incrustation OBS</h3>
       <div className={`appearance__preview appearance__preview--${backdrop}`}>
         <OverlayBand state={preview} />
       </div>
@@ -143,13 +152,20 @@ export function AppearancePanel({ state, onChange }: AppearancePanelProps) {
           saisit une fois dans OBS, elle n'a rien à faire dans les commandes
           de culte. */}
       <div className="appearance__section">
-        <h3 className="appearance__heading">Source Navigateur d'OBS</h3>
+        <h4 className="appearance__subheading">Source Navigateur d'OBS</h4>
         <code className="appearance__url">{platform.overlayUrl()}</code>
         <p className="appearance__help">
           Largeur 1920, hauteur 1080, et décochez « Fermer la source quand elle
           n'est pas visible ».
         </p>
       </div>
+
+      <ProjectionSettings
+        background={state.background}
+        ticker={state.ticker}
+        onBackground={onBackground}
+        onTicker={onTicker}
+      />
     </section>
   );
 }

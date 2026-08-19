@@ -5,6 +5,7 @@
   réduite). C'est ce qui rend l'aperçu exact par construction.
 */
 .output {
+  position: relative;
   width: 100%;
   height: 100%;
   container-type: size;
@@ -13,6 +14,63 @@
   justify-content: center;
   color: #fff;
   text-align: center;
+  overflow: hidden;
+}
+
+/*
+  Décor de la salle, sous le texte. Il ne s'efface pas à l'écran noir : le noir
+  masque ce qui est projeté, pas le fond de scène. L'opacité se règle depuis la
+  régie parce qu'une image trop présente rend le verset illisible.
+*/
+.output__fond {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: var(--fond-opacite, 0.45);
+  transform: scale(var(--fond-echelle, 1));
+  transform-origin: center;
+  pointer-events: none;
+}
+
+/* Bandeau défilant en bas de la salle : annonces, versets à venir, consignes.
+   Il vit hors du fondu du texte, donc il reste lisible à l'écran noir. */
+.output__ticker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: rgba(6, 7, 10, 0.72);
+  border-top: 0.25cqh solid var(--tally-red, #c8483c);
+  padding: 1.4cqh 0;
+}
+
+.output__ticker-track {
+  display: flex;
+  width: max-content;
+  animation: output-ticker var(--bandeau-duree, 30s) linear infinite;
+}
+
+.output__ticker-text {
+  padding-right: 8cqw;
+  white-space: nowrap;
+  font-size: 2.4cqw;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 0 0.1cqh 0.3cqh rgba(0, 0, 0, 0.9);
+}
+
+/* Le décalage porte sur la moitié de la piste, qui contient deux exemplaires
+   du texte : à mi-course, le second se trouve exactement où était le premier,
+   et la boucle est invisible. */
+@keyframes output-ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 /*
@@ -78,4 +136,10 @@
     transition-duration: 1ms;
     animation-duration: 1ms;
   }
+}
+
+/* Le texte doit passer au-dessus du fond et du bandeau. */
+.output__stage {
+  position: relative;
+  z-index: 1;
 }
