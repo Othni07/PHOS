@@ -7,6 +7,8 @@ import {
   FONT_SCALE_MAX,
   FONT_SCALE_MIN,
   normalizeAppearance,
+  TRANSITION_MAX,
+  TRANSITION_MIN,
 } from "./appearance.ts";
 
 test("un état sans apparence retombe sur les défauts", () => {
@@ -15,11 +17,13 @@ test("un état sans apparence retombe sur les défauts", () => {
 });
 
 test("les valeurs valides sont conservées", () => {
-  assert.deepEqual(normalizeAppearance({ fontId: "georgia", fontScale: 1.4, bandOpacity: 0.5 }), {
+  const source = {
     fontId: "georgia",
     fontScale: 1.4,
     bandOpacity: 0.5,
-  });
+    transitionMs: 700,
+  };
+  assert.deepEqual(normalizeAppearance(source), source);
 });
 
 test("une police inconnue ne casse pas l'affichage", () => {
@@ -47,8 +51,23 @@ test("fontStack retombe sur la police système si l'identifiant est inconnu", ()
 });
 
 test("les variables CSS reprennent les réglages", () => {
-  const vars = appearanceVars({ fontId: "arial", fontScale: 1.5, bandOpacity: 0.4 });
+  const vars = appearanceVars({
+    fontId: "arial",
+    fontScale: 1.5,
+    bandOpacity: 0.4,
+    transitionMs: 300,
+  });
   assert.equal(vars["--overlay-scale"], "1.5");
   assert.equal(vars["--overlay-band-opacity"], "0.4");
   assert.match(vars["--overlay-font"], /Arial/);
+  assert.equal(vars["--overlay-transition"], "300ms");
+});
+
+test("la durée des fondus est ramenée dans sa plage", () => {
+  assert.equal(normalizeAppearance({ transitionMs: 99999 }).transitionMs, TRANSITION_MAX);
+  assert.equal(normalizeAppearance({ transitionMs: -5 }).transitionMs, TRANSITION_MIN);
+  assert.equal(
+    normalizeAppearance({ transitionMs: "lent" as unknown as number }).transitionMs,
+    defaultAppearance.transitionMs,
+  );
 });

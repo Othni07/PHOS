@@ -9,18 +9,50 @@
   height: 100%;
   container-type: size;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+}
+
+/*
+  Le fondu porte sur le contenu, jamais sur le conteneur : le fond de la salle
+  reste noir en permanence. Passer par l'opacité du conteneur ferait clignoter
+  le noir lui-même à chaque changement.
+*/
+.output__stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity var(--overlay-transition, 450ms) ease;
+}
+
+.output__stage--on {
+  opacity: 1;
+}
+
+.output__slide {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1.5cqh;
   padding: 6cqh 8cqw;
-  color: #fff;
-  text-align: center;
+  animation: output-fade var(--overlay-transition, 450ms) ease both;
 }
 
-.output--blank {
-  width: 100%;
-  height: 100%;
+@keyframes output-fade {
+  from {
+    opacity: 0;
+    transform: translateY(0.6cqh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .output__body {
@@ -36,4 +68,12 @@
   font-size: clamp(12px, 1.3cqw, 20px);
   color: var(--slate-blue);
   letter-spacing: 0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .output__stage,
+  .output__slide {
+    transition-duration: 1ms;
+    animation-duration: 1ms;
+  }
 }

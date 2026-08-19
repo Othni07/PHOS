@@ -4,6 +4,8 @@ import {
   fontChoices,
   FONT_SCALE_MAX,
   FONT_SCALE_MIN,
+  TRANSITION_MAX,
+  TRANSITION_MIN,
   type OverlayAppearance,
 } from "../shared/appearance.ts";
 import { OverlayBand } from "../shared/OverlayBand.tsx";
@@ -105,6 +107,25 @@ export function AppearancePanel({ state, onChange }: AppearancePanelProps) {
           step={0.01}
           value={appearance.bandOpacity}
           onChange={(e) => set({ bandOpacity: Number(e.target.value) })}
+        />
+      </label>
+
+      <label className="appearance__field">
+        <span className="appearance__label">
+          Douceur des fondus
+          <span className="appearance__value">
+            {appearance.transitionMs === 0
+              ? "coupe franche"
+              : `${(appearance.transitionMs / 1000).toFixed(2)} s`}
+          </span>
+        </span>
+        <input
+          type="range"
+          min={TRANSITION_MIN}
+          max={TRANSITION_MAX}
+          step={50}
+          value={appearance.transitionMs}
+          onChange={(e) => set({ transitionMs: Number(e.target.value) })}
         />
       </label>
 

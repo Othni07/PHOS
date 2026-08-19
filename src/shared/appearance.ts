@@ -11,8 +11,10 @@ export interface OverlayAppearance {
   fontId: string;
   /** Multiplicateur appliqué à la taille de base. */
   fontScale: number;
-  /** Opacité du bas du dégradé, 0 à 1. */
+  /** Opacité du fond derrière le texte, 0 à 1. */
   bandOpacity: number;
+  /** Durée des fondus, en millisecondes. */
+  transitionMs: number;
 }
 
 export interface FontChoice {
@@ -43,11 +45,14 @@ export const fontChoices: FontChoice[] = [
 export const defaultAppearance: OverlayAppearance = {
   fontId: "system",
   fontScale: 1,
-  bandOpacity: 0.95,
+  bandOpacity: 1,
+  transitionMs: 450,
 };
 
 export const FONT_SCALE_MIN = 0.6;
 export const FONT_SCALE_MAX = 2.2;
+export const TRANSITION_MIN = 0;
+export const TRANSITION_MAX = 1500;
 
 function clamp(value: number, min: number, max: number, fallback: number): number {
   // Une valeur illisible (état persisté d'une version antérieure, message
@@ -69,6 +74,12 @@ export function normalizeAppearance(raw: unknown): OverlayAppearance {
       defaultAppearance.fontScale,
     ),
     bandOpacity: clamp(value.bandOpacity as number, 0, 1, defaultAppearance.bandOpacity),
+    transitionMs: clamp(
+      value.transitionMs as number,
+      TRANSITION_MIN,
+      TRANSITION_MAX,
+      defaultAppearance.transitionMs,
+    ),
   };
 }
 
@@ -87,5 +98,6 @@ export function appearanceVars(
     "--overlay-font": fontStack(appearance.fontId),
     "--overlay-scale": String(appearance.fontScale),
     "--overlay-band-opacity": String(appearance.bandOpacity),
+    "--overlay-transition": `${appearance.transitionMs}ms`,
   };
 }

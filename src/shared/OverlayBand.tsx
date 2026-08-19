@@ -14,10 +14,13 @@ export function OverlayBand({ state }: { state: ShowState }) {
     <div className="overlay" style={appearanceVars(state.appearance)}>
       <div className={`overlay__band${isOnAir ? " overlay__band--on" : ""}`}>
         {state.slide && (
-          <>
+          // La clé change à chaque diapositive : React remonte le bloc, ce qui
+          // relance le fondu d'entrée. Sans elle, le texte serait remplacé
+          // d'un coup sous un bandeau resté immobile.
+          <div className="overlay__text" key={state.slide.reference + state.slide.body}>
             <p className="overlay__body">{state.slide.body}</p>
             <p className="overlay__reference">{state.slide.reference}</p>
-          </>
+          </div>
         )}
       </div>
     </div>
