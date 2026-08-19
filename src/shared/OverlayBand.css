@@ -88,10 +88,15 @@
   text-wrap: balance;
 }
 
+/* La référence se lit à distance, sur un téléphone comme sur un téléviseur :
+   à 41 % de la taille du verset elle disparaissait. Elle en fait 60 %, et son
+   gris est remonté vers le blanc pour tenir sur une image claire. */
 .overlay__reference {
-  margin: 0.8cqh 0 0;
-  font-size: calc(1.4cqw * var(--overlay-scale, 1));
-  color: #c7d2da;
+  margin: 1.2cqh 0 0;
+  font-size: calc(2cqw * var(--overlay-scale, 1));
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #e4ecf2;
 }
 
 /* Un opérateur peut vouloir la coupe franche : à zéro, aucune animation. */

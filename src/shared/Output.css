@@ -63,10 +63,12 @@
   white-space: pre-line;
 }
 
+/* Le plafond à 20 px rendait la référence illisible du fond de la salle sur
+   un vidéoprojecteur en 1920. Elle suit désormais la taille du verset. */
 .output__reference {
   margin: 0;
-  font-size: clamp(12px, 1.3cqw, 20px);
-  color: var(--slate-blue);
+  font-size: clamp(16px, 2cqw, 40px);
+  color: #b9c6d0;
   letter-spacing: 0.02em;
 }
 
