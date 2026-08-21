@@ -36,12 +36,20 @@ export function obsRelay(): Plugin {
         if (last !== null) ws.send(last);
 
         ws.on("message", (data) => {
-          last = data.toString();
+          const texte = data.toString();
+          // Deux natures de messages passent ici : l'état publié par la régie,
+          // et le battement par lequel l'incrustation signale sa présence.
+          // Le battement est relayé tel quel et n'écrase jamais l'état
+          // mémorisé, sans quoi une source OBS qui se reconnecte recevrait un
+          // battement en guise de verset.
+          const estBattement = texte.includes('"__projecteur"');
+          if (!estBattement) last = texte;
+
           for (const client of wss.clients) {
-            // Ne pas renvoyer à l'émetteur : la console est déjà à jour, et
-            // l'écho la ferait boucler sur son propre état.
+            // Ne pas renvoyer à l'émetteur : il est déjà au courant, et l'écho
+            // le ferait boucler sur son propre message.
             if (client !== ws && client.readyState === client.OPEN) {
-              client.send(last);
+              client.send(texte);
             }
           }
         });

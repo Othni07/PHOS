@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
-import { createShowBus, loadPersistedState, reviveShowState } from "../shared/showBus";
+import {
+  ALIVE_MS,
+  createShowBus,
+  loadPersistedState,
+  reviveShowState,
+} from "../shared/showBus";
 import type { ShowState } from "../types";
 import "./ProjectionPage.css";
 
@@ -28,7 +33,14 @@ export function ProjectionPage() {
       if (msg.type === "state") setState(reviveShowState(msg.payload));
     });
     bus.postHello();
+
+    // La régie affiche un voyant « salle » : il ne doit s'allumer que tant que
+    // cette fenêtre existe réellement.
+    bus.postAlive();
+    const battement = window.setInterval(() => bus.postAlive(), ALIVE_MS);
+
     return () => {
+      window.clearInterval(battement);
       unsubscribe();
       bus.close();
     };

@@ -32,7 +32,13 @@ export const initialShowState: ShowState = {
   ticker: defaultTicker,
 };
 
-type Message = { type: "state"; payload: ShowState } | { type: "hello" };
+type Message =
+  | { type: "state"; payload: ShowState }
+  | { type: "hello" }
+  | { type: "alive" };
+
+/** Cadence du battement annonçant qu'une projection est ouverte. */
+export const ALIVE_MS = 2000;
 
 /** Un état venu du stockage ou du réseau peut précéder l'ajout d'un champ. */
 export function reviveShowState(raw: unknown): ShowState {
@@ -101,6 +107,15 @@ export function createShowBus() {
       } catch {
         // tant pis, la persistance est un confort, pas une garantie
       }
+    },
+    /**
+     * Battement de la fenêtre de projection. La régie n'a aucun autre moyen
+     * fiable de savoir qu'une salle est branchée : la fenêtre peut avoir été
+     * ouverte à la main plutôt que par le bouton, ou fermée sans prévenir.
+     */
+    postAlive() {
+      const message: Message = { type: "alive" };
+      channel.postMessage(message);
     },
     /** Rejeu à l'ouverture — une fenêtre qui vient de s'ouvrir n'a rien reçu. */
     postHello() {

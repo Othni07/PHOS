@@ -1,0 +1,70 @@
+.etat {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  min-width: 190px;
+}
+
+.etat__heure {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Chiffres tabulaires : sans eux, l'heure tressaute à chaque minute. */
+.etat__horloge {
+  font-size: 28px;
+  font-weight: var(--w-fort);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.etat__ecoule {
+  font-size: var(--t-micro);
+  color: var(--slate-blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.etat__voyants {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.voyant {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  font-size: var(--t-micro);
+  color: var(--slate-blue);
+}
+
+.voyant__point {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hairline);
+  transition: background 200ms ease;
+}
+
+/* Vert plutôt que rouge : un voyant allumé dit « la liaison tient », pas
+   « c'est à l'antenne ». Le rouge reste réservé à la diffusion. */
+.voyant--on {
+  color: var(--parchment);
+}
+
+.voyant--on .voyant__point {
+  background: #5dcaa5;
+}
+
+.voyant--info {
+  color: var(--slate-blue);
+}

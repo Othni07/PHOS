@@ -315,13 +315,22 @@
   color: var(--slate-blue);
 }
 
-.commands {
+/* Colonne de droite : les commandes en haut, l'état en dessous. L'espace y
+   restait vide sous les deux boutons. */
+.rail {
   margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: none;
+  align-self: stretch;
+}
+
+.commands {
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: stretch;
-  justify-content: flex-end;
   flex: none;
 }
 

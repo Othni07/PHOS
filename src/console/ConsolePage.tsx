@@ -12,12 +12,13 @@ import "../shared/Output.css";
 import type { OverlayAppearance } from "../shared/appearance.ts";
 import type { ProjectionBackground, Ticker } from "../shared/settings.ts";
 import { connectRelay, type Relay } from "../shared/relay.ts";
-import { createShowBus, loadPersistedState } from "../shared/showBus";
+import { ALIVE_MS, createShowBus, loadPersistedState } from "../shared/showBus";
 import type { Item, ShowState, SlideKind } from "../types";
 import { AppearancePanel } from "./AppearancePanel.tsx";
 import { BibleBrowser } from "./BibleBrowser.tsx";
 import { ScreenPicker } from "./ScreenPicker.tsx";
 import { SearchBar } from "./SearchBar.tsx";
+import { StatusBlock } from "./StatusBlock.tsx";
 import { SongEditor } from "./SongEditor.tsx";
 import { loadSession, saveSession } from "./session.ts";
 import { loadSongBook } from "../songs/songs.ts";
@@ -66,6 +67,24 @@ export function ConsolePage() {
   // Trois onglets plutôt que des panneaux qui s'ouvrent et se ferment : les
   // outils occupent une place fixe, et l'opérateur sait toujours où regarder.
   const [tab, setTab] = useState<TabId>("bible");
+
+  // Derniers battements reçus des deux sorties. Chacune s'annonce elle-même :
+  // c'est le seul signal qui s'éteint vraiment quand la page disparaît.
+  const [salleVueA, setSalleVueA] = useState<number | null>(null);
+  const [overlayVuA, setOverlayVuA] = useState<number | null>(null);
+  const [debutCulte, setDebutCulte] = useState<number | null>(null);
+  const [maintenant, setMaintenant] = useState(() => Date.now());
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setMaintenant(Date.now()), 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  // Deux battements manqués valent pour une fenêtre fermée : un seul serait
+  // trop nerveux, trois laisseraient le voyant allumé six secondes de trop.
+  const recent = (vuA: number | null) => vuA !== null && maintenant - vuA < ALIVE_MS * 2.5;
+  const salleOuverte = recent(salleVueA);
+  const incrustationBranchee = recent(overlayVuA);
 
   const [bundledSongs, setBundledSongs] = useState<SongBook | null>(null);
   const [songError, setSongError] = useState<string | null>(null);
@@ -158,7 +177,7 @@ export function ConsolePage() {
   // Second canal, vers la source Navigateur d'OBS : elle tourne dans un
   // Chromium distinct et ne reçoit pas le BroadcastChannel.
   useEffect(() => {
-    const relay = connectRelay(null);
+    const relay = connectRelay(null, () => setOverlayVuA(Date.now()));
     relayRef.current = relay;
     return () => {
       relay.close();
@@ -191,6 +210,7 @@ export function ConsolePage() {
     if (!bus) return;
     return bus.onMessage((msg) => {
       if (msg.type === "hello") bus.postState(state);
+      if (msg.type === "alive") setSalleVueA(Date.now());
     });
   }, [state]);
 
@@ -310,6 +330,12 @@ export function ConsolePage() {
   }, [step, toggleBlackout]);
 
   const isLive = state.visible && state.slide !== null;
+
+  // Le culte commence au premier verset réellement projeté, pas à l'ouverture
+  // de la régie : on la lance souvent bien avant.
+  useEffect(() => {
+    if (isLive) setDebutCulte((debut) => debut ?? Date.now());
+  }, [isLive]);
 
   // Ce qui viendra à la prochaine flèche — jamais diffusé, la console seule
   // l'affiche. Calculé comme le fait step() : d'abord le déroulé, puis la
@@ -474,16 +500,26 @@ export function ConsolePage() {
               </div>
             </div>
 
-            <div className="commands">
-              <button
-                type="button"
-                className={`command${state.visible ? "" : " command--armed"}`}
-                onClick={toggleBlackout}
-              >
-                {state.visible ? "Écran noir" : "Rétablir"}
-                <kbd>B</kbd>
-              </button>
-              <ScreenPicker />
+            <div className="rail">
+              <div className="commands">
+                <button
+                  type="button"
+                  className={`command${state.visible ? "" : " command--armed"}`}
+                  onClick={toggleBlackout}
+                >
+                  {state.visible ? "Écran noir" : "Rétablir"}
+                  <kbd>B</kbd>
+                </button>
+                <ScreenPicker />
+              </div>
+
+              <StatusBlock
+                salleOuverte={salleOuverte}
+                incrustationBranchee={incrustationBranchee}
+                version={version}
+                debutCulte={debutCulte}
+                maintenant={maintenant}
+              />
             </div>
           </div>
 

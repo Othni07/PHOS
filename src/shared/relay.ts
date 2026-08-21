@@ -14,10 +14,26 @@ const RETRY_MS = 1000;
 export interface Relay {
   /** Publie l'état. Conservé si la liaison est coupée, envoyé au retour. */
   send(state: ShowState): void;
+  /** Signale que cette page est une incrustation vivante. */
+  sendAlive(): void;
   close(): void;
 }
 
-export function connectRelay(onState: ((state: ShowState) => void) | null): Relay {
+/**
+ * Battement par lequel l'incrustation signale sa présence. Compter les
+ * connexions du serveur s'était révélé trompeur — une connexion peut survivre
+ * à la page qui l'a ouverte. Un battement, lui, s'arrête avec elle.
+ */
+const BATTEMENT = { __projecteur: "overlay-alive" } as const;
+
+interface Service {
+  __projecteur: "overlay-alive";
+}
+
+export function connectRelay(
+  onState: ((state: ShowState) => void) | null,
+  onOverlayAlive?: () => void,
+): Relay {
   let socket: WebSocket | null = null;
   let retry: number | undefined;
   let closed = false;
@@ -37,9 +53,15 @@ export function connectRelay(onState: ((state: ShowState) => void) | null): Rela
     });
 
     next.addEventListener("message", (event: MessageEvent<string>) => {
-      if (!onState) return;
       try {
-        onState(JSON.parse(event.data) as ShowState);
+        const recu = JSON.parse(event.data) as ShowState | Service;
+        // Un message de service n'est jamais un état : le confondre avec un
+        // ShowState viderait l'écran de la salle.
+        if ((recu as Service).__projecteur === "overlay-alive") {
+          onOverlayAlive?.();
+          return;
+        }
+        onState?.(recu as ShowState);
       } catch {
         // Message illisible : on ignore plutôt que de casser l'affichage.
       }
@@ -56,6 +78,11 @@ export function connectRelay(onState: ((state: ShowState) => void) | null): Rela
   open();
 
   return {
+    sendAlive() {
+      if (socket?.readyState === WebSocket.OPEN) {
+        socket.send(JSON.stringify(BATTEMENT));
+      }
+    },
     send(state) {
       if (socket?.readyState === WebSocket.OPEN) {
         socket.send(JSON.stringify(state));

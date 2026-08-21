@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { OverlayBand } from "../shared/OverlayBand.tsx";
 import { connectRelay } from "../shared/relay.ts";
-import { createShowBus, loadPersistedState, reviveShowState } from "../shared/showBus";
+import {
+  ALIVE_MS,
+  createShowBus,
+  loadPersistedState,
+  reviveShowState,
+} from "../shared/showBus";
 import type { ShowState } from "../types";
 import "./OverlayPage.css";
 
@@ -30,7 +35,17 @@ export function OverlayPage() {
   // savoir où la page tourne.
   useEffect(() => {
     const relay = connectRelay((incoming) => setState(reviveShowState(incoming)));
-    return () => relay.close();
+
+    // La régie allume un voyant « incrustation » : il ne doit tenir que tant
+    // que cette page existe. Un battement s'éteint avec elle, là où une
+    // connexion peut lui survivre.
+    relay.sendAlive();
+    const battement = window.setInterval(() => relay.sendAlive(), ALIVE_MS);
+
+    return () => {
+      window.clearInterval(battement);
+      relay.close();
+    };
   }, []);
 
   return (
