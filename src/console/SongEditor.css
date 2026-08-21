@@ -177,9 +177,9 @@
   flex-wrap: wrap;
 }
 
+/* Secondaires : elles construisent le cantique sans rien envoyer à l'écran. */
 .editor__add,
-.editor__secondary,
-.editor__cancel {
+.editor__secondary {
   padding: 6px 10px;
   background: var(--ink);
   border: 1px solid var(--hairline);
@@ -191,9 +191,23 @@
 }
 
 .editor__add:hover,
-.editor__secondary:hover:not(:disabled),
-.editor__cancel:hover {
+.editor__secondary:hover:not(:disabled) {
   border-color: var(--slate-blue);
+}
+
+/* Renoncer n'est pas une action qu'on met en avant. */
+.editor__cancel {
+  padding: 6px 2px;
+  background: none;
+  border: none;
+  color: var(--slate-blue);
+  font-family: inherit;
+  font-size: var(--t-label);
+  cursor: pointer;
+}
+
+.editor__cancel:hover {
+  color: var(--parchment);
 }
 
 .editor__secondary:disabled {
@@ -208,19 +222,22 @@
   align-items: center;
 }
 
+/* Seule action principale de l'onglet. */
 .editor__save {
-  padding: 8px 14px;
-  background: var(--ink);
-  border: 1px solid var(--slate-blue);
+  padding: 9px 16px;
+  background: var(--parchment);
+  border: 1px solid var(--parchment);
   border-radius: 4px;
-  color: var(--parchment);
+  color: var(--ink);
   font-family: inherit;
-  font-size: var(--t-body);
+  font-size: var(--t-action);
+  font-weight: var(--w-fort);
   cursor: pointer;
 }
 
 .editor__save:hover {
-  border-color: var(--parchment);
+  background: #fff;
+  border-color: #fff;
 }
 
 .editor__error {

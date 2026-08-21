@@ -161,19 +161,20 @@
   flex-wrap: wrap;
 }
 
+/* Discret : ces actions ne se voient que dans la régie. Ni fond ni bordure,
+   pour ne pas disputer l'attention au bouton qui projette. */
 .browser__action {
-  padding: 5px 9px;
-  background: var(--ink);
-  border: 1px solid var(--hairline);
-  border-radius: 3px;
-  color: var(--parchment);
+  padding: 5px 2px;
+  background: none;
+  border: none;
+  color: var(--slate-blue);
   font-family: inherit;
   font-size: var(--t-label);
   cursor: pointer;
 }
 
 .browser__action:hover:not(:disabled) {
-  border-color: var(--slate-blue);
+  color: var(--parchment);
 }
 
 .browser__action:disabled {
@@ -190,23 +191,28 @@
   cursor: pointer;
 }
 
+/* Principale : ce bouton envoie du texte devant l'assemblée. Il est le seul
+   de la vue à porter un fond plein, et se lit avant tout le reste. */
 .browser__submit {
-  padding: 9px 12px;
-  background: var(--ink);
-  border: 1px solid var(--slate-blue);
+  padding: 10px 14px;
+  background: var(--parchment);
+  border: 1px solid var(--parchment);
   border-radius: 4px;
-  color: var(--parchment);
+  color: var(--ink);
   font-family: inherit;
-  font-size: var(--t-body);
+  font-size: var(--t-action);
+  font-weight: var(--w-fort);
   cursor: pointer;
 }
 
 .browser__submit:hover:not(:disabled) {
-  border-color: var(--parchment);
+  background: #fff;
+  border-color: #fff;
 }
 
 .browser__submit:disabled {
-  opacity: 0.4;
+  background: none;
   border-color: var(--hairline);
+  color: var(--slate-blue);
   cursor: default;
 }

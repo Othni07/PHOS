@@ -150,12 +150,12 @@
   cursor: pointer;
 }
 
+/* Aucun réglage ne part à l'antenne : tout reste discret dans cet onglet. */
 .appearance__reset {
   align-self: flex-start;
-  padding: 5px 9px;
-  background: var(--ink);
-  border: 1px solid var(--hairline);
-  border-radius: 3px;
+  padding: 6px 2px;
+  background: none;
+  border: none;
   color: var(--slate-blue);
   font-family: inherit;
   font-size: var(--t-label);
@@ -163,7 +163,6 @@
 }
 
 .appearance__reset:hover {
-  border-color: var(--slate-blue);
   color: var(--parchment);
 }
 
