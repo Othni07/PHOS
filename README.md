@@ -78,6 +78,15 @@ source recréée en plein culte retrouve l'affichage seule.
 Voir `public/data/SOURCES.md` pour la provenance et les versions écartées, et
 `public/data/CANTIQUES.md` pour ajouter des cantiques.
 
+## Documents du projet
+
+| Fichier | Rôle |
+| ------- | ---- |
+| `ReadMe.pdf` | Document de passation d'origine, §1 à §15. Archive, jamais modifié. |
+| `DECISIONS.md` | Décisions prises depuis, et pistes en cours. C'est la suite vivante. |
+| `public/data/SOURCES.md` | Provenance des textes bibliques, versions écartées. |
+| `public/data/CANTIQUES.md` | Format du recueil et ajout de cantiques. |
+
 ## Architecture
 
 Trois pages distinctes plutôt qu'un routeur client : `/projection` a besoin de

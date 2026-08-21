@@ -1,9 +1,15 @@
 # Décisions et pistes
 
-Ce document remplace le `ReadMe.pdf` de passation, qui n'est plus retrouvable
-sur la machine. Il consigne ce qui a été décidé et pourquoi, pour qu'une
-prochaine session n'ait pas à le redécouvrir. Les renvois `§n` désignent les
-sections de ce document d'origine, citées ici de mémoire.
+Le document de passation d'origine est `ReadMe.pdf`, à la racine du dépôt. Il
+pose les §1 à §15 auxquels renvoient les décisions ci-dessous, et il ne bouge
+plus : c'est un PDF vectoriel, sans couche de texte, donc ni modifiable ni
+extractible. Il vaut comme archive de l'intention de départ.
+
+Ce fichier-ci est sa suite vivante. Toute décision prise après la passation
+s'écrit ici, pas dans le PDF.
+
+Il a failli être perdu : introuvable sur la machine pendant un temps, il a été
+retrouvé puis versé au dépôt. C'est aussi ce qui a motivé ce document.
 
 ## Principes qui n'ont pas bougé
 
