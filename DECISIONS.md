@@ -34,6 +34,7 @@ sections de ce document d'origine, citées ici de mémoire.
 ## Pistes d'amélioration de la régie
 
 Retenues avec le responsable, classées de la plus simple à la plus lourde.
+**Les cinq sont faites.**
 
 1. **Le rouge réservé à l'antenne.** Le rouge tally signale aussi l'onglet
    actif, la diapositive sélectionnée et le fond choisi. Le §7 le réserve à ce
@@ -50,9 +51,14 @@ Retenues avec le responsable, classées de la plus simple à la plus lourde.
    salle et l'incrustation reçoivent. C'est la seule piste qui apporte une
    information absente aujourd'hui.
 
-Limite connue du point 5 : le relais sait qu'un client est connecté, pas que
-c'est OBS. Un onglet `/overlay` ouvert dans le navigateur allume le même
-voyant. L'étiquette dit donc « incrustation », pas « OBS ».
+Limite connue du point 5 : le voyant dit qu'une incrustation est branchée, pas
+que c'est OBS. Un onglet `/overlay` ouvert dans le navigateur l'allume aussi.
+L'étiquette dit donc « incrustation ».
+
+Compter les connexions du relais avait été la première approche du point 5 :
+elle annonçait trois clients pour une seule page ouverte, une connexion pouvant
+survivre à la page qui l'a créée. Chaque sortie s'annonce désormais par un
+battement, qui s'arrête avec elle.
 
 ## Ce qui reste hors de ces pistes
 
