@@ -54,7 +54,7 @@ export function ScreenPicker() {
 
   return (
     <div className="picker" ref={rootRef}>
-      <button type="button" className="control-button" onClick={() => void choose()}>
+      <button type="button" className="command" onClick={() => void choose()}>
         Projeter sur…
       </button>
 

@@ -30,7 +30,7 @@
   border-radius: 3px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--t-action);
   text-align: left;
   cursor: pointer;
 }
@@ -55,7 +55,7 @@
 }
 
 .picker__tag {
-  font-size: 10px;
+  font-size: var(--t-micro);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--slate-blue);
@@ -66,7 +66,7 @@
 
 .picker__size {
   flex: none;
-  font-size: 12px;
+  font-size: var(--t-label);
   color: var(--slate-blue);
   font-variant-numeric: tabular-nums;
 }
@@ -74,7 +74,7 @@
 .picker__note {
   margin: 2px 4px 6px;
   max-width: 280px;
-  font-size: 12px;
+  font-size: var(--t-label);
   line-height: 1.45;
   color: var(--slate-blue);
 }

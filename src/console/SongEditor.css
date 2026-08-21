@@ -17,18 +17,18 @@
 .editor__title {
   flex: 1;
   margin: 0;
-  font-size: 13px;
+  font-size: var(--t-body);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--slate-blue);
-  font-weight: 600;
+  font-weight: var(--w-fort);
 }
 
 .editor__close {
   background: none;
   border: none;
   color: var(--slate-blue);
-  font-size: 20px;
+  font-size: var(--t-action);
   line-height: 1;
   padding: 0 4px;
   cursor: pointer;
@@ -86,7 +86,7 @@
 }
 
 .editor__label {
-  font-size: 11px;
+  font-size: var(--t-micro);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--slate-blue);
@@ -100,7 +100,7 @@
   border-radius: 3px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 13px;
+  font-size: var(--t-body);
   padding: 7px 8px;
 }
 
@@ -133,13 +133,13 @@
 
 .editor__kind {
   padding: 4px 6px;
-  font-size: 12px;
+  font-size: var(--t-label);
   cursor: pointer;
 }
 
 .editor__part-label {
   flex: 1;
-  font-size: 11px;
+  font-size: var(--t-micro);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--slate-blue);
@@ -151,7 +151,7 @@
   border-radius: 3px;
   color: var(--slate-blue);
   font-family: inherit;
-  font-size: 13px;
+  font-size: var(--t-body);
   line-height: 1;
   padding: 3px 6px;
   cursor: pointer;
@@ -186,7 +186,7 @@
   border-radius: 3px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 12px;
+  font-size: var(--t-label);
   cursor: pointer;
 }
 
@@ -215,7 +215,7 @@
   border-radius: 4px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 13px;
+  font-size: var(--t-body);
   cursor: pointer;
 }
 
@@ -225,7 +225,7 @@
 
 .editor__error {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--t-label);
   color: var(--tally-red);
 }
 
@@ -239,16 +239,16 @@
 
 .editor__subtitle {
   margin: 0 0 4px;
-  font-size: 11px;
+  font-size: var(--t-micro);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--slate-blue);
-  font-weight: 600;
+  font-weight: var(--w-fort);
 }
 
 .editor__hint {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--t-label);
   color: var(--slate-blue);
 }
 
@@ -262,7 +262,7 @@
 .editor__row-title {
   flex: 1;
   min-width: 0;
-  font-size: 13px;
+  font-size: var(--t-body);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

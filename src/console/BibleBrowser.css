@@ -19,18 +19,18 @@
 .browser__title {
   flex: 1;
   margin: 0;
-  font-size: 13px;
+  font-size: var(--t-body);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--slate-blue);
-  font-weight: 600;
+  font-weight: var(--w-fort);
 }
 
 .browser__close {
   background: none;
   border: none;
   color: var(--slate-blue);
-  font-size: 20px;
+  font-size: var(--t-action);
   line-height: 1;
   padding: 0 4px;
   cursor: pointer;
@@ -63,11 +63,11 @@
 
 .browser__group {
   margin: 0 0 8px;
-  font-size: 11px;
+  font-size: var(--t-micro);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--slate-blue);
-  font-weight: 600;
+  font-weight: var(--w-fort);
 }
 
 .browser__col--books .browser__group {
@@ -93,7 +93,7 @@
   border-radius: 3px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 15px;
+  font-size: var(--t-action);
   cursor: pointer;
 }
 
@@ -119,7 +119,7 @@
   border-radius: 3px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 14px;
+  font-size: var(--t-action);
   cursor: pointer;
 }
 
@@ -142,7 +142,7 @@
 .browser__hint,
 .browser__tip {
   margin: 6px 0 0;
-  font-size: 12px;
+  font-size: var(--t-label);
   color: var(--slate-blue);
 }
 
@@ -168,7 +168,7 @@
   border-radius: 3px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 12px;
+  font-size: var(--t-label);
   cursor: pointer;
 }
 
@@ -185,7 +185,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  font-size: 12px;
+  font-size: var(--t-label);
   color: var(--slate-blue);
   cursor: pointer;
 }
@@ -197,7 +197,7 @@
   border-radius: 4px;
   color: var(--parchment);
   font-family: inherit;
-  font-size: 13px;
+  font-size: var(--t-body);
   cursor: pointer;
 }
 

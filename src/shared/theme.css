@@ -6,6 +6,16 @@
   --slate-blue: #7a93a0;
   --tally-red: #c8483c;
 
+  /* Quatre tailles seulement. Huit s'étaient accumulées au fil des demandes,
+     sans logique commune : c'est ce qui donnait à la régie un air désordonné. */
+  --t-micro: 11px;
+  --t-label: 12px;
+  --t-body: 13px;
+  --t-action: 15px;
+
+  /* Deux graisses : le texte courant, et ce qu'on souligne. */
+  --w-fort: 600;
+
   --font-system:
     -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
