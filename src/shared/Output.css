@@ -115,7 +115,11 @@
 
 .output__body {
   margin: 0;
-  font-size: clamp(28px, 4.4cqw, 76px);
+  /* Unités de conteneur pures, sans plancher en pixels : un plancher imposait
+     28 px dans la vignette « Suivant » là où la proportion en voulait 11, et
+     le texte y débordait au lieu de montrer ce qui allait suivre. La vignette
+     est ainsi une réduction fidèle, pas une approximation. */
+  font-size: 4cqw;
   line-height: 1.32;
   text-wrap: balance;
   white-space: pre-line;
@@ -125,7 +129,7 @@
    un vidéoprojecteur en 1920. Elle suit désormais la taille du verset. */
 .output__reference {
   margin: 0;
-  font-size: clamp(16px, 2cqw, 40px);
+  font-size: 2cqw;
   color: #b9c6d0;
   letter-spacing: 0.02em;
 }

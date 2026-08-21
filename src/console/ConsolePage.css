@@ -390,3 +390,16 @@
   min-width: 0;
   min-height: 0;
 }
+
+/* La vignette « Suivant » est une réduction fidèle, donc son texte y est
+   minuscule. La référence est reprise en clair à côté de l'étiquette : c'est
+   elle que l'opérateur a besoin de lire avant d'appuyer sur la flèche. */
+.screen__next-ref {
+  color: var(--parchment);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

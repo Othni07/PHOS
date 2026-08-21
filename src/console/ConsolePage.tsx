@@ -429,7 +429,12 @@ export function ConsolePage() {
             {/* Écran de contrôle : montre la diapositive suivante sans jamais
                 la diffuser. Aucun message n'est posté depuis ici. */}
             <div className="screen screen--next">
-              <div className="screen__label">Suivant</div>
+              <div className="screen__label">
+                Suivant
+                {nextSlide && (
+                  <span className="screen__next-ref">{nextSlide.reference}</span>
+                )}
+              </div>
               <div className="screen__frame">
                 <div className="tally-rail" />
                 <div className="screen__glass">
