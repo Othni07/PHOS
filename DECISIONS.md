@@ -1,0 +1,62 @@
+# Décisions et pistes
+
+Ce document remplace le `ReadMe.pdf` de passation, qui n'est plus retrouvable
+sur la machine. Il consigne ce qui a été décidé et pourquoi, pour qu'une
+prochaine session n'ait pas à le redécouvrir. Les renvois `§n` désignent les
+sections de ce document d'origine, citées ici de mémoire.
+
+## Principes qui n'ont pas bougé
+
+- **La console décide, tout le reste affiche** (§4). La projection et l'overlay
+  ne calculent jamais leur propre état. C'est ce qui évite deux écrans qui
+  divergent en direct.
+- **L'aperçu est exact par construction** (§4). Le composant de rendu est
+  partagé entre la régie et la sortie réelle ; il n'y a pas de « à peu près ».
+- **Filet de sécurité noir** (§7). `/projection` pose son fond noir dans son
+  `<head>`, avant React. Si le front plante, la salle voit du noir.
+- **L'overlay reste transparent** (§7). Aucun fond, aucune couleur : une
+  couleur de fond masquerait la caméra dans OBS.
+- **Polices système uniquement** (§7). L'application doit démarrer hors ligne.
+- **Un projet, un seul emplacement** (§14) : `C:\dev\projecteur`, jamais dans
+  un dossier synchronisé par OneDrive.
+
+## Décisions prises depuis
+
+| Sujet | Décision |
+| ----- | -------- |
+| Versions bibliques | Segond 1910 et Darby seules, domaine public (§13). Les sept autres fichiers XML de la machine sont sous droits — voir `public/data/SOURCES.md`. |
+| Cantiques | 146 chants du CMR convertis du document Word. Diffusion publique autorisée par le responsable — voir `public/data/CANTIQUES.md`. |
+| Déroulé | `sessionStorage` : survit à un rechargement, disparaît à la fermeture. Les réglages, eux, vivent dans `localStorage`. |
+| Défilement | Versets et cantiques forment deux couloirs distincts ; les flèches ne franchissent pas la frontière. |
+| Fond d'image | Salle uniquement. Jamais dans l'overlay OBS. |
+| Dépôt | GitHub, public, `Othni07/PHOS`. |
+
+## Pistes d'amélioration de la régie
+
+Retenues avec le responsable, classées de la plus simple à la plus lourde.
+
+1. **Le rouge réservé à l'antenne.** Le rouge tally signale aussi l'onglet
+   actif, la diapositive sélectionnée et le fond choisi. Le §7 le réserve à ce
+   qui est réellement diffusé ; à force de tout signaler, il ne signale plus
+   rien.
+2. **La progression du déroulé.** Afficher « 2 / 6 » et une barre de
+   progression sur le passage courant.
+3. **L'échelle typographique.** Huit tailles distinctes se sont accumulées au
+   fil des demandes. Trois suffisent : étiquette, corps, titre.
+4. **La hiérarchie des actions.** « Projeter » est vu par l'assemblée,
+   « Effacer » ne l'est pas : ils ne peuvent pas se ressembler.
+5. **Le bloc d'état.** Dans l'espace libre à droite de l'écran « Suivant » :
+   heure, temps écoulé depuis le début du culte, et voyants indiquant si la
+   salle et l'incrustation reçoivent. C'est la seule piste qui apporte une
+   information absente aujourd'hui.
+
+Limite connue du point 5 : le relais sait qu'un client est connecté, pas que
+c'est OBS. Un onglet `/overlay` ouvert dans le navigateur allume le même
+voyant. L'étiquette dit donc « incrustation », pas « OBS ».
+
+## Ce qui reste hors de ces pistes
+
+- Vérifier le sélecteur d'écran sur un vrai second écran.
+- Relire les refrains des cantiques : le document source ne les marquait pas.
+- Phase 2 : enveloppe Tauri, bug §8 de la fenêtre blanche, SQLite, serveur
+  overlay embarqué en remplacement du relais Vite.
