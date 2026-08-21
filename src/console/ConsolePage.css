@@ -183,9 +183,29 @@
   background: var(--hairline);
 }
 
+/* Sélection, pas diffusion : le bleu ardoise. Le rouge est réservé à ce qui
+   est réellement à l'antenne — voir .slide-button--live. */
 .slide-button--active {
-  border-color: var(--tally-red);
+  border-color: var(--slate-blue);
   background: var(--hairline);
+}
+
+/* Cette diapositive-ci est vraiment projetée. Seul repère rouge du déroulé. */
+.slide-button--live {
+  position: relative;
+  padding-left: 18px;
+}
+
+.slide-button--live::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 15px;
+  border-radius: 2px;
+  background: var(--tally-red);
 }
 
 /* ---- Zone de travail ---- */
@@ -325,10 +345,11 @@
   border-color: var(--slate-blue);
 }
 
-/* Le rouge signale que l'écran est noir : c'est l'état qui surprend. */
+/* L'écran noir n'est pas une diffusion : pas de rouge ici. Le voyant
+   d'antenne éteint dit déjà que rien ne part, et l'étiquette du bouton
+   bascule sur « Rétablir ». */
 .command--armed {
-  border-color: var(--tally-red);
-  color: var(--tally-red);
+  border-color: var(--slate-blue);
 }
 
 .command kbd {
@@ -375,7 +396,7 @@
 
 .tab--on {
   color: var(--parchment);
-  border-bottom-color: var(--tally-red);
+  border-bottom-color: var(--slate-blue);
 }
 
 .tabs__panel {
@@ -402,4 +423,28 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Position dans le passage courant. Affichée seulement là où on se trouve :
+   sur tous les passages, ce serait du bruit. */
+.rundown-item__count {
+  flex: none;
+  font-size: 12px;
+  color: var(--slate-blue);
+  font-variant-numeric: tabular-nums;
+}
+
+.rundown-item__progress {
+  height: 2px;
+  margin-bottom: 7px;
+  background: var(--hairline);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.rundown-item__progress-fill {
+  height: 100%;
+  background: var(--slate-blue);
+  border-radius: 2px;
+  transition: width 200ms ease;
 }

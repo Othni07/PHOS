@@ -146,7 +146,7 @@
 
 .appearance__field input[type="range"] {
   width: 100%;
-  accent-color: var(--tally-red);
+  accent-color: var(--slate-blue);
   cursor: pointer;
 }
 
@@ -235,7 +235,7 @@
 }
 
 .fond--on {
-  border-color: var(--tally-red);
+  border-color: var(--slate-blue);
 }
 
 .fond--none {

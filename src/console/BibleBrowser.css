@@ -132,12 +132,11 @@
   border-color: var(--slate-blue);
 }
 
-/* Les versets retenus sont marqués au rouge tally : même code couleur que
-   l'antenne, puisque c'est ce qui partira à l'écran. */
+/* Versets retenus : une sélection en cours, rien n'est encore projeté. */
 .browser__num--picked {
-  background: var(--tally-red);
-  border-color: var(--tally-red);
-  color: #fff;
+  background: var(--slate-blue);
+  border-color: var(--slate-blue);
+  color: var(--ink);
 }
 
 .browser__hint,
@@ -203,7 +202,7 @@
 }
 
 .browser__submit:hover:not(:disabled) {
-  border-color: var(--tally-red);
+  border-color: var(--parchment);
 }
 
 .browser__submit:disabled {

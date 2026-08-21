@@ -220,7 +220,7 @@
 }
 
 .editor__save:hover {
-  border-color: var(--tally-red);
+  border-color: var(--parchment);
 }
 
 .editor__error {

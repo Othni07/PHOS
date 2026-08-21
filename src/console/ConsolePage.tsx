@@ -375,6 +375,13 @@ export function ConsolePage() {
                   <div key={item.id} className="rundown-item">
                     <div className="rundown-item__header">
                       <span className="rundown-item__label">{item.label}</span>
+                      {/* Position dans le passage : compter les lignes du
+                          regard pendant un culte est une charge inutile. */}
+                      {itemIndex === state.itemIndex && item.slides.length > 1 && (
+                        <span className="rundown-item__count">
+                          {state.slideIndex + 1} / {item.slides.length}
+                        </span>
+                      )}
                       <button
                         type="button"
                         className="rundown-item__remove"
@@ -385,17 +392,37 @@ export function ConsolePage() {
                         ×
                       </button>
                     </div>
+                    {itemIndex === state.itemIndex && item.slides.length > 1 && (
+                      <div
+                        className="rundown-item__progress"
+                        role="progressbar"
+                        aria-valuenow={state.slideIndex + 1}
+                        aria-valuemin={1}
+                        aria-valuemax={item.slides.length}
+                      >
+                        <div
+                          className="rundown-item__progress-fill"
+                          style={{
+                            width: `${((state.slideIndex + 1) / item.slides.length) * 100}%`,
+                          }}
+                        />
+                      </div>
+                    )}
                     <ul className="rundown-item__slides">
                       {item.slides.map((slide, slideIndex) => {
                         const active =
                           state.slide !== null &&
                           itemIndex === state.itemIndex &&
                           slideIndex === state.slideIndex;
+                        // Sélectionnée et réellement diffusée sont deux choses
+                        // distinctes : à l'écran noir, la diapositive reste
+                        // sélectionnée mais plus rien ne part.
+                        const live = active && state.visible;
                         return (
                           <li key={slideIndex}>
                             <button
                               type="button"
-                              className={`slide-button${active ? " slide-button--active" : ""}`}
+                              className={`slide-button${active ? " slide-button--active" : ""}${live ? " slide-button--live" : ""}`}
                               onClick={() => goTo(itemIndex, slideIndex)}
                             >
                               {slide.reference}
