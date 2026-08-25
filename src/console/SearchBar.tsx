@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { lookup, versions, type BibleData } from "../bible/bible.ts";
+import { lookup, versions, type BibleData, type BibleVersion } from "../bible/bible.ts";
 import { parseReference } from "../bible/reference.ts";
 import { searchSongs, songToItem } from "../songs/search.ts";
 import type { SongBook } from "../songs/types";
@@ -12,6 +12,8 @@ interface SearchBarProps {
    *  et la recherche doivent désigner le même texte. */
   versionId: string;
   onVersionChange: (versionId: string) => void;
+  /** Versions réellement installées, décidées par la console. */
+  versionsOffertes: BibleVersion[];
   bible: BibleData | null;
   bibleError: string | null;
   /** Recueil livré et cantiques saisis, déjà fusionnés par la console. */
@@ -41,6 +43,7 @@ export function SearchBar({
   onSubmit,
   versionId,
   onVersionChange,
+  versionsOffertes,
   bible,
   bibleError,
   songBook,
@@ -50,7 +53,7 @@ export function SearchBar({
   const [selected, setSelected] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const version = versions.find((v) => v.id === versionId) ?? versions[0];
+  const version = versionsOffertes.find((v) => v.id === versionId) ?? versions[0];
 
   // Résultats recalculés à chaque frappe : c'est le retour immédiat qui permet
   // de corriger une saisie avant de l'envoyer à l'écran.
@@ -175,7 +178,7 @@ export function SearchBar({
           onChange={(e) => onVersionChange(e.target.value)}
           title="Version biblique"
         >
-          {versions.map((v) => (
+          {versionsOffertes.map((v) => (
             <option key={v.id} value={v.id}>
               {v.abbrev}
             </option>

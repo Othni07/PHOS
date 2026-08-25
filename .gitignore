@@ -26,3 +26,10 @@ src-tauri/gen
 *.njsproj
 *.sln
 *.sw?
+
+# Versions bibliques sous droits (§13) : converties sur la machine, jamais
+# rediffusées. Seules la Segond 1910 et la Darby, domaine public, sont
+# versionnées avec le code. Voir public/data/SOURCES.md.
+public/data/bible-*.json
+!public/data/bible-lsg.json
+!public/data/bible-darby.json

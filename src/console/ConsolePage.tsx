@@ -6,7 +6,7 @@ import {
   versions,
   type BibleData,
 } from "../bible/bible.ts";
-import { loadBible } from "../bible/load.ts";
+import { loadBible, versionsDisponibles } from "../bible/load.ts";
 import { Output } from "../shared/Output";
 import "../shared/Output.css";
 import type { OverlayAppearance } from "../shared/appearance.ts";
@@ -124,9 +124,22 @@ export function ConsolePage() {
   // La version courante et le texte chargé appartiennent à la console : la
   // recherche et le navigateur de livres doivent désigner le même texte.
   const [versionId, setVersionId] = useState(versions[0].id);
+  // Les versions sous droits ne sont pas livrées avec le code : seules celles
+  // réellement installées sur cette machine sont proposées.
+  const [versionsOffertes, setVersionsOffertes] = useState(versions);
+
+  useEffect(() => {
+    let cancelled = false;
+    void versionsDisponibles().then((trouvees) => {
+      if (!cancelled) setVersionsOffertes(trouvees);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
   const [bible, setBible] = useState<BibleData | null>(null);
   const [bibleError, setBibleError] = useState<string | null>(null);
-  const version = versions.find((v) => v.id === versionId) ?? versions[0];
+  const version = versionsOffertes.find((v) => v.id === versionId) ?? versions[0];
 
   useEffect(() => {
     let cancelled = false;
@@ -368,6 +381,7 @@ export function ConsolePage() {
           onSubmit={addItem}
           versionId={versionId}
           onVersionChange={setVersionId}
+          versionsOffertes={versionsOffertes}
           bible={bible}
           bibleError={bibleError}
           songBook={songBook}

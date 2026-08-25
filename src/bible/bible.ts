@@ -11,11 +11,25 @@ export interface BibleVersion {
   abbrev: string;
 }
 
-/** Uniquement des versions du domaine public — voir §13. */
-export const versions: BibleVersion[] = [
+/**
+ * Toutes les versions que l'application sait afficher. Seules celles du
+ * domaine public sont livrées avec le code (§13) ; les autres doivent être
+ * converties sur la machine par son utilisateur, et ne sont proposées dans la
+ * régie que si leur fichier est effectivement présent.
+ */
+export const catalogue: BibleVersion[] = [
   { id: "lsg", name: "Louis Segond 1910", abbrev: "LSG" },
   { id: "darby", name: "Darby", abbrev: "DBY" },
+  { id: "s21", name: "Segond 21", abbrev: "S21" },
+  { id: "neg79", name: "Nouvelle Édition de Genève 1979", abbrev: "NEG" },
+  { id: "semeur", name: "Bible du Semeur", abbrev: "BDS" },
+  { id: "nbs", name: "Nouvelle Bible Segond", abbrev: "NBS" },
+  { id: "bfc", name: "Bible en français courant", abbrev: "BFC" },
+  { id: "nfc", name: "Nouvelle français courant", abbrev: "NFC" },
 ];
+
+/** Livrées avec le dépôt : toujours disponibles, et point de départ sûr. */
+export const versions: BibleVersion[] = catalogue.slice(0, 2);
 
 export interface BibleData {
   id: string;
@@ -174,7 +188,7 @@ export function labelForSlides(slides: Slide[], fallback: string): string {
   const book = booksById.get(first.bookId);
   const name = book ? (book.refName ?? book.name) : first.bookId;
   const abbrev =
-    versions.find((v) => v.id === first.versionId)?.abbrev ?? first.versionId;
+    catalogue.find((v) => v.id === first.versionId)?.abbrev ?? first.versionId;
 
   // Dans un même chapitre, la liste repliée reste exacte même si la sélection
   // saute des versets ; à cheval sur deux chapitres, on borne le passage.

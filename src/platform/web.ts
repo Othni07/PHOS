@@ -96,11 +96,25 @@ const store: Platform["store"] = {
   },
 };
 
+async function hasData(name: string): Promise<boolean> {
+  try {
+    // Une requête HEAD suffit : inutile de télécharger quatre mégaoctets pour
+    // savoir si le fichier est là.
+    const response = await fetch(`${import.meta.env.BASE_URL}data/${name}`, {
+      method: "HEAD",
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 export const webPlatform: Platform = {
   listScreens,
   openProjection,
   closeProjection,
   overlayUrl,
   loadData,
+  hasData,
   store,
 };

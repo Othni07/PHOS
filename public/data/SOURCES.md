@@ -35,10 +35,35 @@ Le script affiche la **mention de droits portée par le fichier source** à
 chaque conversion. Lisez-la : c'est elle qui détermine si la version peut être
 embarquée.
 
-Après conversion, déclarer la version dans `src/bible/bible.ts` (tableau
-`versions`) pour qu'elle apparaisse dans le sélecteur de la régie.
+Rien à déclarer après conversion : la régie sonde les fichiers présents au
+démarrage et propose ce qu'elle trouve. Pour une version absente du catalogue
+de `src/bible/bible.ts`, il faut en revanche y ajouter une ligne.
 
-## Versions volontairement exclues
+## Versions non versionnées avec le code
+
+Le dépôt est public. Publier une traduction sous droits, ce n'est pas la
+« montrer à quelques personnes » : c'est la rediffuser, quel que soit le nombre
+de visiteurs. La recherche de code de GitHub indexe le contenu des fichiers,
+des robots copient les dépôts publics en continu, et ce qui est publié ne se
+reprend pas.
+
+Ces versions vivent donc sur la machine sans entrer dans le dépôt. Le
+`.gitignore` écarte `public/data/bible-*.json` sauf la Segond 1910 et la
+Darby. La régie ne propose que les versions dont le fichier est réellement
+présent : une installation neuve n'en verra que deux, cette machine en voit
+huit, sans aucun réglage.
+
+Pour les installer sur une autre machine, reconvertir depuis les fichiers XML
+d'origine :
+
+```
+npm run bible -- <source.xml> <id> "<nom>" "<abrév>" public/data/bible-<id>.json
+```
+
+Les identifiants attendus par le catalogue de `src/bible/bible.ts` sont `s21`,
+`neg79`, `semeur`, `nbs`, `bfc` et `nfc`.
+
+## Versions sous droits
 
 Le §13 du document de contexte limite l'embarquement aux versions du domaine
 public. Les traductions suivantes sont **sous droits** et ne doivent pas être

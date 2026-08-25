@@ -26,6 +26,13 @@ export interface Platform {
    */
   loadData<T>(name: string): Promise<T>;
 
+  /**
+   * Le fichier de données est-il présent ? Sert à n'offrir que les versions
+   * bibliques réellement installées : certaines ne sont pas versionnées avec
+   * le code, faute de pouvoir être rediffusées (§13).
+   */
+  hasData(name: string): Promise<boolean>;
+
   /** Stockage persistant, clé/valeur JSON. */
   store: {
     get<T>(key: string): Promise<T | null>;

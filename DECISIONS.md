@@ -30,7 +30,7 @@ retrouvé puis versé au dépôt. C'est aussi ce qui a motivé ce document.
 
 | Sujet | Décision |
 | ----- | -------- |
-| Versions bibliques | Segond 1910 et Darby seules, domaine public (§13). Les sept autres fichiers XML de la machine sont sous droits — voir `public/data/SOURCES.md`. |
+| Versions bibliques | Huit versions utilisables sur la machine, deux seulement versionnées avec le code. Les traductions sous droits sont écartées du dépôt public par `.gitignore` et la régie ne propose que ce qui est présent — voir `public/data/SOURCES.md`. |
 | Cantiques | 146 chants du CMR convertis du document Word. Diffusion publique autorisée par le responsable — voir `public/data/CANTIQUES.md`. |
 | Déroulé | `sessionStorage` : survit à un rechargement, disparaît à la fermeture. Les réglages, eux, vivent dans `localStorage`. |
 | Défilement | Versets et cantiques forment deux couloirs distincts ; les flèches ne franchissent pas la frontière. |
