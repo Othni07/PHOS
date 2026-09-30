@@ -1,0 +1,9 @@
+# Ce dépôt vit sur Windows (core.autocrlf), mais deux fichiers ne supportent pas
+# la conversion automatique des fins de ligne.
+#
+# Le lanceur macOS doit rester en LF : un retour chariot après « #!/bin/bash »
+# fait échouer le script avec « bad interpreter », message qui ne désigne pas la
+# cause. Le lanceur Windows, lui, veut des CRLF.
+*.command text eol=lf
+*.sh      text eol=lf
+*.cmd     text eol=crlf

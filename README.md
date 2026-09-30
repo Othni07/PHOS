@@ -8,7 +8,8 @@ spectateurs en ligne, par une incrustation transparente dans OBS.
 
 ## Démarrer
 
-Double-cliquez sur **`Demarrer.cmd`**, ou en ligne de commande :
+Double-cliquez sur **`Demarrer.cmd`** (Windows) ou **`Demarrer.command`**
+(macOS), ou en ligne de commande :
 
 ```
 npm install
@@ -17,6 +18,18 @@ npm run dev
 
 Laissez la fenêtre du serveur ouverte pendant tout le culte : la fermer coupe
 la projection et l'incrustation.
+
+### Sur macOS
+
+Rien à adapter dans le code, mais quatre points diffèrent :
+
+- Au premier usage, si le double-clic ne fait rien : `chmod +x Demarrer.command`.
+- **Chrome, pas Safari.** Safari n'implémente pas l'API *Window Management* :
+  le bouton « Projeter sur… » ne trouverait aucun écran. Le lanceur ouvre Chrome
+  quand il est là.
+- Le plein écran est **Ctrl + Cmd + F**, pas `F11`.
+- Les six versions sous droits ne sont pas dans le dépôt : un clone frais n'en
+  propose que deux. Voir `public/data/SOURCES.md`.
 
 | Page | Adresse | Rôle |
 | ---- | ------- | ---- |
