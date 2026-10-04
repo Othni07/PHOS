@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ShowState } from "../types";
+import { useAjustement } from "./ajustement.ts";
 import { appearanceVars } from "./appearance.ts";
 import { loadBackgrounds } from "./backgrounds.ts";
 import { projectionVars } from "./settings.ts";
@@ -52,6 +53,9 @@ export function Output({ state }: OutputProps) {
   const { slide, visible, background, ticker } = state;
   const onAir = visible && slide !== null;
   const imageUrl = useBackgroundImage(background.imageId);
+  const { cadre, contenu } = useAjustement<HTMLDivElement, HTMLDivElement>(
+    slide ? slide.reference + slide.body : "",
+  );
 
   return (
     <div
@@ -68,11 +72,17 @@ export function Output({ state }: OutputProps) {
           la scène porte l'entrée et la sortie d'antenne par une transition,
           tandis que chaque diapositive entre par une animation — une
           transition ne se jouerait pas sur un élément que React remonte. */}
-      <div className={`output__stage${onAir ? " output__stage--on" : ""}`}>
+      <div ref={cadre} className={`output__stage${onAir ? " output__stage--on" : ""}`}>
         {slide && (
-          <div className="output__slide" key={slide.reference + slide.body}>
+          <div ref={contenu} className="output__slide" key={slide.reference + slide.body}>
             <p className="output__body">{slide.body}</p>
-            <p className="output__reference">{slide.reference}</p>
+            {/* « Strophe 2 » n'apprend rien à l'assemblée, et mange une place
+                dont un cantique bilingue manque. La référence d'un verset, au
+                contraire, est indispensable. L'étiquette reste sous les yeux
+                de l'opérateur : le déroulé et l'écran « Suivant » l'affichent. */}
+            {slide.kind !== "cantique" && (
+              <p className="output__reference">{slide.reference}</p>
+            )}
           </div>
         )}
       </div>

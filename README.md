@@ -66,6 +66,24 @@ en franchissant les chapitres.
 **« Parcourir la Bible »** ouvre un choix livre → chapitre → versets, avec
 sélection multiple (`Maj+clic` pour étendre).
 **« Cantiques »** ouvre le formulaire de saisie.
+
+Ce qui apparaît sous le texte projeté : la référence d'un verset, toujours ;
+l'étiquette d'un cantique, jamais. « Strophe 2 » n'apprend rien à l'assemblée.
+L'opérateur la garde sous les yeux dans le déroulé et sur l'écran « Suivant ».
+
+**Un texte trop haut est réduit automatiquement** pour tenir dans l'écran — le
+cas d'un cantique bilingue, qui double le nombre de lignes. Le bandeau défilant,
+quand il est actif, voit sa hauteur retirée du calcul. La réduction s'arrête à
+40 % : en deçà, coupez la strophe en deux parties.
+
+Cet ajustement ne concerne **que la projection en salle**. L'incrustation OBS
+n'est pas touchée : un cantique bilingue y débordera, et la parade est la même,
+couper la strophe en deux.
+
+Dans un cantique saisi en régie, **l'ordre des parties à l'écran est celui qui
+sera projeté** : les flèches ↑↓ décident. Un refrain n'est donc pas repris
+automatiquement après chaque strophe — ajoutez-le où vous le voulez. Les 146
+cantiques du recueil livré, eux, suivent la convention « strophe puis refrain ».
 **« Apparence OBS »** règle police, taille et opacité de l'incrustation.
 **« Projeter sur… »** liste les écrans et ouvre la projection sur le bon.
 

@@ -9,7 +9,11 @@
   width: 100%;
   height: 100%;
   container-type: size;
+  /* Colonne : le bandeau défilant prend sa part en bas et la scène reçoit le
+     reste. Il était auparavant posé en absolu par-dessus, si bien qu'un texte
+     haut — un cantique bilingue — passait dessous et devenait illisible. */
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #fff;
@@ -36,10 +40,8 @@
 /* Bandeau défilant en bas de la salle : annonces, versets à venir, consignes.
    Il vit hors du fondu du texte, donc il reste lisible à l'écran noir. */
 .output__ticker {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  flex: none;
   overflow: hidden;
   background: rgba(6, 7, 10, 0.72);
   border-top: 0.25cqh solid var(--tally-red, #c8483c);
@@ -80,7 +82,10 @@
 */
 .output__stage {
   width: 100%;
-  height: 100%;
+  /* La hauteur restante, bandeau déduit : c'est elle que mesure l'ajustement
+     automatique, qui tient donc compte du bandeau sans rien savoir de lui. */
+  flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -92,13 +97,20 @@
   opacity: 1;
 }
 
+/*
+  --corps-ajuste est posé par Output.tsx quand le texte ne tient pas dans la
+  hauteur : un cantique bilingue double le nombre de lignes. Les marges suivent
+  la même réduction, sans quoi elles mangeraient la place rendue par le texte.
+  Tout reste en unités de conteneur : la vignette de la console demeure une
+  réduction fidèle de la projection.
+*/
 .output__slide {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5cqh;
-  padding: 6cqh 8cqw;
+  gap: calc(1.5cqh * var(--corps-ajuste, 1));
+  padding: calc(6cqh * var(--corps-ajuste, 1)) 8cqw;
   animation: output-fade var(--overlay-transition, 450ms) ease both;
 }
 
@@ -119,7 +131,7 @@
      28 px dans la vignette « Suivant » là où la proportion en voulait 11, et
      le texte y débordait au lieu de montrer ce qui allait suivre. La vignette
      est ainsi une réduction fidèle, pas une approximation. */
-  font-size: 4cqw;
+  font-size: calc(4cqw * var(--corps-ajuste, 1));
   line-height: 1.32;
   text-wrap: balance;
   white-space: pre-line;
@@ -129,7 +141,7 @@
    un vidéoprojecteur en 1920. Elle suit désormais la taille du verset. */
 .output__reference {
   margin: 0;
-  font-size: 2cqw;
+  font-size: calc(2cqw * var(--corps-ajuste, 1));
   color: #b9c6d0;
   letter-spacing: 0.02em;
 }
