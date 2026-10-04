@@ -4,7 +4,7 @@
 
 import { normalize } from "../bible/books.ts";
 import type { Item, Slide } from "../types.ts";
-import type { Song, SongBook, SongPart } from "./types.ts";
+import type { Song, SongBook, SongPart, SongPartKind } from "./types.ts";
 
 /** Jeton d'ordre d'une partie : « s1 », « r », « r2 », « p », « f ». */
 export function partToken(part: SongPart): string {
@@ -47,6 +47,49 @@ export function resolveOrder(song: Song): SongPart[] {
     if (chorus) ordered.push(chorus);
   }
   return [...ordered, ...rest];
+}
+
+/**
+ * Renumérote les parties par nature, dans leur ordre d'apparition. Deux raisons.
+ *
+ * D'abord les étiquettes : supprimer la première strophe de trois laissait
+ * « Strophe 2 » et « Strophe 3 », sans première.
+ *
+ * Ensuite l'unicité des jetons, dont dépend l'ordre explicite. Changer la
+ * nature d'une partie ne la renumérotait pas : deux parties pouvaient porter
+ * le même jeton, et un ordre qui les désigne n'en aurait retenu qu'une.
+ *
+ * La convention de l'éditeur est conservée : une strophe porte toujours son
+ * rang, les autres natures seulement quand il y en a plusieurs — « Refrain »
+ * plutôt que « Refrain 1 ».
+ */
+export function renumberParts(parts: SongPart[]): SongPart[] {
+  const total = new Map<SongPartKind, number>();
+  for (const part of parts) total.set(part.kind, (total.get(part.kind) ?? 0) + 1);
+
+  const rank = new Map<SongPartKind, number>();
+  return parts.map((part) => {
+    const next = (rank.get(part.kind) ?? 0) + 1;
+    rank.set(part.kind, next);
+    const numbered = part.kind === "strophe" || (total.get(part.kind) ?? 0) > 1;
+    const { number: _ancien, ...reste } = part;
+    return numbered ? { ...reste, number: next } : reste;
+  });
+}
+
+/**
+ * Inscrit dans le cantique l'ordre de chant que décrit la suite de ses parties.
+ *
+ * Sans cela, `resolveOrder` applique sa convention — chaque strophe suivie du
+ * refrain — et les flèches de réordonnancement de l'éditeur n'ont aucun effet
+ * sur ce qui est projeté : l'interface promet un ordre qu'elle ne tient pas.
+ *
+ * Ne s'applique qu'aux cantiques saisis en régie. Le recueil livré ne déclare
+ * pas d'ordre et garde donc la convention, qui lui convient.
+ */
+export function withExplicitOrder(song: Song): Song {
+  const parts = renumberParts(song.parts);
+  return { ...song, parts, order: parts.map(partToken) };
 }
 
 export function songToItem(song: Song): Item {

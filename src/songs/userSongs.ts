@@ -8,13 +8,24 @@
 // phase 2 sous SQLite.
 
 import { platform } from "../platform";
+import { withExplicitOrder } from "./search.ts";
 import type { Song, SongBook } from "./types";
 
 const KEY = "songs.user";
 
 export async function loadUserSongs(): Promise<Song[]> {
   const stored = await platform.store.get<Song[]>(KEY);
-  return Array.isArray(stored) ? stored : [];
+  if (!Array.isArray(stored)) return [];
+  // Un cantique saisi avant l'ordre explicite resterait soumis à la convention
+  // « strophe puis refrain » : son ordre est inscrit au chargement, pour que la
+  // suite montrée par l'éditeur soit exactement celle qui sera projetée. Une
+  // entrée abîmée est laissée telle quelle plutôt que de faire échouer tout le
+  // chargement.
+  return stored.map((song) =>
+    song?.order === undefined && Array.isArray(song?.parts)
+      ? withExplicitOrder(song)
+      : song,
+  );
 }
 
 export async function saveUserSongs(songs: Song[]): Promise<void> {

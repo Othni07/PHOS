@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { partLabel } from "../songs/search.ts";
+import { partLabel, withExplicitOrder } from "../songs/search.ts";
 import type { Song, SongPart, SongPartKind } from "../songs/types";
 import { songId } from "../songs/userSongs.ts";
 import "./SongEditor.css";
@@ -107,13 +107,15 @@ export function SongEditor({ songs, onSave }: SongEditorProps) {
       return;
     }
 
-    const song: Song = {
+    // L'ordre des parties à l'écran est celui qui sera projeté : les flèches
+    // de réordonnancement doivent tenir leur promesse.
+    const song: Song = withExplicitOrder({
       id: draft.id ?? songId(title),
       title,
       ...(number === undefined ? {} : { number }),
       ...(draft.author.trim() === "" ? {} : { author: draft.author.trim() }),
       parts,
-    };
+    });
 
     const others = songs.filter((s) => s.id !== song.id);
     onSave([...others, song].sort((a, b) => (a.number ?? 9999) - (b.number ?? 9999)));

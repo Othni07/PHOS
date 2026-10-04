@@ -1,7 +1,15 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { parseSongQuery, resolveOrder, searchSongs, songToItem } from "./search.ts";
-import type { SongBook } from "./types.ts";
+import {
+  parseSongQuery,
+  partToken,
+  renumberParts,
+  resolveOrder,
+  searchSongs,
+  songToItem,
+  withExplicitOrder,
+} from "./search.ts";
+import type { Song, SongBook, SongPart } from "./types.ts";
 
 const book: SongBook = {
   id: "test",
@@ -116,4 +124,78 @@ test("mise en diapositives : étiquettes et libellé du déroulé", () => {
   );
   // Le titre n'est jamais projeté (§6) : il ne doit apparaître dans aucun corps.
   assert.ok(item.slides.every((s) => !s.body.includes("À toi la gloire")));
+});
+
+// --- Renumérotation et ordre explicite (flèches de l'éditeur) ---
+
+const labels = (parts: SongPart[]) =>
+  parts.map((p) => (p.number === undefined ? p.kind : `${p.kind}${p.number}`));
+
+test("la renumérotation comble le trou laissé par une suppression", () => {
+  const parts: SongPart[] = [
+    { kind: "strophe", number: 2, body: "B" },
+    { kind: "strophe", number: 3, body: "C" },
+  ];
+  assert.deepEqual(labels(renumberParts(parts)), ["strophe1", "strophe2"]);
+});
+
+test("une partie unique de sa nature perd son rang, sauf une strophe", () => {
+  const parts: SongPart[] = [
+    { kind: "strophe", number: 1, body: "S" },
+    { kind: "refrain", number: 1, body: "R" },
+  ];
+  assert.deepEqual(labels(renumberParts(parts)), ["strophe1", "refrain"]);
+});
+
+test("deux parties de même nature ne peuvent pas partager un jeton", () => {
+  // Cas réel : l'éditeur change la nature d'une partie sans la renuméroter,
+  // et deux refrains sans rang porteraient tous deux le jeton « r ».
+  const parts: SongPart[] = [
+    { kind: "refrain", body: "R1" },
+    { kind: "refrain", body: "R2" },
+  ];
+  const tokens = renumberParts(parts).map(partToken);
+  assert.deepEqual(tokens, ["r1", "r2"]);
+  assert.equal(new Set(tokens).size, 2);
+});
+
+test("l'ordre explicite reproduit la suite des parties, refrain compris", () => {
+  const saisi: Song = {
+    id: "saisi",
+    title: "Cantique saisi en régie",
+    parts: [
+      { kind: "strophe", number: 1, body: "S1" },
+      { kind: "refrain", body: "R" },
+      { kind: "strophe", number: 2, body: "S2" },
+    ],
+  };
+
+  // Sans ordre, la convention intercale le refrain après chaque strophe.
+  assert.deepEqual(resolveOrder(saisi).map((p) => p.body), ["S1", "R", "S2", "R"]);
+
+  // Avec l'ordre inscrit par l'éditeur, c'est la suite affichée qui sort.
+  const avecOrdre = withExplicitOrder(saisi);
+  assert.deepEqual(avecOrdre.order, ["s1", "r", "s2"]);
+  assert.deepEqual(resolveOrder(avecOrdre).map((p) => p.body), ["S1", "R", "S2"]);
+});
+
+test("l'ordre explicite respecte un réordonnancement par les flèches", () => {
+  const remonte: Song = {
+    id: "remonte",
+    title: "Refrain en tête",
+    parts: [
+      { kind: "refrain", body: "R" },
+      { kind: "strophe", number: 1, body: "S1" },
+    ],
+  };
+  assert.deepEqual(
+    resolveOrder(withExplicitOrder(remonte)).map((p) => p.body),
+    ["R", "S1"],
+  );
+});
+
+test("le recueil livré, sans ordre déclaré, garde la convention", () => {
+  // Garde-fou : la renumérotation et l'ordre explicite ne touchent que les
+  // cantiques passés par l'éditeur. Les 146 cantiques livrés n'en voient rien.
+  assert.deepEqual(bodies("gloire"), ["S1", "R", "S2", "R"]);
 });
