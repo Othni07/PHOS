@@ -297,6 +297,26 @@ export function ConsolePage() {
     setState((s) => ({ ...s, incrustationVisible: !s.incrustationVisible }));
   }, []);
 
+  /**
+   * Touche de panique : une mauvaise diapositive est partie, un nom s'affiche
+   * par erreur. À cet instant on ne compose pas deux raccourcis.
+   *
+   * Ce n'est pas une inversion des deux drapeaux, qui donnerait n'importe quoi
+   * quand les sorties sont dans des états différents : la première frappe
+   * éteint toujours, la seconde rallume toujours. On ne doit pas avoir à se
+   * rappeler l'état avant d'appuyer.
+   */
+  const toggleTout = useCallback(() => {
+    setState((s) => {
+      const quelqueChoseDiffuse = s.salleVisible || s.incrustationVisible;
+      return {
+        ...s,
+        salleVisible: !quelqueChoseDiffuse,
+        incrustationVisible: !quelqueChoseDiffuse,
+      };
+    });
+  }, []);
+
   const setAppearance = useCallback((appearance: OverlayAppearance) => {
     setState((s) => ({ ...s, appearance }));
   }, []);
@@ -360,7 +380,10 @@ export function ConsolePage() {
         step(-1);
       } else if (e.key === "b" || e.key === "B") {
         e.preventDefault();
-        toggleSalle();
+        // Le test porte sur la touche Maj, pas sur la casse : un verrouillage
+        // majuscule donne « B » sans que l'opérateur ait voulu tout couper.
+        if (e.shiftKey) toggleTout();
+        else toggleSalle();
       } else if (e.key === "n" || e.key === "N") {
         e.preventDefault();
         toggleIncrustation();
@@ -368,11 +391,13 @@ export function ConsolePage() {
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [step, toggleSalle, toggleIncrustation]);
+  }, [step, toggleSalle, toggleIncrustation, toggleTout]);
+
+  const diffuseQuelquePart = state.salleVisible || state.incrustationVisible;
 
   // « À l'antenne » dès qu'une sortie diffuse : couper la salle seule ne met
   // pas le culte à l'arrêt, le direct continue.
-  const isLive = (state.salleVisible || state.incrustationVisible) && state.slide !== null;
+  const isLive = diffuseQuelquePart && state.slide !== null;
 
   // Le culte commence au premier verset réellement projeté, pas à l'ouverture
   // de la régie : on la lance souvent bien avant.
@@ -488,7 +513,7 @@ export function ConsolePage() {
                         // distinctes : à l'écran noir, la diapositive reste
                         // sélectionnée mais plus rien ne part.
                         const live =
-                          active && (state.salleVisible || state.incrustationVisible);
+                          active && diffuseQuelquePart;
                         return (
                           <li key={slideIndex}>
                             <button
@@ -566,6 +591,14 @@ export function ConsolePage() {
                     ? "Écran noir · Incrustation"
                     : "Rétablir · Incrustation"}
                   <kbd>N</kbd>
+                </button>
+                <button
+                  type="button"
+                  className={`command${diffuseQuelquePart ? "" : " command--armed"}`}
+                  onClick={toggleTout}
+                >
+                  {diffuseQuelquePart ? "Tout couper" : "Tout rétablir"}
+                  <kbd>Maj+B</kbd>
                 </button>
                 <ScreenPicker />
               </div>

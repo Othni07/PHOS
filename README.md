@@ -58,10 +58,14 @@ Accents, casse et séparateurs sont indifférents.
 | `←` `PageUp` | précédente |
 | `B` | écran noir de la salle |
 | `N` | écran noir de l'incrustation OBS |
+| `Maj+B` | tout couper, ou tout rétablir |
 | `/` | retour à la recherche |
 
 Les deux écrans noirs sont **indépendants** : couper la salle n'éteint pas
-l'incrustation, et inversement. On coupe le bandeau pendant que le prédicateur
+l'incrustation, et inversement. `Maj+B` agit sur les deux à la fois, pour le
+cas où quelque chose ne doit pas être vu : la première frappe éteint toujours,
+la seconde rallume toujours — il n'y a pas à se rappeler l'état avant
+d'appuyer. On coupe le bandeau pendant que le prédicateur
 est à l'image sans toucher à l'écran de la salle. Dans les deux cas la
 diapositive reste chargée — couper n'est pas désélectionner — et la pastille
 rouge « à l'antenne » reste allumée tant qu'une des deux sorties diffuse.
