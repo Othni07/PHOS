@@ -44,7 +44,8 @@ export function AppearancePanel({
   const preview: ShowState = {
     ...state,
     slide: state.slide ?? SAMPLE,
-    visible: true,
+    salleVisible: true,
+    incrustationVisible: true,
   };
 
   function set(patch: Partial<OverlayAppearance>) {

@@ -17,7 +17,8 @@ const KEY = "projecteur.session";
 export interface ConsoleSession {
   items: Item[];
   slide: Slide | null;
-  visible: boolean;
+  salleVisible: boolean;
+  incrustationVisible: boolean;
   itemIndex: number;
   slideIndex: number;
 }
@@ -26,12 +27,16 @@ export function loadSession(): ConsoleSession | null {
   try {
     const raw = window.sessionStorage.getItem(KEY);
     if (!raw) return null;
-    const value = JSON.parse(raw) as Partial<ConsoleSession>;
+    const value = JSON.parse(raw) as Partial<ConsoleSession> & { visible?: boolean };
     if (!Array.isArray(value.items)) return null;
+    // `visible` est le champ unique d'avant la séparation : une session
+    // rechargée en plein culte doit retrouver ses sorties allumées.
+    const ancien = value.visible === true;
     return {
       items: value.items,
       slide: value.slide ?? null,
-      visible: value.visible === true,
+      salleVisible: value.salleVisible ?? ancien,
+      incrustationVisible: value.incrustationVisible ?? ancien,
       itemIndex: typeof value.itemIndex === "number" ? value.itemIndex : 0,
       slideIndex: typeof value.slideIndex === "number" ? value.slideIndex : 0,
     };

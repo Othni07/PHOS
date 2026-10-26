@@ -50,8 +50,8 @@ function useBackgroundImage(imageId: string | null): string | null {
 // projection (§4 — corollaire du principe "la console décide, tout le reste
 // affiche"). L'aperçu est donc exact par construction, pas par ressemblance.
 export function Output({ state }: OutputProps) {
-  const { slide, visible, background, ticker } = state;
-  const onAir = visible && slide !== null;
+  const { slide, salleVisible, background, ticker } = state;
+  const onAir = salleVisible && slide !== null;
   const imageUrl = useBackgroundImage(background.imageId);
   const { cadre, contenu } = useAjustement<HTMLDivElement, HTMLDivElement>(
     slide ? slide.reference + slide.body : "",

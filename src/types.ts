@@ -31,7 +31,18 @@ export interface Item {
 
 export interface ShowState {
   slide: Slide | null;
-  visible: boolean; // false = écran noir, contenu reste chargé
+  /**
+   * Écran noir de la salle. Le contenu reste chargé : couper n'est pas
+   * désélectionner.
+   */
+  salleVisible: boolean;
+  /**
+   * Écran noir de l'incrustation OBS, indépendant de celui de la salle. Les
+   * deux sorties ne servent pas le même public : on coupe le bandeau pendant
+   * que le prédicateur est à l'image sans pour autant éteindre l'écran de la
+   * salle, et inversement.
+   */
+  incrustationVisible: boolean;
   itemIndex: number;
   slideIndex: number;
   /**

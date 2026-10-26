@@ -23,7 +23,8 @@ import { SongEditor } from "./SongEditor.tsx";
 import { loadSession, saveSession } from "./session.ts";
 import { loadSongBook } from "../songs/songs.ts";
 import type { Song, SongBook } from "../songs/types";
-import { loadUserSongs, mergeSongBook, saveUserSongs } from "../songs/userSongs.ts";
+import { mergeSongBook } from "../songs/listing.ts";
+import { loadUserSongs, saveUserSongs } from "../songs/userSongs.ts";
 import "./ConsolePage.css";
 
 interface FlatSlide {
@@ -60,7 +61,8 @@ export function ConsolePage() {
   const [state, setState] = useState<ShowState>(() => ({
     ...loadPersistedState(),
     slide: restored?.slide ?? null,
-    visible: restored?.visible ?? false,
+    salleVisible: restored?.salleVisible ?? false,
+    incrustationVisible: restored?.incrustationVisible ?? false,
     itemIndex: restored?.itemIndex ?? 0,
     slideIndex: restored?.slideIndex ?? 0,
   }));
@@ -211,11 +213,19 @@ export function ConsolePage() {
     saveSession({
       items,
       slide: state.slide,
-      visible: state.visible,
+      salleVisible: state.salleVisible,
+      incrustationVisible: state.incrustationVisible,
       itemIndex: state.itemIndex,
       slideIndex: state.slideIndex,
     });
-  }, [items, state.slide, state.visible, state.itemIndex, state.slideIndex]);
+  }, [
+    items,
+    state.slide,
+    state.salleVisible,
+    state.incrustationVisible,
+    state.itemIndex,
+    state.slideIndex,
+  ]);
 
   // Rejeu à l'ouverture : une fenêtre qui vient de s'ouvrir n'a rien reçu.
   useEffect(() => {
@@ -276,8 +286,15 @@ export function ConsolePage() {
     [lane, state.itemIndex, state.slideIndex, state.slide, goTo, bible, version],
   );
 
-  const toggleBlackout = useCallback(() => {
-    setState((s) => ({ ...s, visible: !s.visible }));
+  // Deux écrans noirs plutôt qu'un : la salle et l'incrustation ne servent pas
+  // le même public. On coupe le bandeau pendant que le prédicateur est à
+  // l'image sans éteindre l'écran de la salle, et inversement.
+  const toggleSalle = useCallback(() => {
+    setState((s) => ({ ...s, salleVisible: !s.salleVisible }));
+  }, []);
+
+  const toggleIncrustation = useCallback(() => {
+    setState((s) => ({ ...s, incrustationVisible: !s.incrustationVisible }));
   }, []);
 
   const setAppearance = useCallback((appearance: OverlayAppearance) => {
@@ -300,7 +317,8 @@ export function ConsolePage() {
       setState((s) => ({
         ...s,
         slide: item.slides[0],
-        visible: true,
+        salleVisible: true,
+        incrustationVisible: true,
         itemIndex,
         slideIndex: 0,
       }));
@@ -312,7 +330,14 @@ export function ConsolePage() {
     setItems((previous) => previous.filter((_, i) => i !== itemIndex));
     setState((s) =>
       s.itemIndex === itemIndex
-        ? { ...s, slide: null, visible: false, itemIndex: 0, slideIndex: 0 }
+        ? {
+            ...s,
+            slide: null,
+            salleVisible: false,
+            incrustationVisible: false,
+            itemIndex: 0,
+            slideIndex: 0,
+          }
         : s.itemIndex > itemIndex
           ? { ...s, itemIndex: s.itemIndex - 1 }
           : s,
@@ -335,14 +360,19 @@ export function ConsolePage() {
         step(-1);
       } else if (e.key === "b" || e.key === "B") {
         e.preventDefault();
-        toggleBlackout();
+        toggleSalle();
+      } else if (e.key === "n" || e.key === "N") {
+        e.preventDefault();
+        toggleIncrustation();
       }
     }
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [step, toggleBlackout]);
+  }, [step, toggleSalle, toggleIncrustation]);
 
-  const isLive = state.visible && state.slide !== null;
+  // « À l'antenne » dès qu'une sortie diffuse : couper la salle seule ne met
+  // pas le culte à l'arrêt, le direct continue.
+  const isLive = (state.salleVisible || state.incrustationVisible) && state.slide !== null;
 
   // Le culte commence au premier verset réellement projeté, pas à l'ouverture
   // de la régie : on la lance souvent bien avant.
@@ -457,7 +487,8 @@ export function ConsolePage() {
                         // Sélectionnée et réellement diffusée sont deux choses
                         // distinctes : à l'écran noir, la diapositive reste
                         // sélectionnée mais plus rien ne part.
-                        const live = active && state.visible;
+                        const live =
+                          active && (state.salleVisible || state.incrustationVisible);
                         return (
                           <li key={slideIndex}>
                             <button
@@ -506,7 +537,9 @@ export function ConsolePage() {
                 <div className="tally-rail" />
                 <div className="screen__glass">
                   {nextSlide ? (
-                    <Output state={{ ...state, slide: nextSlide, visible: true }} />
+                    <Output
+                      state={{ ...state, slide: nextSlide, salleVisible: true }}
+                    />
                   ) : (
                     <p className="screen__empty">Fin du déroulé</p>
                   )}
@@ -518,11 +551,21 @@ export function ConsolePage() {
               <div className="commands">
                 <button
                   type="button"
-                  className={`command${state.visible ? "" : " command--armed"}`}
-                  onClick={toggleBlackout}
+                  className={`command${state.salleVisible ? "" : " command--armed"}`}
+                  onClick={toggleSalle}
                 >
-                  {state.visible ? "Écran noir" : "Rétablir"}
+                  {state.salleVisible ? "Écran noir · Salle" : "Rétablir · Salle"}
                   <kbd>B</kbd>
+                </button>
+                <button
+                  type="button"
+                  className={`command${state.incrustationVisible ? "" : " command--armed"}`}
+                  onClick={toggleIncrustation}
+                >
+                  {state.incrustationVisible
+                    ? "Écran noir · Incrustation"
+                    : "Rétablir · Incrustation"}
+                  <kbd>N</kbd>
                 </button>
                 <ScreenPicker />
               </div>
@@ -558,7 +601,7 @@ export function ConsolePage() {
                 <BibleBrowser data={bible} version={version} onSubmit={addItem} />
               )}
               {tab === "cantiques" && (
-                <SongEditor songs={userSongs} onSave={updateUserSongs} />
+                <SongEditor songs={userSongs} bundled={bundledSongs} onSave={updateUserSongs} />
               )}
               {tab === "parametres" && (
                 <AppearancePanel

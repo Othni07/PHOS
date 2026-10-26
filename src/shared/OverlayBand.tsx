@@ -8,7 +8,7 @@ import "./OverlayBand.css";
  * OBS, et l'aperçu doit donc être exact par construction, pas par ressemblance.
  */
 export function OverlayBand({ state }: { state: ShowState }) {
-  const isOnAir = state.visible && state.slide !== null;
+  const isOnAir = state.incrustationVisible && state.slide !== null;
 
   return (
     <div className="overlay" style={appearanceVars(state.appearance)}>

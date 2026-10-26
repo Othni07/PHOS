@@ -35,6 +35,8 @@ retrouvé puis versé au dépôt. C'est aussi ce qui a motivé ce document.
 | Déroulé | `sessionStorage` : survit à un rechargement, disparaît à la fermeture. Les réglages, eux, vivent dans `localStorage`. |
 | Défilement | Versets et cantiques forment deux couloirs distincts ; les flèches ne franchissent pas la frontière. |
 | Fond d'image | Salle uniquement. Jamais dans l'overlay OBS. |
+| Écran noir | Un par sortie, indépendants : `B` pour la salle, `N` pour l'incrustation. Les deux publics ne sont pas servis par le même geste — couper le bandeau pendant que le prédicateur est à l'image ne doit pas éteindre l'écran de la salle. L'état porte donc deux drapeaux ; les états enregistrés sous l'ancien champ unique sont repris sur les deux. |
+| Modification du recueil | Le fichier livré n'est jamais réécrit. Un cantique corrigé est enregistré à part sous le même identifiant et recouvre l'original, mécanisme que `mergeSongBook` prévoyait déjà ; l'éditeur se contente de le rendre visible et réversible. Une correction se défait donc en supprimant la copie. |
 | Dépôt | GitHub, public, `Othni07/PHOS`. |
 | Étiquette de cantique | Jamais projetée, ni en salle ni dans l'overlay. « Strophe 2 » n'apprend rien à l'assemblée et prend la place dont un cantique bilingue manque. Elle reste sous les yeux de l'opérateur, dans le déroulé et sur l'écran « Suivant ». La référence d'un verset, elle, est toujours projetée. |
 | Ordre des cantiques saisis | Celui des parties dans l'éditeur : les flèches ↑↓ décident de ce qui sort. Le recueil livré ne déclare pas d'ordre et garde la convention « chaque strophe suivie du refrain », qui lui convient. Un cantique saisi avec refrain ne le répète donc plus automatiquement : on l'ajoute où on le veut. |

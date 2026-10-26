@@ -252,6 +252,45 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  /* Le recueil livré compte 146 entrées : la liste défile chez elle plutôt
+     que d'étirer le panneau sur plusieurs écrans. */
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Décompte sous le titre : combien viennent du recueil, combien ont été
+   retouchés, combien ont été ajoutés. */
+.editor__tally {
+  margin: 0 0 8px;
+  font-size: var(--t-micro);
+  color: var(--slate-blue);
+}
+
+.editor__filtre {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  margin-bottom: 6px;
+  flex: none;
+}
+
+.editor__tag {
+  flex: none;
+  padding: 1px 5px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+  color: var(--slate-blue);
+}
+
+.editor__tag--modifie {
+  border-color: var(--slate-blue);
+  color: var(--parchment);
+}
+
+.editor__row {
+  flex: none;
 }
 
 .editor__subtitle {

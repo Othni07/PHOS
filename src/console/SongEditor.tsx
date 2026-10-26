@@ -1,11 +1,16 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { normalize } from "../bible/books.ts";
 import { partLabel, withExplicitOrder } from "../songs/search.ts";
-import type { Song, SongPart, SongPartKind } from "../songs/types";
+import type { Song, SongBook, SongPart, SongPartKind } from "../songs/types";
+import { listSongs } from "../songs/listing.ts";
 import { songId } from "../songs/userSongs.ts";
 import "./SongEditor.css";
 
 interface SongEditorProps {
+  /** Cantiques saisis en régie — les seuls modifiables en écriture. */
   songs: Song[];
+  /** Recueil livré, présenté en lecture et modifiable par recouvrement. */
+  bundled: SongBook | null;
   onSave: (songs: Song[]) => void;
 }
 
@@ -47,10 +52,30 @@ function toDraft(song: Song): Draft {
  * concurrent réel est la confiance du technicien : demander d'éditer des
  * accolades à la main un dimanche matin ne l'inspire pas.
  */
-export function SongEditor({ songs, onSave }: SongEditorProps) {
+export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
   const [draft, setDraft] = useState<Draft>(EMPTY);
   const [error, setError] = useState<string | null>(null);
+  const [filtre, setFiltre] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+
+  const liste = useMemo(() => listSongs(bundled, songs), [bundled, songs]);
+
+  // Au-delà de cent cantiques, une liste sans filtre ne se parcourt plus :
+  // on cherche par titre ou par numéro, comme dans la barre de recherche.
+  const visibles = useMemo(() => {
+    const cle = normalize(filtre.trim());
+    if (!cle) return liste;
+    return liste.filter(
+      ({ song }) =>
+        normalize(song.title).includes(cle) || String(song.number ?? "").startsWith(cle),
+    );
+  }, [liste, filtre]);
+
+  const compte = {
+    recueil: liste.filter((e) => e.origin === "recueil").length,
+    modifie: liste.filter((e) => e.origin === "modifie").length,
+    ajoute: liste.filter((e) => e.origin === "ajoute").length,
+  };
 
   function setPart(index: number, patch: Partial<SongPart>) {
     setDraft((d) => ({
@@ -275,20 +300,41 @@ export function SongEditor({ songs, onSave }: SongEditorProps) {
         </div>
 
         <div className="editor__list">
-          <h3 className="editor__subtitle">
-            Mes cantiques {songs.length > 0 && `(${songs.length})`}
-          </h3>
-          {songs.length === 0 && (
-            <p className="editor__hint">
-              Aucun pour l'instant. Ceux du recueil livré restent disponibles.
-            </p>
+          <h3 className="editor__subtitle">Cantiques ({liste.length})</h3>
+          <p className="editor__tally">
+            {compte.recueil} du recueil
+            {compte.modifie > 0 && ` · ${compte.modifie} modifié${compte.modifie > 1 ? "s" : ""}`}
+            {compte.ajoute > 0 && ` · ${compte.ajoute} ajouté${compte.ajoute > 1 ? "s" : ""}`}
+          </p>
+
+          <input
+            className="editor__input editor__filtre"
+            value={filtre}
+            onChange={(e) => setFiltre(e.target.value)}
+            placeholder="Filtrer par titre ou numéro"
+            spellCheck={false}
+            autoComplete="off"
+          />
+
+          {visibles.length === 0 && (
+            <p className="editor__hint">Aucun cantique ne correspond.</p>
           )}
-          {songs.map((song) => (
+
+          {visibles.map(({ song, origin }) => (
             <div key={song.id} className="editor__row">
               <span className="editor__row-title">
                 {song.number !== undefined && `${song.number} · `}
                 {song.title}
               </span>
+
+              {/* Le recueil livré est l'état de référence : il ne porte pas
+                  d'étiquette, seules les retouches en portent une. */}
+              {origin !== "recueil" && (
+                <span className={`editor__tag editor__tag--${origin}`}>
+                  {origin === "modifie" ? "modifié" : "ajouté"}
+                </span>
+              )}
+
               <button
                 type="button"
                 className="editor__icon"
@@ -297,14 +343,30 @@ export function SongEditor({ songs, onSave }: SongEditorProps) {
               >
                 ✎
               </button>
-              <button
-                type="button"
-                className="editor__icon editor__icon--danger"
-                onClick={() => onSave(songs.filter((s) => s.id !== song.id))}
-                title="Supprimer"
-              >
-                ×
-              </button>
+
+              {/* Un cantique du recueil non retouché n'a rien à supprimer :
+                  il n'existe pas dans le stockage. Retoucher puis rétablir
+                  revient à effacer la copie, et l'original réapparaît. */}
+              {origin === "modifie" && (
+                <button
+                  type="button"
+                  className="editor__icon"
+                  onClick={() => onSave(songs.filter((s) => s.id !== song.id))}
+                  title="Rétablir la version du recueil"
+                >
+                  ↺
+                </button>
+              )}
+              {origin === "ajoute" && (
+                <button
+                  type="button"
+                  className="editor__icon editor__icon--danger"
+                  onClick={() => onSave(songs.filter((s) => s.id !== song.id))}
+                  title="Supprimer ce cantique"
+                >
+                  ×
+                </button>
+              )}
             </div>
           ))}
         </div>

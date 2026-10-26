@@ -56,8 +56,15 @@ Accents, casse et séparateurs sont indifférents.
 | ------ | ----- |
 | `→` `Espace` `PageDown` | diapositive suivante |
 | `←` `PageUp` | précédente |
-| `B` | écran noir |
+| `B` | écran noir de la salle |
+| `N` | écran noir de l'incrustation OBS |
 | `/` | retour à la recherche |
+
+Les deux écrans noirs sont **indépendants** : couper la salle n'éteint pas
+l'incrustation, et inversement. On coupe le bandeau pendant que le prédicateur
+est à l'image sans toucher à l'écran de la salle. Dans les deux cas la
+diapositive reste chargée — couper n'est pas désélectionner — et la pastille
+rouge « à l'antenne » reste allumée tant qu'une des deux sorties diffuse.
 
 Les flèches ne franchissent pas la frontière entre versets et cantiques. Sur un
 verset, elles poursuivent la lecture dans le texte au-delà du passage choisi,
@@ -65,7 +72,24 @@ en franchissant les chapitres.
 
 **« Parcourir la Bible »** ouvre un choix livre → chapitre → versets, avec
 sélection multiple (`Maj+clic` pour étendre).
-**« Cantiques »** ouvre le formulaire de saisie.
+**« Cantiques »** ouvre le formulaire de saisie et la liste complète.
+
+### La liste des cantiques
+
+L'onglet Cantiques présente **tous** les cantiques de l'application — le recueil
+livré et ceux saisis en régie — avec leur nombre et un filtre par titre ou par
+numéro. Chaque ligne porte un crayon qui la charge dans le formulaire.
+
+| Étiquette | Ce que c'est | Ce qu'on peut faire |
+| --------- | ------------ | ------------------- |
+| *(aucune)* | cantique du recueil livré, intact | le modifier |
+| `modifié` | cantique du recueil dont les paroles ont été corrigées | le remodifier, ou `↺` rétablir l'original |
+| `ajouté` | cantique saisi en régie | le modifier, ou `×` le supprimer |
+
+Modifier un cantique du recueil n'écrase pas le fichier livré : la version
+corrigée est enregistrée à côté et prend sa place. Rétablir efface cette copie,
+et l'original reparaît. Les corrections vivent dans le navigateur — pensez à
+**« Exporter mes cantiques »**, qui est la seule sauvegarde en phase 1.
 
 Ce qui apparaît sous le texte projeté : la référence d'un verset, toujours ;
 l'étiquette d'un cantique, jamais. « Strophe 2 » n'apprend rien à l'assemblée.

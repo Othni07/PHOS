@@ -24,7 +24,8 @@ const SETTINGS_KEY = "projecteur.reglages";
 
 export const initialShowState: ShowState = {
   slide: null,
-  visible: false,
+  salleVisible: false,
+  incrustationVisible: false,
   itemIndex: 0,
   slideIndex: 0,
   appearance: defaultAppearance,
@@ -42,10 +43,18 @@ export const ALIVE_MS = 2000;
 
 /** Un état venu du stockage ou du réseau peut précéder l'ajout d'un champ. */
 export function reviveShowState(raw: unknown): ShowState {
-  const value = (raw ?? {}) as Partial<ShowState>;
+  // Avant la séparation des écrans noirs, un seul « visible » valait pour les
+  // deux sorties. Un état enregistré ou une fenêtre restée ouverte ne doit pas
+  // revenir au noir simplement parce que le champ a changé de nom.
+  const { visible: ancien, ...value } = (raw ?? {}) as Partial<ShowState> & {
+    visible?: boolean;
+  };
   return {
     ...initialShowState,
     ...value,
+    salleVisible: value.salleVisible ?? ancien ?? initialShowState.salleVisible,
+    incrustationVisible:
+      value.incrustationVisible ?? ancien ?? initialShowState.incrustationVisible,
     appearance: normalizeAppearance(value.appearance),
     background: normalizeBackground(value.background),
     ticker: normalizeTicker(value.ticker),
