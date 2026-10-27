@@ -24,10 +24,23 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Bouton, pas étiquette : un clic redémarre le décompte. Il garde l'allure
+   discrète d'un voyant — rien ne doit attirer l'œil vers lui en plein culte. */
 .etat__ecoule {
+  padding: 2px 4px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-family: inherit;
   font-size: var(--t-micro);
   color: var(--slate-blue);
   font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.etat__ecoule:hover {
+  border-color: var(--hairline);
+  color: var(--parchment);
 }
 
 .etat__voyants {

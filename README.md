@@ -139,6 +139,10 @@ automatiquement après chaque strophe — ajoutez-le où vous le voulez. Les 146
 cantiques du recueil livré, eux, suivent la convention « strophe puis refrain ».
 **« Apparence OBS »** règle police, taille et opacité de l'incrustation.
 **« Projeter sur… »** liste les écrans et ouvre la projection sur le bon.
+Le décompte **« culte · N min »** du bloc d'état démarre au premier passage à
+l'antenne — souvent pendant les essais, bien avant le culte. Un clic dessus le
+redémarre à l'instant présent.
+
 **« Raccourcis »**, ou la touche `?`, affiche la carte du clavier — y compris
 `/`, les flèches et le `Maj+clic` du volet des versets, qui ne portent aucune
 étiquette ailleurs.

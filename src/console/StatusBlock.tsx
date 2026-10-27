@@ -11,6 +11,8 @@ interface StatusBlockProps {
   debutCulte: number | null;
   /** Horloge fournie par la console : un seul minuteur pour toute la régie. */
   maintenant: number;
+  /** Redémarre le décompte à l'instant présent. */
+  onResetCulte: () => void;
 }
 
 function deuxChiffres(n: number): string {
@@ -31,6 +33,7 @@ export function StatusBlock({
   version,
   debutCulte,
   maintenant,
+  onResetCulte,
 }: StatusBlockProps) {
   const heure = new Date(maintenant);
   const ecoule =
@@ -42,7 +45,19 @@ export function StatusBlock({
         <span className="etat__horloge">
           {deuxChiffres(heure.getHours())}:{deuxChiffres(heure.getMinutes())}
         </span>
-        {ecoule !== null && <span className="etat__ecoule">culte · {ecoule} min</span>}
+        {/* Le décompte part au premier passage à l'antenne, ce qui arrive
+            souvent pendant les essais, bien avant le culte. Un clic le
+            redémarre à l'instant présent. */}
+        {ecoule !== null && (
+          <button
+            type="button"
+            className="etat__ecoule"
+            onClick={onResetCulte}
+            title="Redémarrer le décompte du culte à maintenant"
+          >
+            culte · {ecoule} min
+          </button>
+        )}
       </div>
 
       <div className="etat__voyants">

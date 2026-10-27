@@ -660,6 +660,7 @@ export function ConsolePage() {
                 incrustationBranchee={incrustationBranchee}
                 version={version}
                 debutCulte={debutCulte}
+                onResetCulte={() => setDebutCulte(Date.now())}
                 maintenant={maintenant}
               />
             </div>
