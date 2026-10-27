@@ -71,6 +71,7 @@ Accents, casse et séparateurs sont indifférents.
 | `N` | écran noir de l'incrustation OBS |
 | `Maj+B` | tout couper, ou tout rétablir |
 | `/` | retour à la recherche |
+| `?` | la carte des raccourcis |
 
 Les deux écrans noirs sont **indépendants** : couper la salle n'éteint pas
 l'incrustation, et inversement. `Maj+B` agit sur les deux à la fois, pour le
@@ -138,6 +139,9 @@ automatiquement après chaque strophe — ajoutez-le où vous le voulez. Les 146
 cantiques du recueil livré, eux, suivent la convention « strophe puis refrain ».
 **« Apparence OBS »** règle police, taille et opacité de l'incrustation.
 **« Projeter sur… »** liste les écrans et ouvre la projection sur le bon.
+**« Raccourcis »**, ou la touche `?`, affiche la carte du clavier — y compris
+`/`, les flèches et le `Maj+clic` du volet des versets, qui ne portent aucune
+étiquette ailleurs.
 
 ## OBS
 

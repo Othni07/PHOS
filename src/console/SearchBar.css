@@ -24,12 +24,11 @@
 }
 
 .search__input:focus {
-  outline: none;
   border-color: var(--slate-blue);
 }
 
 .search__input::placeholder {
-  color: #55606e;
+  color: var(--indice);
 }
 
 .search__version {
@@ -50,7 +49,7 @@
 }
 
 .search__hint--error {
-  color: var(--tally-red);
+  color: var(--alerte);
 }
 
 .search__result {
@@ -58,7 +57,7 @@
   top: calc(100% + 6px);
   left: 0;
   right: 0;
-  z-index: 30;
+  z-index: var(--z-recherche);
   max-height: 60vh;
   overflow-y: auto;
   padding: 6px;

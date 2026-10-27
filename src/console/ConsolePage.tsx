@@ -16,6 +16,7 @@ import { ALIVE_MS, createShowBus, loadPersistedState } from "../shared/showBus";
 import type { Item, ShowState, SlideKind } from "../types";
 import { AppearancePanel } from "./AppearancePanel.tsx";
 import { BibleBrowser } from "./BibleBrowser.tsx";
+import { Raccourcis } from "./Raccourcis.tsx";
 import { ScreenPicker } from "./ScreenPicker.tsx";
 import { SearchBar } from "./SearchBar.tsx";
 import { StatusBlock } from "./StatusBlock.tsx";
@@ -651,6 +652,7 @@ export function ConsolePage() {
                   <kbd>Maj+B</kbd>
                 </button>
                 <ScreenPicker />
+                <Raccourcis />
               </div>
 
               <StatusBlock

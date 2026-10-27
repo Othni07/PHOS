@@ -5,7 +5,7 @@
 .annulation {
   position: sticky;
   bottom: 0;
-  z-index: 2;
+  z-index: var(--z-collant);
   display: flex;
   align-items: center;
   gap: 8px;

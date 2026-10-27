@@ -1,0 +1,61 @@
+.raccourcis {
+  position: relative;
+}
+
+/* Comme le sélecteur d'écran, la carte s'ouvre vers le haut : les commandes
+   vivent en bas de la régie. */
+.raccourcis__carte {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  z-index: var(--z-flottant);
+  display: grid;
+  gap: 2px;
+  min-width: 320px;
+  margin: 0;
+  padding: 8px;
+  background: var(--panel);
+  border: 1px solid var(--slate-blue);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.raccourcis__ligne {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 5px 4px;
+}
+
+.raccourcis__touches {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  flex: none;
+  /* Largeur fixe : les effets s'alignent en colonne, l'œil descend la liste
+     sans la relire. */
+  width: 150px;
+}
+
+.raccourcis__touches kbd {
+  padding: 2px 6px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--parchment);
+  font-family: inherit;
+  font-size: var(--t-micro);
+}
+
+.raccourcis__ou {
+  margin: 0 2px;
+  color: var(--slate-blue);
+  font-size: var(--t-micro);
+}
+
+.raccourcis__effet {
+  margin: 0;
+  font-size: var(--t-label);
+  color: var(--parchment);
+  line-height: 1.4;
+}

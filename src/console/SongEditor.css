@@ -35,7 +35,7 @@
 }
 
 .editor__close:hover {
-  color: var(--tally-red);
+  color: var(--alerte);
 }
 
 /* Deux colonnes dès qu'il y a la place : le formulaire à gauche, la liste des
@@ -106,7 +106,6 @@
 
 .editor__input:focus,
 .editor__textarea:focus {
-  outline: none;
   border-color: var(--slate-blue);
 }
 
@@ -182,8 +181,8 @@
 }
 
 .editor__icon--danger:hover {
-  color: var(--tally-red);
-  border-color: var(--tally-red);
+  color: var(--alerte);
+  border-color: var(--alerte);
 }
 
 .editor__adders {
@@ -258,7 +257,7 @@
 .editor__error {
   margin: 0;
   font-size: var(--t-label);
-  color: var(--tally-red);
+  color: var(--alerte);
 }
 
 .editor__list {
@@ -284,7 +283,7 @@
 .editor__filtre {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: var(--z-collant);
   margin-bottom: 6px;
   flex: none;
 }

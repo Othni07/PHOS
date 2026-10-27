@@ -160,7 +160,7 @@
 }
 
 .rundown-item__remove:hover {
-  color: var(--tally-red);
+  color: var(--alerte);
 }
 
 .rundown-item__slides {

@@ -179,7 +179,7 @@
   margin: 0;
   font-size: var(--t-label);
   line-height: 1.45;
-  color: var(--tally-red);
+  color: var(--alerte);
 }
 
 .appearance__textarea {
@@ -196,7 +196,6 @@
 }
 
 .appearance__textarea:focus {
-  outline: none;
   border-color: var(--slate-blue);
 }
 
@@ -277,8 +276,8 @@
 }
 
 .fond__remove:hover {
-  color: var(--tally-red);
-  border-color: var(--tally-red);
+  color: var(--alerte);
+  border-color: var(--alerte);
 }
 
 .appearance__field input[type="range"]:disabled {

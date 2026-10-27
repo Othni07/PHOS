@@ -5,6 +5,14 @@
   --parchment: #ede7da;
   --slate-blue: #7a93a0;
   --tally-red: #c8483c;
+  /* Rouge de texte, distinct du tally. Le tally signale l'antenne et ne porte
+     que des pastilles et des rails, où 3:1 suffit ; une erreur ou un bouton
+     destructeur est du texte de 12 px, et #c8483c n'y atteignait que 3,96:1.
+     Celui-ci tient 5,67:1 sur l'encre et 5,22:1 sur le panneau. */
+  --alerte: #e2685c;
+  /* Texte indicatif des champs. L'ancien #55606e plafonnait à 2,93:1 : c'est
+     la première chose qu'un opérateur neuf a besoin de lire. */
+  --indice: #727e8d;
 
   /* Quatre tailles seulement. Huit s'étaient accumulées au fil des demandes,
      sans logique commune : c'est ce qui donnait à la régie un air désordonné. */
@@ -16,12 +24,40 @@
   /* Deux graisses : le texte courant, et ce qu'on souligne. */
   --w-fort: 600;
 
+  /* Échelle d'empilement, du fond vers l'avant. Les valeurs étaient posées au
+     cas par cas ; un menu passant derrière un panneau un dimanche matin est
+     une panne, pas un détail. */
+  --z-contenu: 1;
+  --z-collant: 2;
+  --z-flottant: 20;
+  --z-recherche: 30;
+
   --font-system:
     -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/*
+  Repère clavier. Cette régie se pilote aux touches : sans anneau visible,
+  l'opérateur qui tabule ne sait pas où il se trouve. Une seule règle plutôt
+  qu'une par composant — il n'y avait de :focus-visible que sur deux boutons
+  de toute l'application.
+*/
+:focus-visible {
+  outline: 2px solid var(--slate-blue);
+  outline-offset: 2px;
+}
+
+/*
+  Retour d'appui. Dans une salle sombre, rien ne confirmait qu'un clic avait
+  porté. Un pixel suffit à le faire sentir, et le décalage est instantané —
+  ce n'est pas une animation, rien à désactiver pour qui réduit les mouvements.
+*/
+button:not(:disabled):active {
+  transform: translateY(1px);
 }
 
 html,

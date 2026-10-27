@@ -37,7 +37,7 @@
 }
 
 .browser__close:hover {
-  color: var(--tally-red);
+  color: var(--alerte);
 }
 
 /* Hauteur réduite de moitié : les trois colonnes défilent d'elles-mêmes, et

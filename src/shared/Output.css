@@ -157,5 +157,5 @@
 /* Le texte doit passer au-dessus du fond et du bandeau. */
 .output__stage {
   position: relative;
-  z-index: 1;
+  z-index: var(--z-contenu);
 }
