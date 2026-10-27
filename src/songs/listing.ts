@@ -64,3 +64,21 @@ export function listSongs(bundled: SongBook | null, user: Song[]): SongListing[]
       a.song.title.localeCompare(b.song.title, "fr"),
   );
 }
+
+/**
+ * Empreinte du contenu saisi, pour savoir s'il a changé depuis le dernier
+ * export. Un simple décompte raterait une correction de paroles, qui est
+ * précisément le travail qu'on ne veut pas perdre.
+ *
+ * L'ordre des clés produit par JSON.stringify suit l'ordre d'insertion : deux
+ * objets équivalents pourraient donner deux empreintes. L'erreur penche du bon
+ * côté — on annonce « non exporté » à tort, jamais « à jour » à tort.
+ */
+export function empreinteCantiques(songs: Song[]): string {
+  const texte = JSON.stringify(songs);
+  let h = 5381;
+  for (let i = 0; i < texte.length; i += 1) {
+    h = ((h * 33) ^ texte.charCodeAt(i)) >>> 0;
+  }
+  return h.toString(36);
+}

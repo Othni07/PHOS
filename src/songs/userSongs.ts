@@ -12,6 +12,7 @@ import { withExplicitOrder } from "./search.ts";
 import type { Song } from "./types";
 
 const KEY = "songs.user";
+const KEY_EXPORT = "songs.user.export";
 
 export async function loadUserSongs(): Promise<Song[]> {
   const stored = await platform.store.get<Song[]>(KEY);
@@ -42,4 +43,28 @@ export function songId(title: string): string {
     .replace(/^-+|-+$/g, "")
     .slice(0, 40);
   return `${slug || "cantique"}-${Date.now().toString(36)}`;
+}
+
+/**
+ * Trace du dernier export : sa date, et l'empreinte de ce qui a été exporté.
+ *
+ * En phase 1 le stockage du navigateur est la seule mémoire, et cet export la
+ * seule sauvegarde. Encore faut-il savoir qu'on ne l'a pas fait — c'est ce que
+ * cette trace permet d'afficher.
+ */
+export interface MarqueExport {
+  date: number;
+  empreinte: string;
+}
+
+export async function loadMarqueExport(): Promise<MarqueExport | null> {
+  const stored = await platform.store.get<MarqueExport>(KEY_EXPORT);
+  if (!stored || typeof stored.date !== "number" || typeof stored.empreinte !== "string") {
+    return null;
+  }
+  return stored;
+}
+
+export async function saveMarqueExport(marque: MarqueExport): Promise<void> {
+  await platform.store.set(KEY_EXPORT, marque);
 }

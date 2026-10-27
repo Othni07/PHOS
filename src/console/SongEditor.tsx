@@ -1,12 +1,31 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { normalize } from "../bible/books.ts";
 import { useAnnulation } from "./annulation.ts";
 import { BandeauAnnulation } from "./Annulation.tsx";
 import { partLabel, withExplicitOrder } from "../songs/search.ts";
 import type { Song, SongBook, SongPart, SongPartKind } from "../songs/types";
-import { listSongs } from "../songs/listing.ts";
-import { songId } from "../songs/userSongs.ts";
+import { empreinteCantiques, listSongs } from "../songs/listing.ts";
+import {
+  loadMarqueExport,
+  saveMarqueExport,
+  songId,
+  type MarqueExport,
+} from "../songs/userSongs.ts";
 import "./SongEditor.css";
+
+const JOUR = 86_400_000;
+
+/** Date lisible, relative tant qu'elle reste proche. */
+function dateLisible(horodatage: number): string {
+  const jours = Math.floor((Date.now() - horodatage) / JOUR);
+  if (jours <= 0) return "aujourd'hui";
+  if (jours === 1) return "hier";
+  return `le ${new Date(horodatage).toLocaleDateString("fr-CA", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  })}`;
+}
 
 interface SongEditorProps {
   /** Cantiques saisis en régie — les seuls modifiables en écriture. */
@@ -61,6 +80,17 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const liste = useMemo(() => listSongs(bundled, songs), [bundled, songs]);
+
+  // L'export est la seule sauvegarde qui existe en phase 1 : encore faut-il
+  // savoir qu'on ne l'a pas fait. On compare l'empreinte de ce qui est saisi à
+  // celle de ce qui a été exporté — un décompte raterait une correction.
+  const [marque, setMarque] = useState<MarqueExport | null>(null);
+  useEffect(() => {
+    void loadMarqueExport().then(setMarque);
+  }, []);
+
+  const empreinte = useMemo(() => empreinteCantiques(songs), [songs]);
+  const aJour = marque !== null && marque.empreinte === empreinte;
 
   // Supprimer un cantique saisi, ou rétablir le recueil par-dessus une
   // correction, efface un travail de frappe qu'aucun fichier ne garde ailleurs.
@@ -166,6 +196,9 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
   }
 
   function exportSongs() {
+    const trace: MarqueExport = { date: Date.now(), empreinte };
+    void saveMarqueExport(trace);
+    setMarque(trace);
     const blob = new Blob([JSON.stringify({ songs }, null, 2)], {
       type: "application/json",
     });
@@ -421,6 +454,7 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
             type="file"
             accept="application/json,.json"
             hidden
+            aria-label="Importer un export de cantiques"
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) void importSongs(file);
@@ -428,6 +462,18 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
             }}
           />
         </div>
+
+        {/* Pas de rouge ici : le §7 le réserve à ce qui est réellement diffusé.
+            L'alerte se marque par le contraste et la graisse. */}
+        {songs.length > 0 && (
+          <p className={`editor__sauvegarde${aJour ? "" : " editor__sauvegarde--alerte"}`}>
+            {marque === null
+              ? "Jamais exporté. Vos cantiques ne vivent que dans ce navigateur."
+              : aJour
+                ? `Exporté ${dateLisible(marque.date)}.`
+                : `Modifications non exportées depuis ${dateLisible(marque.date)}.`}
+          </p>
+        )}
       </div>
     </section>
   );

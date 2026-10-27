@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { listSongs, mergeSongBook } from "./listing.ts";
+import { empreinteCantiques, listSongs, mergeSongBook } from "./listing.ts";
 import type { Song, SongBook } from "./types.ts";
 
 const chant = (id: string, title: string, number?: number): Song => ({
@@ -65,4 +65,16 @@ test("un cantique numéroté passe devant ceux qui ne le sont pas", () => {
     liste.map((e) => e.song.title),
     ["Numéroté", "Sans numéro"],
   );
+});
+
+test("l'empreinte change dès qu'une parole est corrigée", () => {
+  const avant = [chant("a", "Alléluia")];
+  const apres = [{ ...chant("a", "Alléluia"), parts: [{ kind: "strophe" as const, number: 1, body: "corrigé" }] }];
+
+  assert.equal(empreinteCantiques(avant), empreinteCantiques(avant));
+  assert.notEqual(empreinteCantiques(avant), empreinteCantiques(apres));
+});
+
+test("l'empreinte distingue un ajout d'une liste vide", () => {
+  assert.notEqual(empreinteCantiques([]), empreinteCantiques([chant("a", "Alléluia")]));
 });

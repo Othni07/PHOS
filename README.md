@@ -113,8 +113,11 @@ s'en serve ou qu'on le masque. Il n'y a donc aucune confirmation à cliquer sur
 le geste courant. Annuler le retrait d'un passage le remet à sa place dans le
 déroulé **sans rien renvoyer à l'antenne**. Annuler la suppression d'une image
 la remet en revanche à l'écran si elle y était : ici l'image est l'objet même du
-réglage, la rendre sans la réafficher ne serait qu'une demi-annulation. Les corrections vivent dans le navigateur — pensez à
-**« Exporter mes cantiques »**, qui est la seule sauvegarde en phase 1.
+réglage, la rendre sans la réafficher ne serait qu'une demi-annulation. Les corrections vivent dans le navigateur. **« Exporter mes cantiques »** est
+la seule sauvegarde en phase 1, et une ligne sous les boutons dit où vous en
+êtes : *jamais exporté*, *exporté le …*, ou *modifications non exportées
+depuis …*. La comparaison porte sur une empreinte du contenu, pas sur un
+décompte : une correction de paroles la déclenche aussi.
 
 Ce qui apparaît sous le texte projeté : la référence d'un verset, toujours ;
 l'étiquette d'un cantique, jamais. « Strophe 2 » n'apprend rien à l'assemblée.

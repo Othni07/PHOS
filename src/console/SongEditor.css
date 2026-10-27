@@ -338,3 +338,21 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/*
+  État de la sauvegarde, sous les boutons d'export. Le rouge tally est écarté :
+  le §7 le réserve à ce qui est diffusé, et une alerte de sauvegarde n'a rien à
+  voir avec l'antenne. Le contraste et la graisse suffisent à la distinguer.
+*/
+.editor__sauvegarde {
+  grid-column: 1;
+  margin: 0;
+  font-size: var(--t-label);
+  color: var(--slate-blue);
+  line-height: 1.45;
+}
+
+.editor__sauvegarde--alerte {
+  color: var(--parchment);
+  font-weight: var(--w-fort);
+}
