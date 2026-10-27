@@ -19,6 +19,8 @@ import { BibleBrowser } from "./BibleBrowser.tsx";
 import { ScreenPicker } from "./ScreenPicker.tsx";
 import { SearchBar } from "./SearchBar.tsx";
 import { StatusBlock } from "./StatusBlock.tsx";
+import { useAnnulation } from "./annulation.ts";
+import { BandeauAnnulation } from "./Annulation.tsx";
 import { SongEditor } from "./SongEditor.tsx";
 import { loadSession, saveSession } from "./session.ts";
 import { loadSongBook } from "../songs/songs.ts";
@@ -346,23 +348,63 @@ export function ConsolePage() {
     });
   }, []);
 
-  const removeItem = useCallback((itemIndex: number) => {
-    setItems((previous) => previous.filter((_, i) => i !== itemIndex));
+  // Retirer un passage du déroulé est le seul geste de la régie qui défait un
+  // ajout sans rien demander : on garde de quoi le remettre.
+  const {
+    memoire: passageRetire,
+    memoriser: memoriserRetrait,
+    oublier: oublierRetrait,
+  } = useAnnulation<{ item: Item; index: number }>();
+
+  const removeItem = useCallback(
+    (itemIndex: number) => {
+      setItems((previous) => {
+        const retire = previous[itemIndex];
+        if (retire) {
+          memoriserRetrait(
+            { item: retire, index: itemIndex },
+            `« ${retire.label} » retiré du déroulé.`,
+          );
+        }
+        return previous.filter((_, i) => i !== itemIndex);
+      });
+      setState((s) =>
+        s.itemIndex === itemIndex
+          ? {
+              ...s,
+              slide: null,
+              salleVisible: false,
+              incrustationVisible: false,
+              itemIndex: 0,
+              slideIndex: 0,
+            }
+          : s.itemIndex > itemIndex
+            ? { ...s, itemIndex: s.itemIndex - 1 }
+            : s,
+      );
+    },
+    [memoriserRetrait],
+  );
+
+  /**
+   * Remet le passage à sa place, sans toucher à ce qui est diffusé : annuler
+   * un retrait ne doit pas renvoyer quelque chose à l'antenne. L'index courant
+   * est décalé pour continuer à désigner la même diapositive, et seulement
+   * quand une diapositive est effectivement chargée.
+   */
+  const annulerRetrait = useCallback(() => {
+    if (!passageRetire) return;
+    const { item, index } = passageRetire.valeur;
+    setItems((previous) => {
+      const copie = [...previous];
+      copie.splice(Math.min(index, copie.length), 0, item);
+      return copie;
+    });
     setState((s) =>
-      s.itemIndex === itemIndex
-        ? {
-            ...s,
-            slide: null,
-            salleVisible: false,
-            incrustationVisible: false,
-            itemIndex: 0,
-            slideIndex: 0,
-          }
-        : s.itemIndex > itemIndex
-          ? { ...s, itemIndex: s.itemIndex - 1 }
-          : s,
+      s.slide !== null && index <= s.itemIndex ? { ...s, itemIndex: s.itemIndex + 1 } : s,
     );
-  }, []);
+    oublierRetrait();
+  }, [passageRetire, oublierRetrait]);
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -532,6 +574,14 @@ export function ConsolePage() {
               </section>
             );
           })}
+
+          {passageRetire && (
+            <BandeauAnnulation
+              libelle={passageRetire.libelle}
+              onAnnuler={annulerRetrait}
+              onMasquer={oublierRetrait}
+            />
+          )}
         </aside>
 
         <main className="work">

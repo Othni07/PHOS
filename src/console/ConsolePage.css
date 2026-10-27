@@ -137,7 +137,13 @@
 
 .rundown-item__remove {
   flex: none;
-  padding: 0 4px;
+  /* Même raison qu'ailleurs : une cible de 28 px, pas une croix de 8 px. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
   background: none;
   border: none;
   color: var(--slate-blue);

@@ -1,5 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { normalize } from "../bible/books.ts";
+import { useAnnulation } from "./annulation.ts";
+import { BandeauAnnulation } from "./Annulation.tsx";
 import { partLabel, withExplicitOrder } from "../songs/search.ts";
 import type { Song, SongBook, SongPart, SongPartKind } from "../songs/types";
 import { listSongs } from "../songs/listing.ts";
@@ -59,6 +61,21 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const liste = useMemo(() => listSongs(bundled, songs), [bundled, songs]);
+
+  // Supprimer un cantique saisi, ou rétablir le recueil par-dessus une
+  // correction, efface un travail de frappe qu'aucun fichier ne garde ailleurs.
+  const { memoire, memoriser, oublier } = useAnnulation<Song>();
+
+  function retirer(song: Song, libelle: string) {
+    onSave(songs.filter((s) => s.id !== song.id));
+    memoriser(song, libelle);
+  }
+
+  function annulerRetrait() {
+    if (!memoire) return;
+    onSave([...songs.filter((s) => s.id !== memoire.valeur.id), memoire.valeur]);
+    oublier();
+  }
 
   // Au-delà de cent cantiques, une liste sans filtre ne se parcourt plus :
   // on cherche par titre ou par numéro, comme dans la barre de recherche.
@@ -351,7 +368,9 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
                 <button
                   type="button"
                   className="editor__icon"
-                  onClick={() => onSave(songs.filter((s) => s.id !== song.id))}
+                  onClick={() =>
+                    retirer(song, `Correction de « ${song.title} » annulée.`)
+                  }
                   title="Rétablir la version du recueil"
                 >
                   ↺
@@ -361,7 +380,7 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
                 <button
                   type="button"
                   className="editor__icon editor__icon--danger"
-                  onClick={() => onSave(songs.filter((s) => s.id !== song.id))}
+                  onClick={() => retirer(song, `« ${song.title} » supprimé.`)}
                   title="Supprimer ce cantique"
                 >
                   ×
@@ -369,6 +388,14 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
               )}
             </div>
           ))}
+
+          {memoire && (
+            <BandeauAnnulation
+              libelle={memoire.libelle}
+              onAnnuler={annulerRetrait}
+              onMasquer={oublier}
+            />
+          )}
         </div>
 
         {/* Le stockage navigateur est la seule mémoire en phase 1 : l'export

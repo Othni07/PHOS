@@ -1,0 +1,66 @@
+/*
+  Collé au bas de son conteneur défilant : on vient de supprimer une ligne
+  quelque part dans une liste de 146, le recours ne doit pas être à chercher.
+*/
+.annulation {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: var(--panel);
+  border: 1px solid var(--slate-blue);
+  border-radius: 4px;
+}
+
+.annulation__texte {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--t-label);
+  color: var(--parchment);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.annulation__action {
+  flex: none;
+  padding: 5px 10px;
+  background: var(--parchment);
+  border: 1px solid var(--parchment);
+  border-radius: 3px;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: var(--t-label);
+  font-weight: var(--w-fort);
+  cursor: pointer;
+}
+
+.annulation__action:hover {
+  background: #fff;
+  border-color: #fff;
+}
+
+.annulation__masquer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 26px;
+  min-height: 26px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--slate-blue);
+  font-family: inherit;
+  font-size: var(--t-action);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.annulation__masquer:hover {
+  color: var(--parchment);
+}

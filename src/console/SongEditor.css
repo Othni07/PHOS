@@ -145,7 +145,16 @@
   color: var(--slate-blue);
 }
 
+/* Cible de 30 px : 3 px de marge interne donnaient un bouton plus petit que
+   le doigt qui le vise, dans une liste où le voisin supprime. */
 .editor__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0;
   background: none;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -153,7 +162,6 @@
   font-family: inherit;
   font-size: var(--t-body);
   line-height: 1;
-  padding: 3px 6px;
   cursor: pointer;
 }
 
@@ -167,8 +175,15 @@
   cursor: default;
 }
 
+/* Le bouton destructeur est écarté de son voisin, en plus de l'écart de la
+   rangée : c'est le seul dont un clic de trop ne se rattrape pas d'un clic. */
+.editor__icon--danger {
+  margin-left: 4px;
+}
+
 .editor__icon--danger:hover {
   color: var(--tally-red);
+  border-color: var(--tally-red);
 }
 
 .editor__adders {
@@ -289,10 +304,6 @@
   color: var(--parchment);
 }
 
-.editor__row {
-  flex: none;
-}
-
 .editor__subtitle {
   margin: 0 0 4px;
   font-size: var(--t-micro);
@@ -311,8 +322,12 @@
 .editor__row {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 0;
+  /* L'écart sépare le crayon du bouton destructeur : à 4 px ils se touchaient,
+     et une liste de 146 lignes transforme un décalage d'un pixel en
+     suppression involontaire. */
+  gap: 8px;
+  padding: 2px 0;
+  flex: none;
 }
 
 .editor__row-title {
