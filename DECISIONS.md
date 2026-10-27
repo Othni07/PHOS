@@ -39,6 +39,7 @@ retrouvé puis versé au dépôt. C'est aussi ce qui a motivé ce document.
 | Suppressions | Aucune confirmation, mais tout se défait. Demander « êtes-vous sûr ? » met du frottement sur le geste courant pour protéger le cas rare ; on garde donc de quoi revenir en arrière. Le bandeau n'expire pas : une disparition au bout de quelques secondes ne sert à rien à qui relève les yeux de son clavier une demi-minute plus tard. Annuler un retrait du déroulé ne renvoie rien à l'antenne. |
 | Modification du recueil | Le fichier livré n'est jamais réécrit. Un cantique corrigé est enregistré à part sous le même identifiant et recouvre l'original, mécanisme que `mergeSongBook` prévoyait déjà ; l'éditeur se contente de le rendre visible et réversible. Une correction se défait donc en supprimant la copie. |
 | Dépôt | GitHub, public, `Othni07/PHOS`. |
+| Sélecteur d'écran | **Vérifié sur un vrai second écran**, le 26 octobre 2026. L'ouverture directe sur le vidéoprojecteur fonctionne ; le repli « glisser la fenêtre puis plein écran » reste là pour les navigateurs sans l'API *Window Management*, Safari en particulier. C'était la dernière inconnue du direct. |
 | Étiquette de cantique | Jamais projetée, ni en salle ni dans l'overlay. « Strophe 2 » n'apprend rien à l'assemblée et prend la place dont un cantique bilingue manque. Elle reste sous les yeux de l'opérateur, dans le déroulé et sur l'écran « Suivant ». La référence d'un verset, elle, est toujours projetée. |
 | Ordre des cantiques saisis | Celui des parties dans l'éditeur : les flèches ↑↓ décident de ce qui sort. Le recueil livré ne déclare pas d'ordre et garde la convention « chaque strophe suivie du refrain », qui lui convient. Un cantique saisi avec refrain ne le répète donc plus automatiquement : on l'ajoute où on le veut. |
 
@@ -124,7 +125,7 @@ colonnes par accident. Onze heures estimées, dont rien n'est engagé.
 
 ## Ce qui reste hors de ces pistes
 
-- Vérifier le sélecteur d'écran sur un vrai second écran.
 - Relire les refrains des cantiques : le document source ne les marquait pas.
+  En cours, depuis la liste complète de l'onglet Cantiques.
 - Phase 2 : enveloppe Tauri, bug §8 de la fenêtre blanche, SQLite, serveur
   overlay embarqué en remplacement du relais Vite.
