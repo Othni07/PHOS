@@ -9,7 +9,8 @@
     "lint": "oxlint",
     "test": "node --test \"src/**/*.test.ts\"",
     "preview": "vite preview",
-    "bible": "node scripts/convert-bible.mjs"
+    "bible": "node scripts/convert-bible.mjs",
+    "reinstall": "npm ci"
   },
   "dependencies": {
     "react": "^19.2.8",

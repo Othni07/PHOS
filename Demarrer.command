@@ -34,10 +34,16 @@ fi
 
 # Le dossier arrive souvent sans node_modules (clé USB, clone frais) : les
 # dépendances sont propres à la machine et doivent être installées sur place.
+#
+# « npm ci » plutôt que « npm install » : il repart d'un dossier vide et
+# installe exactement ce que décrit le verrou, binaires de la plateforme
+# compris. « npm install » réutilise l'état existant et peut sauter une
+# dépendance optionnelle — c'est ainsi qu'un Mac s'est retrouvé sans son
+# binaire natif alors que le verrou le mentionnait bien.
 if [ ! -d node_modules ]; then
   echo "  Première utilisation : installation des dépendances…"
   echo
-  if ! npm install; then
+  if ! npm ci && ! npm install; then
     echo
     echo "  L'installation a échoué. Le message ci-dessus en donne la raison."
     read -r -p "  Appuyez sur Entrée pour fermer. "
@@ -66,4 +72,7 @@ npm run dev
 # le message d'erreur reste lisible.
 echo
 echo "  Le serveur s'est arrêté."
+echo
+echo "  Si le message parle de « native binding » ou de module introuvable,"
+echo "  les dépendances sont à réinstaller :  npm run reinstall"
 read -r -p "  Appuyez sur Entrée pour fermer. "
