@@ -95,11 +95,14 @@ corrigée est enregistrée à côté et prend sa place. Rétablir efface cette c
 et l'original reparaît.
 
 **Toute suppression se défait.** Retirer un passage du déroulé, supprimer un
-cantique saisi, rétablir le recueil par-dessus une correction : un bandeau
+cantique saisi, rétablir le recueil par-dessus une correction, supprimer une
+image de fond : un bandeau
 « Annuler » apparaît au bas de la liste concernée et y reste jusqu'à ce qu'on
 s'en serve ou qu'on le masque. Il n'y a donc aucune confirmation à cliquer sur
 le geste courant. Annuler le retrait d'un passage le remet à sa place dans le
-déroulé **sans rien renvoyer à l'antenne**. Les corrections vivent dans le navigateur — pensez à
+déroulé **sans rien renvoyer à l'antenne**. Annuler la suppression d'une image
+la remet en revanche à l'écran si elle y était : ici l'image est l'objet même du
+réglage, la rendre sans la réafficher ne serait qu'une demi-annulation. Les corrections vivent dans le navigateur — pensez à
 **« Exporter mes cantiques »**, qui est la seule sauvegarde en phase 1.
 
 Ce qui apparaît sous le texte projeté : la référence d'un verset, toujours ;

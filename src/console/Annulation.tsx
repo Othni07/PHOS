@@ -4,6 +4,12 @@ interface BandeauAnnulationProps {
   libelle: string;
   onAnnuler: () => void;
   onMasquer: () => void;
+  /**
+   * Collé au bas d'une liste défilante, ou posé dans le flux juste sous ce qui
+   * vient d'être supprimé. Une grille de quelques vignettes n'a pas besoin
+   * d'être suivie ; une liste de 146 lignes, si.
+   */
+  collant?: boolean;
 }
 
 /**
@@ -15,9 +21,10 @@ export function BandeauAnnulation({
   libelle,
   onAnnuler,
   onMasquer,
+  collant = true,
 }: BandeauAnnulationProps) {
   return (
-    <div className="annulation" role="status">
+    <div className={`annulation${collant ? "" : " annulation--flux"}`} role="status">
       <span className="annulation__texte">{libelle}</span>
       <button type="button" className="annulation__action" onClick={onAnnuler}>
         Annuler

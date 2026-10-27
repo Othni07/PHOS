@@ -16,6 +16,8 @@ import {
   type ProjectionBackground,
   type Ticker,
 } from "../shared/settings.ts";
+import { useAnnulation } from "./annulation.ts";
+import { BandeauAnnulation } from "./Annulation.tsx";
 
 interface ProjectionSettingsProps {
   background: ProjectionBackground;
@@ -65,9 +67,49 @@ export function ProjectionSettings({
     }
   }
 
+  // Une image importée a été redimensionnée et réencodée : la supprimer par
+  // erreur, c'est refaire l'import depuis le fichier d'origine, à supposer
+  // qu'on l'ait encore.
+  const { memoire, memoriser, oublier } = useAnnulation<{
+    image: BackgroundImage;
+    index: number;
+    etaitChoisie: boolean;
+  }>();
+
   async function remove(id: string) {
-    await persist(images.filter((image) => image.id !== id));
-    if (background.imageId === id) onBackground({ ...background, imageId: null });
+    const index = images.findIndex((image) => image.id === id);
+    const image = images[index];
+    if (!image) return;
+
+    const etaitChoisie = background.imageId === id;
+    await persist(images.filter((autre) => autre.id !== id));
+    if (etaitChoisie) onBackground({ ...background, imageId: null });
+    memoriser({ image, index, etaitChoisie }, `« ${image.name} » supprimée.`);
+  }
+
+  async function annulerSuppression() {
+    if (!memoire) return;
+    const { image, index, etaitChoisie } = memoire.valeur;
+
+    const next = [...images];
+    next.splice(Math.min(index, next.length), 0, image);
+    // L'image tenait dans le stockage il y a un instant, mais un import a pu
+    // prendre sa place entre-temps : mieux vaut le dire que d'échouer en
+    // silence à l'enregistrement.
+    if (totalSize(next) > STORE_LIMIT) {
+      setError(
+        "Plus de place pour rétablir cette image : supprimez-en une autre, puis réessayez.",
+      );
+      return;
+    }
+
+    await persist(next);
+    // Le fond revient aussi à l'écran s'il y était : ici l'image est l'objet
+    // même du réglage, la remettre sans la réafficher ne serait qu'une demi-
+    // annulation.
+    if (etaitChoisie) onBackground({ ...background, imageId: image.id });
+    setError(null);
+    oublier();
   }
 
   const used = Math.round((totalSize(images) / STORE_LIMIT) * 100);
@@ -113,6 +155,15 @@ export function ProjectionSettings({
             </div>
           ))}
         </div>
+
+        {memoire && (
+          <BandeauAnnulation
+            libelle={memoire.libelle}
+            onAnnuler={() => void annulerSuppression()}
+            onMasquer={oublier}
+            collant={false}
+          />
+        )}
 
         <div className="appearance__row">
           <button

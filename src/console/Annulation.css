@@ -16,6 +16,11 @@
   border-radius: 4px;
 }
 
+.annulation--flux {
+  position: static;
+  margin-bottom: 4px;
+}
+
 .annulation__texte {
   flex: 1;
   min-width: 0;
