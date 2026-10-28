@@ -284,7 +284,7 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
         <div className="editor__collage">
           <button
             type="button"
-            className="editor__cancel"
+            className={`editor__coller${collageOuvert ? " editor__coller--ouvert" : ""}`}
             onClick={() => setCollageOuvert((o) => !o)}
             aria-expanded={collageOuvert}
           >
