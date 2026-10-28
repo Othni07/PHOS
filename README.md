@@ -90,6 +90,17 @@ en franchissant les chapitres.
 sélection multiple (`Maj+clic` pour étendre).
 **« Cantiques »** ouvre le formulaire de saisie et la liste complète.
 
+Pour un chant qui manque au répertoire, **« Coller un chant entier »** évite de
+créer les parties une par une. Vous collez le texte trouvé, et le découpage se
+fait sur les lignes vides : une ligne seule portant « Refrain », « Pont » ou
+« 2. » donne sa nature à la partie qui suit et disparaît du texte projeté. Le
+résultat s'affiche dans le formulaire pour correction avant l'enregistrement.
+
+Deux règles à connaître : le **titre n'est pas deviné** — le deviner avalait
+toute première strophe tenant sur une ligne — et **aucune convention n'est
+appliquée à l'ordre**. Si le refrain figure trois fois dans le texte collé, il
+sortira trois fois.
+
 ### La liste des cantiques
 
 L'onglet Cantiques présente **tous** les cantiques de l'application — le recueil

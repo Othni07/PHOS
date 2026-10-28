@@ -4,6 +4,7 @@ import { useAnnulation } from "./annulation.ts";
 import { BandeauAnnulation } from "./Annulation.tsx";
 import { partLabel, withExplicitOrder } from "../songs/search.ts";
 import type { Song, SongBook, SongPart, SongPartKind } from "../songs/types";
+import { decouperChant } from "../songs/collage.ts";
 import { empreinteCantiques, listSongs } from "../songs/listing.ts";
 import {
   loadMarqueExport,
@@ -77,6 +78,8 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
   const [draft, setDraft] = useState<Draft>(EMPTY);
   const [error, setError] = useState<string | null>(null);
   const [filtre, setFiltre] = useState("");
+  const [colle, setColle] = useState("");
+  const [collageOuvert, setCollageOuvert] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const liste = useMemo(() => listSongs(bundled, songs), [bundled, songs]);
@@ -129,6 +132,20 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
       ...d,
       parts: d.parts.map((p, i) => (i === index ? { ...p, ...patch } : p)),
     }));
+  }
+
+  // Un chant trouvé sur une page web se colle d'un bloc plutôt que de se saisir
+  // partie par partie : douze gestes devenaient un.
+  function decouper() {
+    const parts = decouperChant(colle);
+    if (parts.length === 0) {
+      setError("Rien à découper : collez le texte du chant.");
+      return;
+    }
+    setDraft((d) => ({ ...d, parts }));
+    setColle("");
+    setCollageOuvert(false);
+    setError(null);
   }
 
   function addPart(kind: SongPartKind) {
@@ -263,6 +280,37 @@ export function SongEditor({ songs, bundled, onSave }: SongEditorProps) {
             placeholder="Edmond Louis Budry, 1884"
           />
         </label>
+
+        <div className="editor__collage">
+          <button
+            type="button"
+            className="editor__cancel"
+            onClick={() => setCollageOuvert((o) => !o)}
+            aria-expanded={collageOuvert}
+          >
+            {collageOuvert ? "Fermer le collage" : "Coller un chant entier"}
+          </button>
+
+          {collageOuvert && (
+            <>
+              <textarea
+                className="editor__textarea"
+                value={colle}
+                rows={8}
+                placeholder="Collez ici le chant entier"
+                onChange={(e) => setColle(e.target.value)}
+              />
+              <p className="editor__hint">
+                Le découpage s'affiche ci-dessous pour correction avant
+                l'enregistrement. Le titre n'est pas deviné, et les parties en
+                cours sont remplacées.
+              </p>
+              <button type="button" className="editor__add" onClick={decouper}>
+                Découper en parties
+              </button>
+            </>
+          )}
+        </div>
 
         {draft.parts.map((part, index) => (
           <div key={index} className="editor__part">

@@ -355,3 +355,18 @@
   color: var(--parchment);
   font-weight: var(--w-fort);
 }
+
+/* Zone de collage, repliée par défaut : elle ne sert qu'à la saisie d'un chant
+   neuf, pas à la correction d'un chant existant. */
+.editor__collage {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.editor__collage .editor__textarea {
+  font-size: var(--t-body);
+  line-height: 1.45;
+}
