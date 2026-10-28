@@ -21,6 +21,8 @@ export interface ConsoleSession {
   incrustationVisible: boolean;
   itemIndex: number;
   slideIndex: number;
+  /** Instant du premier passage à l'antenne, ou null si rien n'a été projeté. */
+  debutCulte: number | null;
 }
 
 export function loadSession(): ConsoleSession | null {
@@ -39,6 +41,7 @@ export function loadSession(): ConsoleSession | null {
       incrustationVisible: value.incrustationVisible ?? ancien,
       itemIndex: typeof value.itemIndex === "number" ? value.itemIndex : 0,
       slideIndex: typeof value.slideIndex === "number" ? value.slideIndex : 0,
+      debutCulte: typeof value.debutCulte === "number" ? value.debutCulte : null,
     };
   } catch {
     // Session illisible : repartir à vide vaut mieux que planter la régie.

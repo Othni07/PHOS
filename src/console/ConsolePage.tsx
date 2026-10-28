@@ -77,7 +77,12 @@ export function ConsolePage() {
   // c'est le seul signal qui s'éteint vraiment quand la page disparaît.
   const [salleVueA, setSalleVueA] = useState<number | null>(null);
   const [overlayVuA, setOverlayVuA] = useState<number | null>(null);
-  const [debutCulte, setDebutCulte] = useState<number | null>(null);
+  // Conservé avec le déroulé : un rechargement accidentel en plein culte ne
+  // doit pas faire repartir le décompte à zéro. Il disparaît à la fermeture de
+  // l'onglet, comme le reste de la session.
+  const [debutCulte, setDebutCulte] = useState<number | null>(
+    () => restored?.debutCulte ?? null,
+  );
   const [maintenant, setMaintenant] = useState(() => Date.now());
 
   useEffect(() => {
@@ -220,6 +225,7 @@ export function ConsolePage() {
       incrustationVisible: state.incrustationVisible,
       itemIndex: state.itemIndex,
       slideIndex: state.slideIndex,
+      debutCulte,
     });
   }, [
     items,
@@ -228,6 +234,7 @@ export function ConsolePage() {
     state.incrustationVisible,
     state.itemIndex,
     state.slideIndex,
+    debutCulte,
   ]);
 
   // Rejeu à l'ouverture : une fenêtre qui vient de s'ouvrir n'a rien reçu.
