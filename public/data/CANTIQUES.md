@@ -9,6 +9,31 @@ bouton « Exporter mes cantiques » produit un fichier de sauvegarde, que
 « Importer » relit — c'est la seule sauvegarde possible tant que
 l'application est une page web (§2), et la reprise prévue pour la phase 2.
 
+## Le second recueil, alimenté par vous
+
+Un chant saisi en régie ne vit que dans le navigateur d'une machine. Pour qu'il
+devienne acquis — présent sur tous les postes, sans export à penser — déposez-le
+dans un second recueil que l'application charge à côté du recueil livré.
+
+1. Onglet Cantiques → **« Exporter mes cantiques »**. Le fichier obtenu est déjà
+   au bon format, il n'y a rien à transformer.
+2. Renommez-le **`cantiques-ajouts.json`** et placez-le dans `public/data/`.
+3. Rechargez la régie. Les chants apparaissent dans la liste, comptés avec le
+   recueil.
+
+Un chant de ce fichier qui reprend l'`id` d'un cantique livré **le remplace** :
+c'est ainsi qu'une correction de paroles devient définitive. Le fichier est
+facultatif — une installation qui ne l'a pas charge simplement les 146.
+
+Un fichier mal formé ne casse rien : la régie se rabat sur le recueil livré et
+démarre quand même. C'est voulu, un dimanche matin.
+
+**Ce fichier n'entre pas dans le dépôt**, le `.gitignore` l'écarte. La diffusion
+des 146 cantiques du CMR a été autorisée par le responsable ; cette autorisation
+ne couvre pas un chant trouvé ailleurs. Même garde-fou que les versions
+bibliques sous droits — voir `SOURCES.md`. Pour le transporter d'une machine à
+l'autre, passez par une clé, pas par GitHub.
+
 Le reste de ce document décrit le fichier livré avec l'application,
 `public/data/cantiques.json`, utile pour préparer un recueil entier hors ligne
 ou écrire un import. Il est lu au démarrage de la régie : l'enregistrer et

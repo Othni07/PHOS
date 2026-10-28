@@ -96,6 +96,11 @@ fait sur les lignes vides : une ligne seule portant « Refrain », « Pont » ou
 « 2. » donne sa nature à la partie qui suit et disparaît du texte projeté. Le
 résultat s'affiche dans le formulaire pour correction avant l'enregistrement.
 
+Un chant saisi ne vit que dans le navigateur d'une machine. Pour qu'il devienne
+acquis sur tous les postes, exportez-le et déposez le fichier sous
+`public/data/cantiques-ajouts.json` : l'application le charge comme second
+recueil. Procédure et réserve sur les droits dans `public/data/CANTIQUES.md`.
+
 Deux règles à connaître : le **titre n'est pas deviné** — le deviner avalait
 toute première strophe tenant sur une ligne — et **aucune convention n'est
 appliquée à l'ordre**. Si le refrain figure trois fois dans le texte collé, il

@@ -33,3 +33,9 @@ src-tauri/gen
 public/data/bible-*.json
 !public/data/bible-lsg.json
 !public/data/bible-darby.json
+
+# Second recueil de cantiques, alimente par l'operateur. La diffusion des 146
+# cantiques du CMR a ete autorisee par le responsable ; cette autorisation ne
+# couvre pas un chant trouve ailleurs. Il reste donc sur la machine, hors du
+# depot public. Voir public/data/CANTIQUES.md.
+public/data/cantiques-ajouts.json
