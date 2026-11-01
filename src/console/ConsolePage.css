@@ -229,7 +229,18 @@
   absurde — et sont bornées pour que les onglets gardent de la place : sur un
   grand écran, des vignettes géantes n'apprendraient rien de plus.
 */
+/*
+  Les commandes ne doivent pas affamer les aperçus. La colonne de droite mesure
+  218 px quelle que soit la largeur — c'est le plus long libellé, « Écran noir ·
+  Incrustation », qui la dicte. Sur une console étroite elle ne laissait plus que
+  244 px de vignette à 1100 px, et 174 px à 960 : du texte à 7 px, donc rien de
+  lisible là où l'opérateur vérifie ce qui part à l'antenne.
+
+  Les largeurs minimales ci-dessous font passer la colonne sous les écrans quand
+  la place manque, au lieu de la leur prendre.
+*/
 .screens {
+  flex-wrap: wrap;
   display: flex;
   align-items: flex-start;
   gap: 16px;
@@ -246,12 +257,14 @@
 }
 
 .screen--live {
+  min-width: 320px;
   max-width: 460px;
 }
 
 /* L'écran de contrôle est volontairement plus petit : la hiérarchie doit se
    lire d'un coup d'œil, l'antenne prime. */
 .screen--next {
+  min-width: 200px;
   max-width: 280px;
 }
 
